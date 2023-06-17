@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { passwordIsValid, urlSuffixIsValid } from './auth.utils'
 
 import { IoRestaurantSharp } from "react-icons/io5"
 
@@ -12,6 +13,7 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
         password: '',
         cbu: '',
     })
+    const [errors, setErrors] = useState('')
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRegisterInfo({ ...registerInfo, [e.target.name]: e.target.value })
@@ -23,6 +25,14 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if (!urlSuffixIsValid(registerInfo.urlSuffix)) {
+            setErrors('Url must contain only letters and numbers')
+            return
+        }
+        if (!passwordIsValid(registerInfo.password)) {
+            setErrors('Password must be at least 8 characters long and contain at least one number')
+            return
+        }
     }
 
 
@@ -91,6 +101,7 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
                             required
                             onChange={handleChange} />
                     </div>
+                    {errors && <p className="text-customRed max-w-[15vw] text-center">{errors}</p>}
                     <button
                         className="bg-customRed border border-customRed rounded-xl p-2 text-white hover:bg-opacity-20 hover:font-bold hover:text-customOrange ease-in-out duration-300"
                         type="submit">Register</button>

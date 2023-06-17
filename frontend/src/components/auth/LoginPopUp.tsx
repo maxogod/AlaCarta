@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { passwordIsValid } from './auth.utils'
 
 import { IoRestaurantSharp } from "react-icons/io5"
 
@@ -9,6 +10,7 @@ const LoginPopUp = ({ showLogin, setShowLogin }:
         email: '',
         password: '',
     })
+    const [errors, setErrors] = useState('')
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value })
@@ -20,6 +22,10 @@ const LoginPopUp = ({ showLogin, setShowLogin }:
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        if (!passwordIsValid(loginInfo.password)) {
+            setErrors('Password must be at least 8 characters long and contain at least one number')
+            return
+        }
     }
 
     return (
@@ -54,6 +60,7 @@ const LoginPopUp = ({ showLogin, setShowLogin }:
                             required
                             onChange={handleChange} />
                     </div>
+                    {errors && <p className="text-customRed max-w-[15vw] text-center">{errors}</p>}
                     <button
                         className="bg-customRed border border-customRed rounded-xl p-2 text-white hover:bg-opacity-20 hover:font-bold hover:text-customOrange ease-in-out duration-300"
                         type="submit">Login</button>

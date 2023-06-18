@@ -1,5 +1,7 @@
+import { NavBar } from "../dashboard/Header";
+
 const Menu = () => {
-    return (<h1>HELLO WORLD!</h1>)
+    return (<NavBar />)
 }
 
 export default Menu;

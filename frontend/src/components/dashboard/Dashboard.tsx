@@ -1,23 +1,31 @@
-import { useEffect, useState, useRef } from 'react';
-import Draggable from 'react-draggable';
+import { useEffect, useState} from 'react';
 import { NavBar } from './Header';
 import { Blurhash } from 'react-blurhash';
+import { dummyProducts } from './MockData';
 
 
 interface category {
+    id: string
     title: string
-}
-
-
-interface product {
+  }
+  
+  interface record {
+    id: string
+    purchaseDate : Date
+    boughtPrice: number
+  }
+  
+  
+  interface product {
+    id: string
     name: string
     price: number
-    sales: number
     description: string
     img: string
-    categories: category[]
+    categories: category[] 
     isAvailable: boolean
-}
+    sales: record[] 
+  }
 
 
 const Dashboard = () => {
@@ -40,27 +48,7 @@ const Dashboard = () => {
         setSelectedProduct(product);
     }
 
-    const categories: category[] = [
-        { title: "vegano" },
-        { title: "picante" },
-        { title: "empanada" },
-        { title: "sin tacc" }
-    ]
-
-    const dummyProducts: product[] = [
-        { name: "empanadas de jamon y queso reeeeeeeeeeee largaaaaaaaaa", price: 500, sales: 850, description: "empanadas de jamon y queso, riqui riqui", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: categories, isAvailable: true },
-        { name: "pizza de muzza", price: 1600, sales: 48, description: "piza de muza, muy rica bro aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: [], isAvailable: true },
-        { name: "hamburgesa con queso", price: 2500, sales: 55, description: "paty con queso bro", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: [], isAvailable: true },
-        { name: "fideos con solo tuco", price: 1500, sales: 5, description: "fideos con SOLO TUCO >:(", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: [], isAvailable: true },
-        { name: "agua", price: 100, sales: 99, description: "aguita refrescante :D", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: [], isAvailable: true },
-        { name: "empanadas de jamon y queso", price: 500, sales: 850, description: "empanadas de jamon y queso, riqui riqui", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: [], isAvailable: true },
-        { name: "pizza de muzza", price: 1600, sales: 48, description: "piza de muza, muy rica bro", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: [], isAvailable: true },
-        { name: "hamburgesa con queso", price: 2500, sales: 55, description: "paty con queso bro", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: [], isAvailable: true },
-        { name: "fideos con solo tuco", price: 1500, sales: 5, description: "fideos con SOLO TUCO >:(", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: [], isAvailable: true },
-        { name: "agua", price: 100, sales: 99, description: "aguita refrescante :D", img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg", categories: [], isAvailable: true }
-    ]
-
-
+    
     return (
         <>
             <BackgroundImage src={src} imageLoader={imageLoader} />
@@ -96,7 +84,7 @@ function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boole
 
 
 
-const ProductCatalog = ({ productList, handleProductClick }: { productList: product[],  handleProductClick: (product: product) => void  }) => {
+const ProductCatalog = ({ productList, handleProductClick }: { productList: product[], handleProductClick: (product: product) => void }) => {
 
     const [selectedProduct, setSelectedProduct] = useState<product | null>(null);
 
@@ -163,7 +151,6 @@ const CategoryTag = ({ category }: { category: category }) => {
     return (
         <div className='h-5 w-full pl-2 pr-2 rounded-xl text-center mt-1 bg-customRed text-white font-bold'>
             {category.title}
-
         </div>
     )
 
@@ -171,11 +158,10 @@ const CategoryTag = ({ category }: { category: category }) => {
 
 const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | null }) => {
     return (
-        <div className=' absolute mt-20 right-80 rounded-3xl h-[85vh] w-[120vh] bg-customBeige ml-5'>
-            <div>
+        <div className="flex justify-center absolute mt-20 right-80 rounded-3xl h-[85vh] w-[120vh] bg-customBeige ml-5">
+            <div className="w-[95%] h-[95%] mt-5 flex items-center justify-center border-2 border-customPink  rounded-3xl">
                 {selectedProduct?.name}
                 {selectedProduct?.description}
-                {selectedProduct?.price}
             </div>
         </div>
     )

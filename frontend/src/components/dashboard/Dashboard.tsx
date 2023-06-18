@@ -2,38 +2,15 @@ import { useEffect, useState} from 'react';
 import { NavBar } from './Header';
 import { Blurhash } from 'react-blurhash';
 import { dummyProducts } from './MockData';
-
-
-interface category {
-    id: string
-    title: string
-  }
-  
-  interface record {
-    id: string
-    purchaseDate : Date
-    boughtPrice: number
-  }
-  
-  
-  interface product {
-    id: string
-    name: string
-    price: number
-    description: string
-    img: string
-    categories: category[] 
-    isAvailable: boolean
-    sales: record[] 
-  }
-
+import { Product } from '../models/product';
+import { Category } from '../models/category';
 
 const Dashboard = () => {
 
     const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
     const [imageLoader, setImageLoader] = useState(false)
 
-    const [selectedProduct, setSelectedProduct] = useState<product | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
 
     useEffect(() => {
@@ -44,7 +21,7 @@ const Dashboard = () => {
         img.src = src
     }, [src])
 
-    const handleProductClick = (product: product) => {
+    const handleProductClick = (product: Product) => {
         setSelectedProduct(product);
     }
 
@@ -84,9 +61,9 @@ function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boole
 
 
 
-const ProductCatalog = ({ productList, handleProductClick }: { productList: product[], handleProductClick: (product: product) => void }) => {
+const ProductCatalog = ({ productList, handleProductClick }: { productList: Product[], handleProductClick: (product: Product) => void }) => {
 
-    const [selectedProduct, setSelectedProduct] = useState<product | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     return (
         <div>
@@ -115,7 +92,7 @@ const ProductCatalog = ({ productList, handleProductClick }: { productList: prod
     )
 }
 
-const ProductThumbnail = ({ product }: { product: product }) => {
+const ProductThumbnail = ({ product }: { product: Product }) => {
 
     const displayedCategories = product.categories.slice(0, 3);
 
@@ -146,7 +123,7 @@ const ProductThumbnail = ({ product }: { product: product }) => {
 
 }
 
-const CategoryTag = ({ category }: { category: category }) => {
+const CategoryTag = ({ category }: { category: Category }) => {
 
     return (
         <div className='h-5 w-full pl-2 pr-2 rounded-xl text-center mt-1 bg-customRed text-white font-bold'>
@@ -156,7 +133,7 @@ const CategoryTag = ({ category }: { category: category }) => {
 
 }
 
-const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | null }) => {
+const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product | null }) => {
     return (
         <div className="flex justify-center absolute mt-20 right-80 rounded-3xl h-[85vh] w-[120vh] bg-customBeige ml-5">
             <div className="w-[95%] h-[95%] mt-5 flex items-center justify-center border-2 border-customPink  rounded-3xl">

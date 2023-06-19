@@ -189,7 +189,7 @@ const ProductChart = ({ selectedProduct }: { selectedProduct: product }) => {
                 <LineChart width={1000} height={250} data={currentSales}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey={xAxisValue} />
-                    <YAxis dataKey={yAxisValue} />
+                    <YAxis/>
                     <Tooltip />
                     <Legend />
                     <Line type="monotone" dataKey={yAxisValue} stroke="#CE5160" />

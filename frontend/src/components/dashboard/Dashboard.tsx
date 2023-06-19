@@ -55,8 +55,10 @@ const Dashboard = () => {
             <BackgroundImage src={src} imageLoader={imageLoader} />
             <div className="fixed inset-0 scale-100">
                 <NavBar />
-                <ProductCatalog productList={dummyProducts} handleProductClick={handleProductClick} />
-                <ProductStatistics selectedProduct={selectedProduct} />
+                <div className='flex gap-96'>
+                    <ProductCatalog productList={dummyProducts} handleProductClick={handleProductClick} />
+                    <ProductStatistics selectedProduct={selectedProduct} />
+                </div>
             </div>
         </>
     )
@@ -86,8 +88,6 @@ function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boole
 
 
 const ProductCatalog = ({ productList, handleProductClick }: { productList: product[], handleProductClick: (product: product) => void }) => {
-
-    const [selectedProduct, setSelectedProduct] = useState<product | null>(null);
 
     return (
         <div>
@@ -159,17 +159,21 @@ const CategoryTag = ({ category }: { category: category }) => {
 
 const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | null }) => {
     return (
-        <div className="flex justify-center absolute mt-20 right-80 rounded-3xl h-[85vh] w-[120vh] bg-customBeige ml-5">
-            <div className="w-[95%] h-[95%] mt-5 flex items-center justify-center border-2 border-customPink rounded-3xl">
-                <div className='absolute top-14'>
-                    <div className='ml-3 text-customRed font-bold'>
-                        <div className="font-bold text-3xl">
-                            {selectedProduct?.name}
+        <div className="right-1 flex justify-center mt-20 md:right-80 w-fit h-fit rounded-3xl bg-customBeige ml-5">
+            <div className=" md:w-[95%] m-5 border-2 border-customPink rounded-3xl">
+                <div className="relative top-14">
+                    <div className="ml-3 text-customRed font-bold">
+                        <div className="font-bold text-3xl w-fit">
+                            {selectedProduct?.name && selectedProduct.name.length > 25 ? (<span className="text-xl">{selectedProduct.name}</span>) : (
+                                selectedProduct?.name
+                            )}
                             <hr className="bg-customPink h-1 mt-1 w-full rounded-lg" />
                         </div>
                         <p>{selectedProduct?.description}</p>
                     </div>
-                    {selectedProduct && <ProductChart selectedProduct={selectedProduct} />}
+                    <div>
+                        {selectedProduct && <ProductChart selectedProduct={selectedProduct} />}
+                    </div>
                 </div>
             </div>
         </div>
@@ -179,21 +183,46 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | nul
 
 const ProductChart = ({ selectedProduct }: { selectedProduct: product }) => {
 
-    const currentSales = selectedProduct.sales
     const xAxisValue = "purchaseDate"
     const yAxisValue = "amountOfSales"
 
+    const [chartWidth, setChartWidth] = useState<number>((window.innerWidth * 800) / 1920);
+    const [chartHeight, setChartHeight] = useState<number>((window.innerHeight * 300) / 937);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setChartWidth((window.innerWidth * 800) / 1920);
+            setChartHeight((window.innerHeight * 300) / 937);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+
+    const formattedSalesData = selectedProduct.sales.map((sale) => ({
+        purchaseDate: sale.purchaseDate.toISOString().substring(0, 10),
+        amountOfSales: sale.amountOfSales,
+    }));
+
     return (
         <>
-            <div className='mt-2  flex rounded-3xl pt-4 justify-center'>
-                <LineChart width={1000} height={250} data={currentSales}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey={xAxisValue} />
-                    <YAxis/>
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey={yAxisValue} stroke="#CE5160" />
-                </LineChart>
+            <div className='mt-2  flex rounded-3xl  justify-center'>
+                <div>
+                    <LineChart width={chartWidth} height={chartHeight} data={formattedSalesData} margin={{ top: 10, right: 50, left: 0, bottom: 10 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey={xAxisValue} />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey={yAxisValue} stroke="#CE5160" />
+                    </LineChart>
+                    <div className="h-96">
+
+                    </div>
+                </div>
             </div>
         </>
     )

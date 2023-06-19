@@ -6,7 +6,7 @@ interface category {
 interface record {
   id: string
   purchaseDate: Date
-  boughtPrice: number
+  amountOfSales: number
 }
 
 
@@ -40,13 +40,23 @@ const dummyProducts: product[] = [
     sales: [
       {
         id: "s-1",
-        purchaseDate: new Date("2023-03-20"),
-        boughtPrice: 480,
+        purchaseDate: new Date("2023-03-19"),
+        amountOfSales: 10,
       },
       {
-        id: "s-1",
-        purchaseDate: new Date("2023-04-05"),
-        boughtPrice: 500,
+        id: "s-2",
+        purchaseDate: new Date("2023-03-21"),
+        amountOfSales: 60,
+      },
+      {
+        id: "s-3",
+        purchaseDate: new Date("2023-03-22"),
+        amountOfSales: 30,
+      },
+      {
+        id: "s-4",
+        purchaseDate: new Date("2023-03-23"),
+        amountOfSales: 40,
       }
     ]
   },

@@ -1,31 +1,32 @@
-import { useEffect, useState} from 'react';
-import { NavBar } from './Header';
-import { Blurhash } from 'react-blurhash';
-import { dummyProducts } from './MockData';
+import { useEffect, useState } from 'react'
+import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts'
+import { NavBar } from './Header'
+import { Blurhash } from 'react-blurhash'
+import { dummyProducts } from './MockData'
 
 
 interface category {
     id: string
     title: string
-  }
-  
-  interface record {
+}
+
+interface record {
     id: string
-    purchaseDate : Date
-    boughtPrice: number
-  }
-  
-  
-  interface product {
+    purchaseDate: Date
+    amountOfSales: number
+}
+
+
+interface product {
     id: string
     name: string
     price: number
     description: string
     img: string
-    categories: category[] 
+    categories: category[]
     isAvailable: boolean
-    sales: record[] 
-  }
+    sales: record[]
+}
 
 
 const Dashboard = () => {
@@ -48,7 +49,7 @@ const Dashboard = () => {
         setSelectedProduct(product);
     }
 
-    
+
     return (
         <>
             <BackgroundImage src={src} imageLoader={imageLoader} />
@@ -159,12 +160,46 @@ const CategoryTag = ({ category }: { category: category }) => {
 const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | null }) => {
     return (
         <div className="flex justify-center absolute mt-20 right-80 rounded-3xl h-[85vh] w-[120vh] bg-customBeige ml-5">
-            <div className="w-[95%] h-[95%] mt-5 flex items-center justify-center border-2 border-customPink  rounded-3xl">
-                {selectedProduct?.name}
-                {selectedProduct?.description}
+            <div className="w-[95%] h-[95%] mt-5 flex items-center justify-center border-2 border-customPink rounded-3xl">
+                <div className='absolute top-14'>
+                    <div className='ml-3 text-customRed font-bold'>
+                        <div className="font-bold text-3xl">
+                            {selectedProduct?.name}
+                            <hr className="bg-customPink h-1 mt-1 w-full rounded-lg" />
+                        </div>
+                        <p>{selectedProduct?.description}</p>
+                    </div>
+                    {selectedProduct && <ProductChart selectedProduct={selectedProduct} />}
+                </div>
             </div>
         </div>
+
     )
 }
+
+const ProductChart = ({ selectedProduct }: { selectedProduct: product }) => {
+
+    const currentSales = selectedProduct.sales
+    const xAxisValue = "purchaseDate"
+    const yAxisValue = "amountOfSales"
+
+    return (
+        <>
+            <div className='mt-2  flex rounded-3xl pt-4 justify-center'>
+                <LineChart width={1000} height={250} data={currentSales}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey={xAxisValue} />
+                    <YAxis dataKey={yAxisValue} />
+                    <Tooltip />
+                    <Legend />
+                    <Line type="monotone" dataKey={yAxisValue} stroke="#CE5160" />
+                </LineChart>
+            </div>
+        </>
+    )
+}
+
+
+
 
 export default Dashboard;

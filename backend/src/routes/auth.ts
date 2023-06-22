@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
     loginController,
+    logoutController,
     registerController,
     registerRestaurantController,
 } from "../controllers/auth";
@@ -13,6 +14,8 @@ import {
 const router = Router();
 
 router.post("/login", loginValidation, loginController);
+
+router.get("/logout", logoutController);
 
 router.post("/register", registerValidation, registerController);
 

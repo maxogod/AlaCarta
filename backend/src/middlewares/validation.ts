@@ -38,7 +38,7 @@ const registerValidation = async (
 
     const category = parseInt(categoryEnum);
     if (
-        !category ||
+        isNaN(category) ||
         category < employeeCategoryEnum.Owner ||
         category > employeeCategoryEnum.Employee
     ) {

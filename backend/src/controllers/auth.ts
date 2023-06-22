@@ -18,6 +18,14 @@ const loginController = async (req: Request, res: Response) => {
     res.status(200).send(user);
 };
 
+const logoutController = async (req: Request, res: Response) => {
+    if (!req.session.user) return res.status(401).send("Not logged in");
+    req.session.destroy((err) => {
+        if (err) return res.status(500).send("Internal Server Error");
+        res.status(200).send("Logged out");
+    });
+};
+
 const registerController = async (req: Request, res: Response) => {
     const { name, email, password, restaurantUrl, categoryEnum } = req.body;
 
@@ -60,4 +68,9 @@ const registerRestaurantController = async (req: Request, res: Response) => {
     res.status(201).send(restaurant);
 };
 
-export { loginController, registerController, registerRestaurantController };
+export {
+    loginController,
+    logoutController,
+    registerController,
+    registerRestaurantController,
+};

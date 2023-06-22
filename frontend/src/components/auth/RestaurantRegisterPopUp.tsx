@@ -6,6 +6,8 @@ import { IoRestaurantSharp } from "react-icons/io5"
 const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
     { showRegister: boolean, setShowRegister: Function }) => {
 
+    // TODO - Add name field for restaurant owner
+
     const [registerInfo, setRegisterInfo] = useState({
         name: '',
         urlSuffix: '',

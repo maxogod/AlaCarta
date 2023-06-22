@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts'
+import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, Pie, PieChart } from 'recharts'
 import { NavBar } from './Header'
 import { Blurhash } from 'react-blurhash'
 import { dummyProducts } from './MockData'
@@ -159,7 +159,7 @@ const CategoryTag = ({ category }: { category: category }) => {
 
 const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | null }) => {
     return (
-        <div className="right-1 flex justify-center mt-20 md:right-80 w-fit h-fit rounded-3xl bg-customBeige ml-5">
+        <div className="right-1 flex justify-center mt-20 md:right-80 rounded-3xl bg-customBeige ml-5">
             <div className=" md:w-[95%] m-5 border-2 border-customPink rounded-3xl">
                 <div className="relative top-14">
                     <div className="ml-3 text-customRed font-bold">
@@ -167,7 +167,7 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | nul
                             {selectedProduct?.name && selectedProduct.name.length > 25 ? (<span className="text-xl">{selectedProduct.name}</span>) : (
                                 selectedProduct?.name
                             )}
-                            <hr className="bg-customPink h-1 mt-1 w-full rounded-lg" />
+                            <hr className="bg-customPink h-1 mt-1 rounded-lg" />
                         </div>
                         <p>{selectedProduct?.description}</p>
                     </div>
@@ -186,12 +186,16 @@ const ProductChart = ({ selectedProduct }: { selectedProduct: product }) => {
     const xAxisValue = "purchaseDate"
     const yAxisValue = "amountOfSales"
 
-    const [chartWidth, setChartWidth] = useState<number>((window.innerWidth * 800) / 1920);
+    const [chartWidth, setChartWidth] = useState<number>((window.innerWidth * 1300) / 1920);
     const [chartHeight, setChartHeight] = useState<number>((window.innerHeight * 300) / 937);
+
+    const filterOptions = [
+        "Un Día", "Una Semana", "Un Mes", "6 Meses", "Un Año", "Personalizado"
+    ]
 
     useEffect(() => {
         const handleResize = () => {
-            setChartWidth((window.innerWidth * 800) / 1920);
+            setChartWidth((window.innerWidth * 1300) / 1920);
             setChartHeight((window.innerHeight * 300) / 937);
         };
 
@@ -220,11 +224,36 @@ const ProductChart = ({ selectedProduct }: { selectedProduct: product }) => {
                         <Line type="monotone" dataKey={yAxisValue} stroke="#CE5160" />
                     </LineChart>
                     <div className="h-96">
+                        <div className='flex justify-center gap-8'>
+                            {filterOptions.map((option, index) => (
+                                <div key={index} className='bg-customRed cursor-pointer pl-2 pr-2 rounded-xl text-white font-bold hover:scale-125 transition-all'>
+                                    <div>
+                                        {option}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
 
                     </div>
                 </div>
             </div>
         </>
+    )
+}
+
+const PieChartStatistics = ({ selectedProduct }: { selectedProduct: product }) => {
+
+    const [productPercentage, setProductPercentage] = useState<number>(selectedProduct.sales.length);
+    const [allProdcutsPercentage, setAllProdcutsPercentage] = useState<number>(dummyProducts.reduce((total, product) => total + product.sales.length, 0));     
+
+
+    return (
+        <div>
+            <PieChart width={730} height={250}>
+                <Pie data={productPercentage} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8" />
+                <Pie data={allProdcutsPercentage} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label />
+            </PieChart>
+        </div>
     )
 }
 

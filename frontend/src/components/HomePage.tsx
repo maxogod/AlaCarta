@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
-
-import { Blurhash } from "react-blurhash"
+// components
 import { BsQuestionSquare } from "react-icons/bs"
+import { Blurhash } from "react-blurhash"
 import LoginPopup from "./auth/LoginPopUp"
 import RestaurantRegisterPopUp from "./auth/RestaurantRegisterPopUp"
 import AboutPopUp from "./informational/AboutPopUp"
+// redux
+import { useSelector } from "react-redux"
+import { RootState } from "../redux/store"
 
 const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
 
@@ -13,6 +16,8 @@ const HomePage = () => {
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
     const [showAbout, setShowAbout] = useState(false)
+
+    const sessionUser = useSelector((state: RootState) => state.currentUser).user
 
     useEffect(() => {
         if ((showLogin && showAbout) || (showRegister && showAbout)) {
@@ -55,7 +60,7 @@ const HomePage = () => {
                         <BsQuestionSquare className="text-5xl text-white" />
                     </button>
                     <h1 className="text-6xl text-white">
-                        AlaCarta
+                        AlaCarta & {sessionUser?.name}
                     </h1>
                     <div className="flex items-center justify-center -mt-36 gap-5">
                         <button

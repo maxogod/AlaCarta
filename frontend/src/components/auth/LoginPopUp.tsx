@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { passwordIsValid } from './auth.utils'
-
 import { IoRestaurantSharp } from "react-icons/io5"
+
 
 const LoginPopUp = ({ showLogin, setShowLogin }:
     { showLogin: boolean, setShowLogin: Function }) => {

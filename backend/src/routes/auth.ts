@@ -4,6 +4,7 @@ import {
     logoutController,
     registerController,
     registerRestaurantController,
+    sessionController,
 } from "../controllers/auth";
 import {
     loginValidation,
@@ -15,8 +16,6 @@ const router = Router();
 
 router.post("/login", loginValidation, loginController);
 
-router.get("/logout", logoutController);
-
 router.post("/register", registerValidation, registerController);
 
 router.post(
@@ -24,5 +23,9 @@ router.post(
     registerRestaurantValidation,
     registerRestaurantController
 );
+
+router.get("/logout", logoutController);
+
+router.get("/session", sessionController);
 
 export default router;

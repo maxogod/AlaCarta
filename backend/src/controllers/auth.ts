@@ -7,10 +7,17 @@ import {
     createUser,
     createRestaurant,
 } from "../services/auth";
+import User from "../models/User";
+import mongoose from "mongoose";
 
 const loginController = async (req: Request, res: Response) => {
     if (req.session.user) return res.status(200).send("Already logged in");
-
+    res.cookie("qid", req.sessionID, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24, // 1 day
+        sameSite: "none",
+        secure: true,
+    });
     const { email, password } = req.body;
     const user = await authenticateUser(email, password);
     if (!user) return res.status(401).send("Invalid credentials");
@@ -24,6 +31,11 @@ const logoutController = async (req: Request, res: Response) => {
         if (err) return res.status(500).send("Internal Server Error");
         res.status(200).send("Logged out");
     });
+};
+
+const sessionController = async (req: Request, res: Response) => {
+    if (!req.session.user) return res.status(401).send("Not logged in");
+    return res.status(200).send(req.session.user);
 };
 
 const registerController = async (req: Request, res: Response) => {
@@ -71,6 +83,7 @@ const registerRestaurantController = async (req: Request, res: Response) => {
 export {
     loginController,
     logoutController,
+    sessionController,
     registerController,
     registerRestaurantController,
 };

@@ -18,7 +18,6 @@ interface record {
     amountOfSales: number
 }
 
-
 interface product {
     id: string
     name: string
@@ -66,6 +65,7 @@ const Dashboard = () => {
     )
 }
 
+
 function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boolean }) {
     return (
         <>
@@ -86,7 +86,6 @@ function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boole
         </>
     )
 }
-
 
 
 const ProductCatalog = ({ productList, handleProductClick }: { productList: product[], handleProductClick: (product: product) => void }) => {
@@ -117,6 +116,7 @@ const ProductCatalog = ({ productList, handleProductClick }: { productList: prod
         </div>
     )
 }
+
 
 const ProductThumbnail = ({ product }: { product: product }) => {
 
@@ -149,6 +149,7 @@ const ProductThumbnail = ({ product }: { product: product }) => {
 
 }
 
+
 const Tag = ({ title, customComponents }: { title: string, customComponents: string }) => {
 
     return (
@@ -157,6 +158,19 @@ const Tag = ({ title, customComponents }: { title: string, customComponents: str
         </div>
     )
 }
+
+
+const ShowTags = ({ selectedProduct }: { selectedProduct: product }) => {
+
+    return (
+        <div className='flex gap-3 mb-1'>
+            {selectedProduct.categories.map((category, index) => (
+                <Tag title={category.title} customComponents='bg-customRed' />
+            ))}
+        </div>
+    )
+}
+
 
 const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | null }) => {
 
@@ -191,7 +205,6 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | nul
 }
 
 
-
 const FilterOptions = () => {
 
     const filterOptions = [
@@ -210,6 +223,7 @@ const FilterOptions = () => {
         </div>
     )
 }
+
 
 const ProductChart = ({ selectedProduct }: { selectedProduct: product }) => {
 
@@ -255,6 +269,7 @@ const ProductChart = ({ selectedProduct }: { selectedProduct: product }) => {
         </>
     )
 }
+
 
 const PieChartStatistics = ({ selectedProduct }: { selectedProduct: product }) => {
 
@@ -306,17 +321,6 @@ const PieChartStatistics = ({ selectedProduct }: { selectedProduct: product }) =
     )
 }
 
-
-const ShowTags = ({ selectedProduct }: { selectedProduct: product }) => {
-
-    return (
-        <div className='flex gap-3 mb-1'>
-            {selectedProduct.categories.map((category, index) => (
-                <Tag title={category.title} customComponents='bg-customRed' />
-            ))}
-        </div>
-    )
-}
 
 
 

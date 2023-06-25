@@ -74,18 +74,11 @@ const registerRestaurantValidation = (
         ownerEmail,
         ownerPassword,
     } = req.body;
-    if (
-        !name ||
-        !urlSuffix ||
-        !paymentInfo ||
-        !ownerName ||
-        !ownerEmail ||
-        !ownerPassword
-    ) {
+    if (!name || !urlSuffix || !paymentInfo || !ownerEmail) {
         return res.status(400).send("Missing fields");
     }
     if (
-        !passwordRegex.test(ownerPassword) ||
+        (ownerPassword && !passwordRegex.test(ownerPassword)) ||
         !emailRegex.test(ownerEmail) ||
         !urlSuffixRegex.test(urlSuffix)
     ) {

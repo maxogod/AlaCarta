@@ -22,16 +22,16 @@ const useGetSession = () => {
                         withCredentials: true,
                     }
                 );
-                console.log(res.data);
+                if (res.status === 401) return;
                 setUser(res.data);
                 dispatch(setCurrentUser(res.data));
             } catch (error) {
-                console.log(error);
+                return;
             }
         };
 
         fetchSession();
-    }, [user, dispatch]);
+    }, []);
 
     return user;
 };

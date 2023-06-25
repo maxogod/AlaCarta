@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import { passwordIsValid, urlSuffixIsValid } from './auth.utils'
-
+import axios from 'axios'
 import { IoRestaurantSharp } from "react-icons/io5"
+// redux
+import { useDispatch } from 'react-redux'
+import { setCurrentUser } from '../../redux/slices/currentUserSlice'
 
 const restaurantInfoFields = [
     { name: 'name', title: 'Restaurant Name', type: 'text', required: true, placeholder: 'e.g. A la Carta' },
@@ -28,6 +31,7 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
         cbu: '',
     })
     const [errors, setErrors] = useState('')
+    const dispatch = useDispatch()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRegisterInfo({ ...registerInfo, [e.target.name]: e.target.value })
@@ -44,20 +48,44 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-
+        setErrors('')
         if (step === 1) {
             if (!urlSuffixIsValid(registerInfo.urlSuffix)) {
                 setErrors('Url must contain only letters and numbers')
                 return
             }
             setStep(2)
+            return
         } else if (step === 2) {
             if (registerInfo.password && !passwordIsValid(registerInfo.password)) {
                 setErrors('Password must be at least 8 characters long and contain at least one number')
                 return
             }
         }
-        setErrors('')
+        (async () => {
+            try {
+                const res = await axios.post(
+                    "http://localhost:8080/api/auth/registerRestaurant",
+                    {
+                        name: registerInfo.name,
+                        urlSuffix: registerInfo.urlSuffix,
+                        paymentInfo: registerInfo.cbu,
+                        ownerName: registerInfo.ownerName,
+                        ownerEmail: registerInfo.email,
+                        ownerPassword: registerInfo.password,
+                    },
+                    {
+                        withCredentials: true,
+                    }
+                );
+
+                const { owner } = res.data;
+                dispatch(setCurrentUser(owner))
+                setShowRegister(false)
+            } catch (err) {
+                setErrors("Url is already taken or Information is invalid")
+            }
+        })();
     }
 
 

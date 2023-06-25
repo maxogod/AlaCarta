@@ -1,10 +1,15 @@
 import { useState } from 'react'
 import { passwordIsValid } from './auth.utils'
 import { IoRestaurantSharp } from "react-icons/io5"
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import { setCurrentUser } from '../../redux/slices/currentUserSlice'
 
 
 const LoginPopUp = ({ showLogin, setShowLogin }:
     { showLogin: boolean, setShowLogin: Function }) => {
+
+    const dispatch = useDispatch()
 
     const [loginInfo, setLoginInfo] = useState({
         email: '',
@@ -22,10 +27,28 @@ const LoginPopUp = ({ showLogin, setShowLogin }:
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setErrors('')
         if (!passwordIsValid(loginInfo.password)) {
             setErrors('Password must be at least 8 characters long and contain at least one number')
             return
         }
+        (async () => {
+            try {
+                const res = await axios.post(
+                    "http://localhost:8080/api/auth/login",
+                    { email: loginInfo.email, password: loginInfo.password },
+                    {
+                        withCredentials: true,
+                    }
+                );
+
+                const { ...user } = res.data;
+                dispatch(setCurrentUser(user))
+                setShowLogin(false)
+            } catch (error) {
+                setErrors("Invalid email or password")
+            }
+        })();
     }
 
     return (

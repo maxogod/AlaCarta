@@ -89,25 +89,33 @@ const createRestaurant = async (
         productCategories: defaultProductCategories,
     });
 
-    let owner = await User.findOne({ email: ownerEmail });
+    const owner = await User.findOne({ email: ownerEmail });
     if (owner) {
-        await updateUser(owner._id, {
+        const updatedOwner = await updateUser(owner._id, {
             newRestaurant: newRestaurant._id,
             newCategoryEnum: employeeCategoryEnum.Owner,
+            name: ownerName,
             password: ownerPassword,
         });
+        newRestaurant.employees.push(updatedOwner!._id);
         // TODO bug here, password should not be updated every time a User creates a restaurant
     } else {
-        owner = await createUser(
-            ownerName,
-            ownerEmail,
-            ownerPassword,
-            newRestaurant.urlSuffix,
-            employeeCategoryEnum.Owner
-        );
+        const hashedPassword = hashPassword(ownerPassword);
+        const newOwner = new User({
+            name: ownerName,
+            email: ownerEmail,
+            password: hashedPassword,
+            userCategories: [
+                {
+                    restaurant: newRestaurant._id,
+                    categoryEnum: employeeCategoryEnum.Owner,
+                },
+            ],
+        });
+        await newOwner.save();
+        newRestaurant.employees.push(newOwner!._id);
     }
 
-    newRestaurant.employees.push(owner!._id);
     await newRestaurant.save();
     return [newRestaurant, owner];
 };

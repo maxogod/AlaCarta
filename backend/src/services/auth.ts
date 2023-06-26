@@ -33,6 +33,8 @@ const createUser = async (
         userCategories: [
             {
                 restaurant: restaurant._id,
+                restaurantName: restaurant.name,
+                restaurantUrl: restaurant.urlSuffix,
                 categoryEnum: categoryEnum,
             },
         ],
@@ -50,6 +52,8 @@ const updateUser = async (
         email?: string;
         password?: string;
         newRestaurant?: ObjectId;
+        newRestaurantName?: string;
+        newRestaurantUrl?: string;
         newCategoryEnum?: number;
     }
 ) => {
@@ -62,6 +66,8 @@ const updateUser = async (
     if (newFields.newRestaurant) {
         user.userCategories.push({
             restaurant: newFields.newRestaurant,
+            restaurantName: newFields.newRestaurantName,
+            restaurantUrl: newFields.newRestaurantUrl,
             categoryEnum: newFields.newCategoryEnum,
         });
     }
@@ -89,27 +95,39 @@ const createRestaurant = async (
         productCategories: defaultProductCategories,
     });
 
-    let owner = await User.findOne({ email: ownerEmail });
+    const owner = await User.findOne({ email: ownerEmail });
     if (owner) {
-        await updateUser(owner._id, {
+        const updatedOwner = await updateUser(owner._id, {
             newRestaurant: newRestaurant._id,
+            newRestaurantName: name,
+            newRestaurantUrl: urlSuffix,
             newCategoryEnum: employeeCategoryEnum.Owner,
+            name: ownerName,
             password: ownerPassword,
         });
-        // TODO bug here, password should not be updated every time a User creates a restaurant
+        newRestaurant.employees.push(updatedOwner!._id);
+        await newRestaurant.save();
+        return [newRestaurant, owner];
     } else {
-        owner = await createUser(
-            ownerName,
-            ownerEmail,
-            ownerPassword,
-            newRestaurant.urlSuffix,
-            employeeCategoryEnum.Owner
-        );
+        const hashedPassword = hashPassword(ownerPassword);
+        const newOwner = new User({
+            name: ownerName,
+            email: ownerEmail,
+            password: hashedPassword,
+            userCategories: [
+                {
+                    restaurant: newRestaurant._id,
+                    restaurantName: name,
+                    restaurantUrl: urlSuffix,
+                    categoryEnum: employeeCategoryEnum.Owner,
+                },
+            ],
+        });
+        await newOwner.save();
+        newRestaurant.employees.push(newOwner._id);
+        await newRestaurant.save();
+        return [newRestaurant, newOwner];
     }
-
-    newRestaurant.employees.push(owner!._id);
-    await newRestaurant.save();
-    return [newRestaurant, owner];
 };
 
 export { authenticateUser, updateUser, createUser, createRestaurant };

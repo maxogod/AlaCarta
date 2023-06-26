@@ -1,8 +1,10 @@
 import { Router } from "express";
 import {
     loginController,
+    logoutController,
     registerController,
     registerRestaurantController,
+    sessionController,
 } from "../controllers/auth";
 import {
     loginValidation,
@@ -21,5 +23,9 @@ router.post(
     registerRestaurantValidation,
     registerRestaurantController
 );
+
+router.get("/logout", logoutController);
+
+router.get("/session", sessionController);
 
 export default router;

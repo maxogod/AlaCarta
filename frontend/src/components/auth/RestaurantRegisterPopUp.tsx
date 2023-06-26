@@ -82,6 +82,7 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
                 const { owner } = res.data;
                 dispatch(setCurrentUser(owner))
                 setShowRegister(false)
+                window.location.reload() // TODO <- this is sussy
             } catch (err) {
                 setErrors("Url is already taken or Information is invalid")
             }
@@ -92,14 +93,14 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
     return (
         <div className={`max-h-[90vh] max-w-[95vw] overflow-wrap overflow-y-scroll fixed pop-in-out bg-customBeige p-7 rounded-lg ${showRegister ? 'visible z-10' : ''}`}>
             <div onClick={handleClosePopUp} className="flex items-center justify-center rotate-hover cursor-pointer">
-                <IoRestaurantSharp className="text-6xl text-customRed cross-icon" />
-                <h1 className="text-6xl text-customRed">AlaCarta</h1>
+                <IoRestaurantSharp className="text-3xl sm:text-6xl text-customRed cross-icon" />
+                <h1 className="text-3xl sm:text-6xl text-customRed">AlaCarta</h1>
             </div>
             <hr className="bg-customPink h-1" />
             <form onSubmit={handleSubmit}>
                 {step === 1 && (
                     <div className="flex flex-col items-center justify-center gap-5 mt-4">
-                        <h1 className="text-4xl text-center">Step 1: Restaurant Information</h1>
+                        <h1 className="text-2xl sm:text-4xl text-center">Step 1: Restaurant Information</h1>
                         {restaurantInfoFields.map(field => (
                             <div key={field.name} className="flex flex-col gap-5">
                                 <label htmlFor={field.name}>{field.title}</label>
@@ -122,8 +123,8 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
                 )}
                 {step === 2 && (
                     <div className="flex flex-col items-center justify-center gap-5 mt-4">
-                        <h1 className="text-4xl text-center">Step 2: Owner Information</h1>
-                        <p className='max-w-[20rem] text-center'
+                        <h1 className="text-2xl sm:text-4xl text-center">Step 2: Owner Information</h1>
+                        <p className='max-w-[20rem] text-sm text-center'
                         >You may leave the <i>name</i> and <i>password</i> blank
                             if you already have an account with this email</p>
 

@@ -20,7 +20,7 @@ const HomePage = () => {
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
     const [showAbout, setShowAbout] = useState(false)
-    const sessionUser = useSelector((state: RootState) => state.currentUser).user
+    const sessionUser = useSelector((state: RootState) => state.currentUser.user)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -83,22 +83,22 @@ const HomePage = () => {
                     <h1 className="sm:text-6xl text-3xl text-white mt-7 text-center">
                         AlaCarta{sessionUser && ` & ${sessionUser?.name}`}
                     </h1>
-                    {sessionUser && <UserRestaurants />}
+                    {sessionUser && <UserRestaurants sessionUser={sessionUser} />}
                     <div className="flex items-center justify-center gap-5 mt-2 mb-4">
                         {
                             !sessionUser &&
                             <button
-                                className="bg-white rounded-xl p-1 sm:p-2 border border-white hover:bg-transparent hover:text-white ease-in-out duration-300"
+                                className="bg-white rounded-xl drop-shadow-4xl p-1 sm:p-2 border border-white hover:bg-transparent hover:text-white ease-in-out duration-300"
                                 onClick={toggleLogin}>Login</button>
                         }
                         {
                             sessionUser &&
                             <button
-                                className="bg-white rounded-xl p-1 sm:p-2 border border-white hover:bg-transparent hover:text-white ease-in-out duration-300"
+                                className="bg-white rounded-xl drop-shadow-4xl p-1 sm:p-2 border border-white hover:bg-transparent hover:text-white ease-in-out duration-300"
                                 onClick={handleLogout}>Logout</button>
                         }
                         <button
-                            className="bg-white rounded-xl  p-1 sm:p-2 border border-white hover:bg-transparent hover:text-white ease-in-out duration-300"
+                            className="bg-white rounded-xl drop-shadow-4xl p-1 sm:p-2 border border-white hover:bg-transparent hover:text-white ease-in-out duration-300"
                             onClick={toggleRestaurantRegister}>Register Restaurant</button>
                     </div>
                 </div>

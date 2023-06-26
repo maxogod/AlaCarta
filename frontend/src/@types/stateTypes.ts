@@ -1,6 +1,8 @@
 interface UserCategoryType {
-    retaurant: string;
-    category: number;
+    restaurant: string;
+    restaurantName: string;
+    restaurantUrl: string;
+    categoryEnum: number;
 }
 
 interface UserType {

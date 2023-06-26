@@ -6,6 +6,14 @@ const UserCategorySchema = new mongoose.Schema({
         ref: "Restaurant",
         required: true,
     },
+    restaurantName: {
+        type: mongoose.Schema.Types.String,
+        required: true,
+    },
+    restaurantUrl: {
+        type: mongoose.Schema.Types.String,
+        required: true,
+    },
     categoryEnum: {
         type: mongoose.Schema.Types.Number,
         required: true,

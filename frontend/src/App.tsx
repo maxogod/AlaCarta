@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path='/dashboard' element={<Dashboard/>} />
         <Route path='/' element={<HomePage />} />
-        <Route path='/at=:restaurantName/menu' element={<Menu />} />
+        <Route path='/:restaurantUrl/menu' element={<Menu />} />
       </Routes>
     </Router>
   )

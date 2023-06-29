@@ -9,5 +9,6 @@ declare module "express-session" {
             email: string;
             userCategories: UserCategoriesType[];
         };
+        restaurantUrl: string;
     }
 }

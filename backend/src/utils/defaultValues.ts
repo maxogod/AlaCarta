@@ -15,11 +15,11 @@ const getDefaultProductCategories = async () => {
             name: category,
         });
         if (existingCategory) {
-            productCategories.push(existingCategory);
+            productCategories.push(existingCategory.name);
         } else {
             const newCategory = new ProductCategory({ name: category });
             await newCategory.save();
-            productCategories.push(newCategory);
+            productCategories.push(newCategory.name);
         }
     }
     return productCategories;

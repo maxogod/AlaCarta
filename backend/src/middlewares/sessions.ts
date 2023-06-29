@@ -20,4 +20,14 @@ const populateSession = async (
     next();
 };
 
-export { populateSession };
+const setRestaurantUrlInSession = (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    const { restaurantUrl } = req.params as { restaurantUrl: string };
+    req.session.restaurantUrl = restaurantUrl;
+    next();
+};
+
+export { populateSession, setRestaurantUrlInSession };

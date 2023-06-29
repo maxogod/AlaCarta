@@ -25,8 +25,7 @@ const RestaurantSchema = new mongoose.Schema(
             ref: "Menu",
         },
         productCategories: {
-            type: [mongoose.Schema.Types.ObjectId],
-            ref: "ProductCategory",
+            type: [mongoose.Schema.Types.String],
             required: true,
         },
         orders: {

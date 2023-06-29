@@ -7,10 +7,14 @@ import mongoose from "mongoose";
 import MongoStore from "connect-mongo";
 // routes
 import authRoute from "./routes/auth";
+import restaurantRoute from "./routes/restaurant";
 // middlewares
 import cookieParser from "cookie-parser";
 import { logRequests } from "./middlewares/logs";
-import { populateSession } from "./middlewares/sessions";
+import {
+    populateSession,
+    setRestaurantUrlInSession,
+} from "./middlewares/sessions";
 
 dotenv.config();
 const app = express();
@@ -46,10 +50,17 @@ app.use(
 app.use(populateSession);
 app.use(logRequests);
 
-// TODO middleware to check if user is logged in before accessing routes
+// middleware to check if user is logged in before accessing routes
+app.use(/^\/api(?!\/auth).*$/, (req, res, next) => {
+    if (req.session.user) next();
+    else res.sendStatus(401);
+});
 
 // Routes
 app.use("/api/auth", authRoute);
+app.use("/api/:restaurantUrl", setRestaurantUrlInSession, restaurantRoute);
+
+// TODO deletion and cascade deletion
 
 const start = async () => {
     try {

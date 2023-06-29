@@ -15,8 +15,7 @@ const ProductSchema = new mongoose.Schema(
             required: true,
         },
         productCategories: {
-            type: [mongoose.Schema.Types.ObjectId],
-            ref: "ProductCategory",
+            type: [mongoose.Schema.Types.String],
         },
         price: {
             type: mongoose.Schema.Types.Number,
@@ -24,6 +23,15 @@ const ProductSchema = new mongoose.Schema(
         },
         isAvailable: {
             type: mongoose.Schema.Types.Boolean,
+            required: true,
+        },
+        sells: {
+            type: mongoose.Schema.Types.Number,
+            required: true,
+        },
+        restaurant: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Restaurant",
             required: true,
         },
     },

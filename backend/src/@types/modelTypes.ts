@@ -17,4 +17,16 @@ interface UserCategoriesType extends Document {
     categoryEnum: number;
 }
 
-export { UserType, UserCategoriesType };
+interface RestaurantType extends Document {
+    createdAt: Date;
+    updatedAt: Date;
+    name: string;
+    productCategories: string[];
+    urlSuffix: string;
+    paymentInfo: string;
+    employees: Types.ObjectId[];
+    orders: Types.ObjectId[];
+    menu?: Types.ObjectId | undefined;
+}
+
+export { UserType, UserCategoriesType, RestaurantType };

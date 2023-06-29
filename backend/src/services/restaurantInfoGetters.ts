@@ -10,8 +10,7 @@ const restaurantCategoryOfUser = async (
     if (!restaurant || !user) return [null, null];
 
     const category = user.userCategories.find(
-        (category) =>
-            category.restaurant.toString() === restaurant._id.toString()
+        (category) => category.restaurant === restaurant._id
     );
     if (!category) return [null, null];
     return [category.categoryEnum, restaurant._id];

@@ -243,9 +243,9 @@ const FilterOptions = ({ setFilterOption }: { setFilterOption: React.Dispatch<Re
             {FilterOptions.map((option, index) => (
                 <div key={index} className='cursor-pointer hover:scale-125  transition-all'>
                     <div onClick={() => handleOnClick(option)}>
-                        <Tag
-                            title={option}
-                            customComponents={`bg-${currentOption === option ? 'customRed scale-110' : 'customDarkRed'} pl-4 pr-4 hover:bg-customRed transition-all`} />
+                        <div className={`pb-0  w-fit  pt-0.5 rounded-xl text-center ${currentOption === option ? 'bg-customRed scale-110' : 'bg-customDarkRed'} pl-4 pr-4 hover:bg-customRed transition-all text-white font-bold`}>
+                            {option}
+                        </div>
                     </div>
                 </div>
             ))}

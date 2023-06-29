@@ -185,14 +185,13 @@ const ShowTags = ({ selectedProduct }: { selectedProduct: product }) => {
 
 
 const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | null }) => {
-
-    const [filterOption, setFilterOption] = useState<string>()
-    const [customStartDate, setCustomStartDate] = useState<Date>()
+    const [filterOption, setFilterOption] = useState<string>();
+    const [customStartDate, setCustomStartDate] = useState<Date>();
     const [customEndDate, setCustomEndDate] = useState<Date>();
 
     return (
         <div className="right-1 flex justify-center mt-20 md:right-80 rounded-3xl bg-customBeige ml-5">
-            <div className=" md:w-[95%] m-5 border-2 border-customPink rounded-3xl">
+            <div className="md:w-[95%] m-5 border-2 border-customPink rounded-3xl">
                 <div className="relative top-4">
                     <div className="ml-3 text-customRed font-bold">
                         {selectedProduct && <ShowTags selectedProduct={selectedProduct} />}
@@ -200,29 +199,39 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | nul
                             {selectedProduct?.name}
                             <hr className="bg-customPink h-1 mt-1 rounded-lg" />
                         </div>
-                        <p className='mt-2'>{selectedProduct?.description}</p>
+                        <p className="mt-2">{selectedProduct?.description}</p>
                     </div>
                 </div>
-                <div className='mt-12 mb-2 relative'>
-                    {selectedProduct &&
+                <div className="mt-12 mb-2 relative">
+                    {selectedProduct && (
                         <>
-                            <ProductChart selectedProduct={selectedProduct} filterOption={filterOption} customStartDate={customStartDate} customEndDate={customEndDate} />
-                            <div className='flex gap-7'>
+                            <ProductChart
+                                selectedProduct={selectedProduct}
+                                filterOption={filterOption}
+                                customStartDate={customStartDate}
+                                customEndDate={customEndDate}
+                            />
+                            <div className="md:flex-row  flex gap-7 justify-center flex-shrink-0 flex-wrap">
                                 <FilterOptions setFilterOption={setFilterOption} />
-                                <RangeDatePicker customStartDate={customStartDate} customEndDate={customEndDate} setCustomStartDate={setCustomStartDate} setCustomEndDate={setCustomEndDate} />
+                                <RangeDatePicker
+                                    customStartDate={customStartDate}
+                                    customEndDate={customEndDate}
+                                    setCustomStartDate={setCustomStartDate}
+                                    setCustomEndDate={setCustomEndDate}
+                                />
                             </div>
-                            <div className='-mt-16 relative'>
+                            <div className="-mt-16 relative grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <PieChartStatistics selectedProduct={selectedProduct} />
                                 <ShowProductImage selectedProduct={selectedProduct} />
                             </div>
                         </>
-                    }
+                    )}
                 </div>
             </div>
         </div>
-
-    )
-}
+    );
+};
+  
 
 
 const FilterOptions = ({ setFilterOption }: { setFilterOption: React.Dispatch<React.SetStateAction<string | undefined>> }) => {
@@ -239,13 +248,14 @@ const FilterOptions = ({ setFilterOption }: { setFilterOption: React.Dispatch<Re
     }
 
     return (
-        <div className='ml-4  flex justify-start gap-8'>
+        <div className="ml-4 flex justify-start gap-8">
             {FilterOptions.map((option, index) => (
-                <div key={index} className='cursor-pointer hover:scale-125  transition-all'>
-                    <div onClick={() => handleOnClick(option)}>
-                        <div className={`pb-0  w-fit  pt-0.5 rounded-xl text-center ${currentOption === option ? 'bg-customRed scale-110' : 'bg-customDarkRed'} pl-4 pr-4 hover:bg-customRed transition-all text-white font-bold`}>
-                            {option}
-                        </div>
+                <div key={index} className="cursor-pointer hover:scale-125 transition-all">
+                    <div
+                        onClick={() => handleOnClick(option)}
+                        className={`pb-0 w-fit pt-0.5 rounded-xl text-center ${currentOption === option ? 'bg-customRed scale-110' : 'bg-customDarkRed'
+                            } pl-4 pr-4 hover:bg-customRed transition-all text-white font-bold`}>
+                        {option}
                     </div>
                 </div>
             ))}

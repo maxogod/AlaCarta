@@ -1,7 +1,9 @@
+import { Types } from "mongoose";
 import Restaurant from "../models/Restaurant";
 import Product from "../models/Product";
 import { RestaurantType } from "../@types/modelTypes";
 import Menu from "../models/Menu";
+import ProductCategory from "../models/ProductCategory";
 
 const addProductService = async (props: {
     name: string;
@@ -13,6 +15,19 @@ const addProductService = async (props: {
 }) => {
     const { name, picture, description, productCategories, price, restaurant } =
         props;
+    const menu = await Menu.findById(restaurant.menu);
+    if (!menu) return null;
+    productCategories?.forEach(async (category) => {
+        const categoryExists = await ProductCategory.findOne({
+            name: category,
+        });
+        if (!categoryExists) {
+            const newCategory = new ProductCategory({ name: category });
+            await newCategory.save();
+            restaurant.productCategories.push(newCategory.name);
+            await restaurant.save();
+        }
+    });
     const newProduct = new Product({
         name,
         picture,
@@ -24,13 +39,8 @@ const addProductService = async (props: {
         restaurant: restaurant._id,
     });
     await newProduct.save();
-    const menu = await Menu.findById(restaurant.menu);
-    if (menu) {
-        menu.products.push(newProduct._id);
-        await menu.save();
-    } else {
-        return null;
-    }
+    menu.products.push(newProduct._id);
+    await menu.save();
     return newProduct;
 };
 
@@ -52,4 +62,10 @@ const getProductsByCategory = async (
     }
 };
 
-export { addProductService, getProductsByCategory };
+const getProductById = async (productId: string) => {
+    const objectId = new Types.ObjectId(productId);
+    const product = await Product.findById(objectId);
+    return product;
+};
+
+export { addProductService, getProductsByCategory, getProductById };

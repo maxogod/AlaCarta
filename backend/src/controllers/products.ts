@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { getRestaurantByUrl } from "../services/restaurant";
-import { addProductService, getProductsByCategory } from "../services/products";
+import {
+    addProductService,
+    getProductById,
+    getProductsByCategory,
+} from "../services/products";
 
 const addProductController = async (req: Request, res: Response) => {
     const { name, picture, description, productCategories, price } = req.body;
@@ -26,6 +30,16 @@ const addProductController = async (req: Request, res: Response) => {
 };
 
 const getProductsController = async (req: Request, res: Response) => {
+    const { productId } = req.params;
+    if (productId) {
+        try {
+            const product = await getProductById(productId);
+            if (!product) return res.status(400).send("Invalid product id");
+            return res.status(200).send(product);
+        } catch (err) {
+            return res.status(400).send("Invalid product id");
+        }
+    }
     const { category, firstKPopular } = req.query;
     // TODO popularity
     const restaurant = await getRestaurantByUrl(

@@ -22,4 +22,9 @@ const createMenuService = async (props: {
     return newMenu;
 };
 
-export { createMenuService };
+const getMenuOfRestaurant = async (restaurant: RestaurantType) => {
+    const menu = await Menu.findById(restaurant.menu);
+    return menu;
+};
+
+export { createMenuService, getMenuOfRestaurant };

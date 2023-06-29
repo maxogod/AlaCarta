@@ -409,7 +409,7 @@ const PieChartStatistics = ({ selectedProduct }: { selectedProduct: product }) =
                         label={renderCustomizedLabel}
                         fill="#8884d8"
                         dataKey="value">
-                        {data.map((entry, index) => (
+                        {data.map((_, index) => (
                             <Cell key={`cell-${index}`} fill={customComponentsS[index % customComponentsS.length]} />
                         ))}
                     </Pie>

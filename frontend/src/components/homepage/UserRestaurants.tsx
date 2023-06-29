@@ -29,7 +29,7 @@ const UserRestaurants = ({ sessionUser }: { sessionUser: UserType }) => {
                         </i>
                     </div>
                     <Link
-                        to={`/${userCategory.restaurantUrl}`}
+                        to={`/${userCategory.restaurantUrl}/dashboard`}
                         className={`absolute right-2 drop-shadow-4xl text-sm border text-slate-900 ${buttonProps[i % buttonProps.length]} sm:p-2 p-1 rounded-lg hover:bg-transparent ease-in-out duration-300`}
                     >
                         Dashboard

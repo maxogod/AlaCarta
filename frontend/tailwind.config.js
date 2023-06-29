@@ -8,6 +8,7 @@ export default {
         customBeige: "#EFE5CE",
         customPink: "#F3AA97",
         customRed: "#CE5160",
+        customDarkRed: "#750707",
         customYellow: "#FDBE5D",
         customLightBlue: "#48C4D3",
       },

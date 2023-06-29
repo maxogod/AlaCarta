@@ -29,12 +29,13 @@ interface product {
 }
 
 
+
 const Dashboard = () => {
 
     const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
     const [imageLoader, setImageLoader] = useState(false)
 
-    const [selectedProduct, setSelectedProduct] = useState<product | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
 
     useEffect(() => {
@@ -45,7 +46,7 @@ const Dashboard = () => {
         img.src = src
     }, [src])
 
-    const handleProductClick = (product: product) => {
+    const handleProductClick = (product: Product) => {
         setSelectedProduct(product);
     }
 
@@ -119,6 +120,7 @@ const ProductCatalog = ({ productList, handleProductClick }: { productList: prod
 
 const ProductThumbnail = ({ product }: { product: product }) => {
 
+
     const displayedCategories = product.categories.slice(0, 3);
 
 
@@ -150,6 +152,7 @@ const ProductThumbnail = ({ product }: { product: product }) => {
 
 
 const Tag = ({ title, customComponents }: { title: string, customComponents: string }) => {
+
 
     return (
         <div className={`pb-0  w-fit pl-2 pr-2 pt-0.5 rounded-xl text-center ${customComponents} text-white font-bold`}>

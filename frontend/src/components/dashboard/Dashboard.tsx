@@ -224,6 +224,7 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: product | nul
     )
 }
 
+export { ProductThumbnail };
 
 const FilterOptions = ({ setFilterOption }: { setFilterOption: React.Dispatch<React.SetStateAction<string | undefined>> }) => {
 

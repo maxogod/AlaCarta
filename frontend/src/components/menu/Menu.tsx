@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { NavBar } from "../dashboard/Header";
 import { Category } from "../models/category";
 import { Blurhash } from "react-blurhash";
-import { AiFillPlusCircle } from "react-icons/ai";
 import { useParams } from 'react-router-dom';
 import { Product } from "../models/product";
 import { dummyProducts } from "../dashboard/MockData";
+import { ProductThumbnail } from "../dashboard/Dashboard";
+import Categories from "./CategoryBar";
+import { AiOutlineMenu } from "react-icons/ai"
 
 
 const Menu = () => {
@@ -13,6 +15,7 @@ const Menu = () => {
     const [imageLoader, setImageLoader] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
     const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+    const [deployCategories, setDeployCategories] = useState(false);
     const { restaurantUrl } = useParams();
 
     const categoryList: Category[] = [
@@ -40,6 +43,10 @@ const Menu = () => {
         img.src = src
     }, [src]);
 
+    const handleDeployCategoriesClick = () => {
+        setDeployCategories(!deployCategories);
+    }
+
     const handleCategoryClick = (category: Category) => {
         setSelectedCategory(category);
     }
@@ -50,17 +57,14 @@ const Menu = () => {
 
     return (
         <>
-            <div className="relative">
-                <BackgroundImage src={src} imageLoader={imageLoader} />
+            <BackgroundImage src={src} imageLoader={imageLoader} />
+            <div className="fixed inset-0 scale-100">
                 <NavBar />
-            </div>
-
-            <div className="flex">
-                <Categories categories={categoryList} handleCategoryClick={handleCategoryClick} />
+                <Categories deploy={deployCategories} categories={categoryList} handleCategoryClick={handleCategoryClick} />
+                <CategoryButton handleDeployCategoriesClick={handleDeployCategoriesClick}/>
                 <Products products={productsList} handleProductClick={handleProductClick} />
                 <Cart products={selectedProducts} />
             </div>
-
         </>
     );
 }
@@ -82,53 +86,6 @@ function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boole
                     alt=""
                 />
             )}
-        </>
-    )
-}
-
-const Categories = ({ categories, handleCategoryClick }: { categories: Category[], handleCategoryClick: (category: Category) => void }) => {
-    return(
-        <>
-            <div>
-                <div className="absolute bg-customBeige rounded-r-3xl  w-1/6 h-screen  ">
-                    <div>
-                        <div>
-                            <div className="flex flex-col items-center mt-24 ">
-                                <h1 className="text-3xl font-bold text-customRed">Categorías</h1>
-                                <hr className="bg-customPink h-1 w-72 mt-2" />
-
-                                <div className='flex flex-col items-center overflow-y-auto mt-3 w-80 h-[80vh]'>
-                                    {categories.map((category, index) => (
-                                        <div key={index} onClick={() => handleCategoryClick(category)}>
-                                            <CategoryThumbnail category={category} />
-                                        </div>
-                                    ))}
-
-
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </>
-    )
-}
-
-const CategoryThumbnail = ({ category }: { category: Category }) => {
-    return(
-        <>
-            <div className='bg-white rounded-lg mt-5 w-50 hover:scale-105 ease-in-out duration-200 text-center'>
-                <div className='flex flex-col items-center'>
-                    <div>
-                        <AiFillPlusCircle className='text-customRed' />
-                    </div>
-                    <h1 className='font-bold text-center'>
-                        {category.title.length > 25 ? category.title.substring(0, 25) + '...' : category.title}
-                    </h1>
-                </div>
-            </div>
         </>
     )
 }
@@ -157,27 +114,6 @@ const Products = ({ products, handleProductClick }: { products: Product[], handl
     
 }
 
-const ProductThumbnail = ({ product }: { product: Product }) => {
-
-    return (
-        <>
-            <div className='bg-white rounded-lg mt-5 h-24 w-72 hover:scale-105 ease-in-out duration-200'>
-                <div className='flex'>
-                    <img src={product.img} alt='' className='w-16 h-24 object-cover rounded-lg' />
-                    <div className='flex-col ml-2 mt-3 text-sm'>
-                        <h1 className='font-bold'>
-                            {product.name.length > 25 ? product.name.substring(0, 25) + '...' : product.name}
-                        </h1>
-                        <hr className="bg-customPink h-1 w-48 rounded-lg" />
-                        <h1 className='font-bold mt-1'>Precio: ${product.price}</h1>
-                    </div>
-                </div>
-            </div>
-        </>
-    )
-
-}
-
 const Cart = ({ products }: { products: Product[] }) => {
     return(
         <ul>
@@ -189,6 +125,17 @@ const Cart = ({ products }: { products: Product[] }) => {
                 ))}
             </li>
         </ul>
+    )
+}
+
+const CategoryButton = ({ handleDeployCategoriesClick }: { handleDeployCategoriesClick: () => void }) => {
+    return(
+        <div className="bg-white rounded-3xl w-15 h-15 mt-20">
+            <button className="bg-white rounded-3xl flex items-center space-x-2 h-15 w-15" onClick={handleDeployCategoriesClick}>
+                <AiOutlineMenu className="transform h-20 w-20"/>
+            </button>
+        </div>
+        
     )
 }
 

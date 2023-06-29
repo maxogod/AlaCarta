@@ -144,4 +144,5 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product | nul
     )
 }
 
+export { ProductThumbnail };
 export default Dashboard;

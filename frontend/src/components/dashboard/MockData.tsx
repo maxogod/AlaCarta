@@ -1,27 +1,8 @@
-interface category {
-  id: string
-  title: string
-}
+import { Category } from '../models/category'
+import { Product } from '../models/product'
+import { Record } from '../models/record'
 
-interface record {
-  id: string
-  purchaseDate: Date
-  amountOfSales: number
-}
-
-
-interface product {
-  id: string
-  name: string
-  price: number
-  description: string
-  img: string
-  categories: category[]
-  isAvailable: boolean
-  sales: record[]
-}
-
-const dummyProducts: product[] = [
+const dummyProducts: Product[] = [
   {
     id: "prod1",
     name: "empanadas de jamon y queso epicos",
@@ -37,70 +18,7 @@ const dummyProducts: product[] = [
     }
     ],
     isAvailable: true,
-    sales: [
-      {
-        id: "VENTA HOY 1 ",
-        purchaseDate: new Date("2023-06-25T15:30:00"),
-        amountOfSales: 1,
-      },
-      {
-        id: "VENTA HOY 1 ",
-        purchaseDate: new Date("2023-06-25T15:31:00"),
-        amountOfSales: 2,
-      },
-      {
-        id: "VENTA HOY 1 ",
-        purchaseDate: new Date("2023-06-25T15:32:00"),
-        amountOfSales: 3,
-      },
-      {
-        id: "VENTA HOY 1 ",
-        purchaseDate: new Date("2023-06-25T15:33:00"),
-        amountOfSales: 4,
-      },
-      {
-        id: "VENTA HOY 1 ",
-        purchaseDate: new Date("2023-06-25T15:30:00"),
-        amountOfSales: 1,
-      },
-      
-      {
-        id: "VENTA HOY 2",
-        purchaseDate: new Date("2023-06-25T10:30:00"),
-        amountOfSales: 5,
-      },
-      {
-        id: "VENTA ESTA SEMANA 1 ",
-        purchaseDate: new Date("2023-06-27T15:30:00"),
-        amountOfSales: 1,
-      },
-      {
-        id: "VENTA ESTA SEMANA 2",
-        purchaseDate: new Date("2023-06-27T10:30:00"),
-        amountOfSales: 5,
-      },
-      {
-        id: "VENTA ESTE MES 1 ",
-        purchaseDate: new Date("2023-06-14T15:30:00"),
-        amountOfSales: 1,
-      },
-      {
-        id: "VENTA ESTE MES 2",
-        purchaseDate: new Date("2023-06-10T10:30:00"),
-        amountOfSales: 5,
-      },
-      {
-        id: "VENTA MESES PASADO ",
-        purchaseDate: new Date("2023-03-14T15:30:00"),
-        amountOfSales: 1,
-      },
-      {
-        id: "VENTA MESES PASADO",
-        purchaseDate: new Date("2023-03-10T10:30:00"),
-        amountOfSales: 5,
-      }
-      
-    ]
+    sales: []
   },
   {
     id: "prod2",
@@ -116,48 +34,7 @@ const dummyProducts: product[] = [
       title: "Snacks"
     }],
     isAvailable: true,
-    sales: [
-      {
-        id: "s-1",
-        purchaseDate: new Date("2023-03-19"),
-        amountOfSales: 10,
-      },
-      {
-        id: "s-2",
-        purchaseDate: new Date("2023-03-21"),
-        amountOfSales: 60,
-      },
-      {
-        id: "s-3",
-        purchaseDate: new Date("2023-03-22"),
-        amountOfSales: 30,
-      },
-      {
-        id: "s-4",
-        purchaseDate: new Date("2023-03-23"),
-        amountOfSales: 40,
-      },
-      {
-        id: "s-1",
-        purchaseDate: new Date("2023-03-19"),
-        amountOfSales: 10,
-      },
-      {
-        id: "s-2",
-        purchaseDate: new Date("2023-03-21"),
-        amountOfSales: 60,
-      },
-      {
-        id: "s-3",
-        purchaseDate: new Date("2023-03-22"),
-        amountOfSales: 30,
-      },
-      {
-        id: "s-4",
-        purchaseDate: new Date("2023-03-23"),
-        amountOfSales: 40,
-      }
-    ]
+    sales: []
   },
   {
     id: "prod3",

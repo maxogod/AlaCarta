@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import { getRestaurantByUrl } from "../services/restaurant";
 import {
     addProductService,
+    getFilteredProducts,
     getProductById,
-    getProductsByCategory,
 } from "../services/products";
 
 const addProductController = async (req: Request, res: Response) => {
@@ -46,10 +46,7 @@ const getProductsController = async (req: Request, res: Response) => {
         req.session.restaurantUrl as string
     );
     if (!restaurant) return res.status(404).send("Restaurant not found");
-    const products = await getProductsByCategory(
-        category as string,
-        restaurant
-    );
+    const products = await getFilteredProducts(category as string, restaurant);
     return res.status(200).send(products);
 };
 

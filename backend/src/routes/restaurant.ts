@@ -14,7 +14,6 @@ const router = Router();
 router.get("/", getRestaurantController);
 
 // Menu
-// TODO - Add menu validation so that only managers or owners can edit it, same with products
 router.post("/createMenu", createMenuValidation, createMenuController);
 
 router.get("/menu", getMenuController);

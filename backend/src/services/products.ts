@@ -44,7 +44,7 @@ const addProductService = async (props: {
     return newProduct;
 };
 
-const getProductsByCategory = async (
+const getFilteredProducts = async (
     category: string,
     restaurant: RestaurantType
 ) => {
@@ -68,4 +68,4 @@ const getProductById = async (productId: string) => {
     return product;
 };
 
-export { addProductService, getProductsByCategory, getProductById };
+export { addProductService, getFilteredProducts, getProductById };

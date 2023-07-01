@@ -41,12 +41,15 @@ const getProductsController = async (req: Request, res: Response) => {
         }
     }
     const { category, firstKPopular } = req.query;
-    // TODO popularity
     const restaurant = await getRestaurantByUrl(
         req.session.restaurantUrl as string
     );
     if (!restaurant) return res.status(404).send("Restaurant not found");
-    const products = await getFilteredProducts(category as string, restaurant);
+    const products = await getFilteredProducts(
+        category as string,
+        parseInt(firstKPopular as string),
+        restaurant
+    );
     return res.status(200).send(products);
 };
 

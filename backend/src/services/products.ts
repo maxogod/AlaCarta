@@ -46,13 +46,29 @@ const addProductService = async (props: {
 
 const getFilteredProducts = async (
     category: string,
+    firstKPopular: number,
     restaurant: RestaurantType
 ) => {
-    if (category) {
+    if (category && firstKPopular) {
+        const products = await Product.find({
+            restaurant: restaurant._id,
+            productCategories: category,
+        })
+            .sort({ sells: -1 })
+            .limit(firstKPopular);
+        return products;
+    } else if (category) {
         const products = await Product.find({
             restaurant: restaurant._id,
             productCategories: category,
         });
+        return products;
+    } else if (firstKPopular) {
+        const products = await Product.find({
+            restaurant: restaurant._id,
+        })
+            .sort({ sells: -1 })
+            .limit(firstKPopular);
         return products;
     } else {
         const products = await Product.find({

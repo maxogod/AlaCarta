@@ -53,4 +53,6 @@ const getProductsController = async (req: Request, res: Response) => {
     return res.status(200).send(products);
 };
 
-export { addProductController, getProductsController };
+const deleteProductController = async (req: Request, res: Response) => {};
+
+export { addProductController, getProductsController, deleteProductController };

@@ -84,4 +84,15 @@ const getProductById = async (productId: string) => {
     return product;
 };
 
-export { addProductService, getFilteredProducts, getProductById };
+const deleteProductById = async (productId: string) => {
+    const objectId = new Types.ObjectId(productId);
+    const result = await Product.deleteOne({ _id: objectId });
+    return result;
+};
+
+export {
+    addProductService,
+    getFilteredProducts,
+    getProductById,
+    deleteProductById,
+};

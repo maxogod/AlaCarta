@@ -4,7 +4,7 @@ const Tag = ({ title, customComponents }: { title: string, customComponents: str
 
 
     return (
-        <div className={`pb-0  w-fit pl-2 pr-2 pt-0.5 rounded-xl text-center ${customComponents} text-white font-bold`}>
+        <div className={`pb-0 w-fit pl-2 pr-2 pt-0.5 rounded-xl text-center ${customComponents} text-white font-bold`}>
             {title.length > 50 ? (
                 <div className='text-left'>
                     {title.slice(0, title.length / 2)}

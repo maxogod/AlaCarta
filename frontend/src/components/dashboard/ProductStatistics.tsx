@@ -18,9 +18,27 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                 <div className='ml-5 mt-8 text-customRed font-bold'>
                     <ShowTags selectedProduct={selectedProduct} />
                     <div className='flex gap-10 relative'>
-                        <h1 className='2xl:text-4xl'>{selectedProduct.name}</h1>
+                        <h1 className='2xl:text-4xl text-lg'>{selectedProduct.name}</h1>
                         <EditDeleteSection selectedProduct={selectedProduct} />
                     </div>
+                    <p className="mt-1 2xl:text-lg text-xs">{selectedProduct?.description}</p>
+                </div>
+                <ProductChart
+                    product={selectedProduct}
+                    filterOption={filterOption}
+                    customStartDate={customStartDate}
+                    customEndDate={customEndDate}
+                />
+                <div className=' w-full 2xl:ml-3 ml-2  flex 2xl:gap-7 gap-4 justify-start'>
+                    <FilterOptions setFilterOption={setFilterOption} />
+                    <RangeDatePicker
+                        filterOption={filterOption}
+                        customStartDate={customStartDate}
+                        customEndDate={customEndDate}
+                        setCustomStartDate={setCustomStartDate}
+                        setCustomEndDate={setCustomEndDate}
+                    />
+                    <ProductImage selectedProduct={selectedProduct} />
                 </div>
 
             </div>
@@ -50,19 +68,15 @@ const OldProductStatistics = ({ selectedProduct }: { selectedProduct: Product })
                 </div>
                 <div className="mt-12 mb-2 relative">
                     <ProductChart
-                        products={[selectedProduct]}
+                        product={selectedProduct}
                         filterOption={filterOption}
                         customStartDate={customStartDate}
                         customEndDate={customEndDate}
                     />
                     <div className="md:flex-row flex justify-center flex-shrink-0 flex-wrap gap-7">
                         <FilterOptions setFilterOption={setFilterOption} />
-                        <RangeDatePicker
-                            customStartDate={customStartDate}
-                            customEndDate={customEndDate}
-                            setCustomStartDate={setCustomStartDate}
-                            setCustomEndDate={setCustomEndDate}
-                        />
+
+
                     </div>
                     <PieChartStatistics selectedProduct={selectedProduct} />
                     <ProductImage selectedProduct={selectedProduct} />

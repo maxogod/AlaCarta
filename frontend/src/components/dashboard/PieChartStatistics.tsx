@@ -1,9 +1,13 @@
 import { dummyProducts } from './MockData';
 import { Pie, PieChart, Cell } from 'recharts'
 import { Product } from '../models/product';
-import {Tag} from './Tag';
+import { Record } from '../models/record';
+import { Tag } from './Tag';
 
 const PieChartStatistics = ({ selectedProduct }: { selectedProduct: Product }) => {
+
+
+
 
     const amountOfSales = selectedProduct.sales.length;
     const amountOfSalesOfAllProducts = dummyProducts.reduce((total, product) => total + product.sales.length, 0) - amountOfSales;

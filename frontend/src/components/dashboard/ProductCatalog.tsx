@@ -5,35 +5,29 @@ import { Tag } from './Tag'
 
 const ProductCatalog = ({ productList, handleProductClick }: { productList: Product[], handleProductClick: (product: Product | null) => void }) => {
 
+    const catalogTitle = "Catálogo de Productos"
 
     const [filterBy, setfilterBy] = useState("");
 
     return (
-        <div>
-            <div className="absolute bg-customBeige rounded-r-3xl  w-96 h-screen  ">
-                <div>
-                    <div>
-                        <div className="flex flex-col items-center justify-center mt-24 ">
-                            <h1 className="text-3xl font-bold text-customRed">Catálogo de Productos</h1>
-                            <hr className="bg-customPink h-1 w-72 my-2" />
-
-                            <div className='w-80'>
-                                <ShowProducts filterState={[filterBy, setfilterBy]} handleProductClick={handleProductClick} />
-                                <div className='overflow-y-auto h-[80vh] '>
-                                    {productList.map((product, index) => (
-                                        <div key={index} onClick={() => handleProductClick(product)}>
-                                            <ProductThumbnail product={product} />
-                                        </div>
-                                    ))}
-                                </div>
+        <div className="z-10  absolute bg-customBeige rounded-r-3xl w-96 h-screen flex flex-col items-center justify-center">
+            
+                <h1 className="text-3xl font-bold text-customRed mt-12">{catalogTitle}</h1>
+                <hr className="bg-customPink h-1 w-72 my-2" />
+                <div className='w-80'>
+                    <ShowProducts filterState={[filterBy, setfilterBy]} handleProductClick={handleProductClick} />
+                    <div className='overflow-y-auto 2xl:h-[44rem] h-[25rem]'>
+                        {productList.map((product, index) => (
+                            <div key={index} onClick={() => handleProductClick(product)}>
+                                <ProductThumbnail product={product} />
                             </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
-            </div>
         </div>
     )
 }
+
 
 const ShowProducts = ({ filterState, handleProductClick }: { filterState: [string, React.Dispatch<React.SetStateAction<string>>], handleProductClick: (product: Product | null) => void }) => {
 
@@ -55,7 +49,7 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
     ]
 
     return (
-        <div className="relative">
+        <div className=" my-0.5 relative">
             <button onClick={() => setIsOpen((prev) => (!prev))}
                 id="dropdownDefaultButton"
                 data-dropdown-toggle="dropdown"
@@ -76,42 +70,37 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
                             {category}
                         </div>
                     ))}
-
                 </div>
             </div>}
-
         </div>
     )
 }
 
 const ProductThumbnail = ({ product }: { product: Product }) => {
 
+    const priceTitle = "Precio:"
 
     const displayedCategories = product.categories.slice(0, 3);
 
 
     return (
-        <>
-            <div className='bg-white rounded-lg mt-5 ml-2 h-24 w-11/12 hover:scale-105 ease-in-out duration-200'>
-                <div className='flex'>
-                    <img src={product.img} alt='' className='w-16 h-24 object-cover rounded-lg' />
-                    <div className='flex-col ml-2 mt-3 text-sm'>
-                        <h1 className='font-bold'>
-                            {product.name.length > 25 ? product.name.substring(0, 25) + '...' : product.name}
-                        </h1>
-                        <hr className="bg-customPink h-1 w-48 rounded-lg" />
-                        <h1 className='font-bold mt-1'>Precio: ${product.price}</h1>
-                        <div className='flex justify-normal gap-2 w-52  overflow-x-scroll'>
-                            {displayedCategories.map((category, index) => (
-                                <div key={index}>
-                                    <Tag title={category.title} customComponents={"bg-customRed"} />
-                                </div>
-                            ))}
+        <div className='bg-white rounded-lg mt-5 ml-2 h-24 w-11/12 hover:scale-105 ease-in-out duration-200 flex cursor-pointer'>
+            <img src={product.img} alt='' className='w-16 h-24 object-cover rounded-lg' />
+            <div className='flex-col ml-2 mt-3 text-sm'>
+                <h1 className='font-bold'>
+                    {product.name.length > 25 ? product.name.substring(0, 25) + '...' : product.name}
+                </h1>
+                <hr className="bg-customPink h-1 w-48 rounded-lg" />
+                <h1 className='font-bold mt-1'>{priceTitle} ${product.price}</h1>
+                <div className='flex justify-normal gap-2 w-52  overflow-x-scroll'>
+                    {displayedCategories.map((category, index) => (
+                        <div key={index}>
+                            <Tag title={category.title} customComponents={"bg-customRed"} />
                         </div>
-                    </div>
+                    ))}
                 </div>
             </div>
-        </>
+        </div>
     )
 
 }

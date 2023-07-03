@@ -13,14 +13,14 @@ const EditDeleteSection = ({ selectedProduct }: { selectedProduct: Product }) =>
 
 
     const icons = [
-        { icon: <FaEdit />, action: () => setOpenEdit(true) },
-        { icon: <RiDeleteBin7Line />, action: () => setOpenDelete(true) }
+        { icon: <FaEdit className="2xl:w-11 2xl:h-11 w-8 h-8" />, action: () => setOpenEdit(true) },
+        { icon: <RiDeleteBin7Line className="2xl:w-11 2xl:h-11 w-8 h-8" />, action: () => setOpenDelete(true) }
     ]
 
 
     return (
         <>
-            <div className='absolute flex gap-5 right-10'>
+            <div className='absolute right-5 -top-12 flex gap-5'>
                 {icons.map((comp, index) => (
                     <div
                         key={index}
@@ -63,7 +63,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
     return (
         <>
             <div className={openEdit ? 'bg-black bg-opacity-25 fixed inset-0 z-10' : 'hidden'}></div>
-            <div className={`${openEdit ? 'visible z-10' : '-z-10'} scale-50 fixed pop-in-out z-10 inset-0  flex items-center justify-center transition-all`}>
+            <div className={`${openEdit ? 'visible z-20' : '-z-10'} scale-50 fixed pop-in-out z-10 inset-0  flex items-center justify-center transition-all`}>
                 <div className='bg-customBeige  2xl:w-2/4 w-10/12 rounded-3xl p-4'>
                     <div className="m-5 border-2 border-customPink rounded-3xl">
                         <div >
@@ -75,10 +75,8 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                 </div>
                             </div>
                             <div className='my-3 mx-8'>
-                                {openEdit && <form onSubmit={handleSubmit}>
-
+                                <form onSubmit={handleSubmit}>
                                     <div className='mt-4  w-full'>
-
                                         <div>
                                             <label htmlFor="name" className="block text-lg text-customRed font-bold  2xl:text-2xl  ">Name</label>
                                             <input
@@ -88,9 +86,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                                 name="name"
                                                 placeholder={selectedProduct.name}
                                                 className="border-2 text-lg border-customPink rounded-lg px-4 py-2 w-5/6" />
-
                                         </div>
-
                                         <div className='mt-2'>
                                             <label htmlFor="description" className="block text-lg text-customRed font-bold  2xl:text-2xl">Description</label>
                                             <textarea
@@ -98,9 +94,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                                 name="description"
                                                 placeholder={selectedProduct.description}
                                                 className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-5/6 h-32 resize-none" />
-
                                         </div>
-
                                         <div className='md:flex gap-9 mt-3 '>
                                             <div>
                                                 <label htmlFor="price" className="block text-lg text-customRed font-bold mr-1  2xl:text-2xl">Price</label>
@@ -128,14 +122,12 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
 
                                     </div>
 
-                                </form>}
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </>
 
     )

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import { NavBar } from './Header'
+import { NavBar } from '../NavBar'
 import { Blurhash } from 'react-blurhash'
 import { dummyProducts } from './MockData'
 import { Product } from '../models/product'
 import ProductCatalog from './ProductCatalog'
 import ProductStatistics from './ProductStatistics'
-import RestaurantStatistics from './RestaurantStatistics'
 
 const Dashboard = () => {
 
@@ -33,14 +32,16 @@ const Dashboard = () => {
             <BackgroundImage src={src} imageLoader={imageLoader} />
             <div className="fixed inset-0 scale-100">
                 <NavBar />
-                <div className='flex gap-96'>
-                    <ProductCatalog productList={dummyProducts} handleProductClick={handleProductClick} />
+                <ProductCatalog productList={dummyProducts} handleProductClick={handleProductClick} />
+                <div className='relative w-full h-full'>
                     {selectedProduct ? (
                         <ProductStatistics selectedProduct={selectedProduct} />
                     ) : (
-                        <div>{<RestaurantStatistics allProducts={dummyProducts}/>}</div>
+                        <div/>
                     )}
                 </div>
+
+
             </div>
         </>
     )

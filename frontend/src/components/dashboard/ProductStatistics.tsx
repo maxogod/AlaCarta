@@ -13,6 +13,28 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
     const [customEndDate, setCustomEndDate] = useState<Date>();
 
     return (
+        <div className="absolute right-12 w-[65%] 2xl:w-[75%] h-5/6 mt-20 flex items-center justify-center  rounded-3xl bg-customBeige ml-5 overflow-hidden">
+            <div className='border-2 border-customPink rounded-3xl w-[95%] h-[90%]'>
+                <div className='ml-5 mt-8 text-customRed font-bold'>
+                    <ShowTags selectedProduct={selectedProduct} />
+                    <div className='flex gap-10 relative'>
+                        <h1 className='2xl:text-4xl'>{selectedProduct.name}</h1>
+                        <EditDeleteSection selectedProduct={selectedProduct} />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    )
+}
+
+const OldProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) => {
+    const [filterOption, setFilterOption] = useState<string>();
+    const [customStartDate, setCustomStartDate] = useState<Date>();
+    const [customEndDate, setCustomEndDate] = useState<Date>();
+
+    return (
         <div className="right-1 flex justify-center mt-20 md:right-80 rounded-3xl bg-customBeige ml-5 overflow-hidden">
             <div className="md:w-[95%] m-5 border-2 border-customPink rounded-3xl">
                 <div className="relative top-4">
@@ -20,7 +42,7 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                         {selectedProduct && <ShowTags selectedProduct={selectedProduct} />}
                         <div className="flex font-bold text-3xl w-fit">
                             {selectedProduct.name}
-                            <EditDeleteSection selectedProduct={selectedProduct}/>
+                            <EditDeleteSection selectedProduct={selectedProduct} />
                             <hr className="bg-customPink h-1 mt-1 rounded-lg" />
                         </div>
                         <p className="mt-2">{selectedProduct?.description}</p>
@@ -54,7 +76,7 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
 const ShowTags = ({ selectedProduct }: { selectedProduct: Product }) => {
 
     return (
-        <div className='flex gap-3 mb-1'>
+        <div className='flex gap-3 my-3'>
             {selectedProduct.categories.map((category, index) => (
                 <div key={index}>
                     <Tag title={category.title} customComponents='bg-customRed' />

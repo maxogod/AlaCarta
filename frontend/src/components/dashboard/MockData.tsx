@@ -25,6 +25,69 @@ const dummyProducts: Product[] = [
     sales: []
   },
   {
+    id: "prod1",
+    name: "empanadas de jamon y queso epicos",
+    price: 500,
+    description: "empanadas de jamon y queso, riqui riqui",
+    img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg",
+    categories: [{
+      id: "c-1",
+      title: "Food"
+    }, {
+      id: "c-2",
+      title: "Snacks"
+    },
+    {
+      id: "c-2",
+      title: "Snacks"
+    }
+    ],
+    isAvailable: true,
+    sales: []
+  },
+  {
+    id: "prod1",
+    name: "empanadas de jamon y queso epicos",
+    price: 500,
+    description: "empanadas de jamon y queso, riqui riqui",
+    img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg",
+    categories: [{
+      id: "c-1",
+      title: "Food"
+    }, {
+      id: "c-2",
+      title: "Snacks"
+    },
+    {
+      id: "c-2",
+      title: "Snacks"
+    }
+    ],
+    isAvailable: true,
+    sales: []
+  },
+  {
+    id: "prod1",
+    name: "empanadas de jamon y queso epicos",
+    price: 500,
+    description: "empanadas de jamon y queso, riqui riqui",
+    img: "https://www.cucinare.tv/wp-content/uploads/2021/09/Empanadas-fritas-o-al-horno.jpg",
+    categories: [{
+      id: "c-1",
+      title: "Food"
+    }, {
+      id: "c-2",
+      title: "Snacks"
+    },
+    {
+      id: "c-2",
+      title: "Snacks"
+    }
+    ],
+    isAvailable: true,
+    sales: []
+  },
+  {
     id: "prod2",
     name: "empanadas de carne bro",
     price: 500,

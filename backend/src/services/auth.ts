@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { Types } from "mongoose";
 import { hashPassword, comparePassword } from "../utils/hasher";
 import { getDefaultProductCategories } from "../utils/defaultValues";
 import { employeeCategoryEnum } from "../@types/enums";
@@ -46,12 +46,12 @@ const createUser = async (
 };
 
 const updateUser = async (
-    userId: ObjectId,
+    userId: Types.ObjectId,
     newFields: {
         name?: string;
         email?: string;
         password?: string;
-        newRestaurant?: ObjectId;
+        newRestaurant?: Types.ObjectId;
         newRestaurantName?: string;
         newRestaurantUrl?: string;
         newCategoryEnum?: number;
@@ -66,9 +66,9 @@ const updateUser = async (
     if (newFields.newRestaurant) {
         user.userCategories.push({
             restaurant: newFields.newRestaurant,
-            restaurantName: newFields.newRestaurantName,
-            restaurantUrl: newFields.newRestaurantUrl,
-            categoryEnum: newFields.newCategoryEnum,
+            restaurantName: newFields.newRestaurantName!,
+            restaurantUrl: newFields.newRestaurantUrl!,
+            categoryEnum: newFields.newCategoryEnum!,
         });
     }
     user.save();

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getRestaurantByUrl } from "../services/restaurant";
 import {
     addProductService,
+    deleteProductById,
     getFilteredProducts,
     getProductById,
 } from "../services/products";
@@ -53,6 +54,18 @@ const getProductsController = async (req: Request, res: Response) => {
     return res.status(200).send(products);
 };
 
-const deleteProductController = async (req: Request, res: Response) => {};
+const deleteProductController = async (req: Request, res: Response) => {
+    const { productId } = req.params;
+    if (productId) {
+        try {
+            const result = await deleteProductById(productId);
+            if (!result.acknowledged)
+                return res.status(400).send("Invalid product id");
+            return res.status(200).send(result);
+        } catch (err) {
+            return res.status(500).send("Error deleting product");
+        }
+    }
+};
 
 export { addProductController, getProductsController, deleteProductController };

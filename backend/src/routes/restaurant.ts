@@ -8,8 +8,12 @@ import {
     addProductValidation,
     createMenuValidation,
     deleteProductValidation,
+    deleteRestaurantValidation,
 } from "../middlewares/restaurantValidation";
-import { getRestaurantController } from "../controllers/restaurant";
+import {
+    deleteRestaurantController,
+    getRestaurantController,
+} from "../controllers/restaurant";
 import { createMenuController, getMenuController } from "../controllers/menu";
 
 const router = Router();
@@ -17,7 +21,7 @@ const router = Router();
 // Restaurant
 router.get("/", getRestaurantController);
 
-// router.delete("/", deleteRestaurantValidation, deleteRestaurantController); TODO
+router.delete("/", deleteRestaurantValidation, deleteRestaurantController);
 
 // Menu
 router.post("/createMenu", createMenuValidation, createMenuController);

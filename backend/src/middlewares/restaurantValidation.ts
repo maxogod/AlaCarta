@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { checkUserPermissions } from "../services/restaurantInfoGetters";
-import { deleteProductById } from "../services/products";
+import {
+    checkUserPermissions,
+    restaurantCategoryOfUser,
+} from "../services/restaurantInfoGetters";
+import { employeeCategoryEnum } from "../@types/enums";
 
 const addProductValidation = async (
     req: Request,
@@ -37,18 +40,6 @@ const deleteProductValidation = async (
         req.session.restaurantUrl
     );
     if (!userHasPermissions) return res.status(401).send("Unauthorized");
-
-    const { productId } = req.params;
-    if (productId) {
-        try {
-            const result = await deleteProductById(productId);
-            if (!result.acknowledged)
-                return res.status(400).send("Invalid product id");
-            return res.status(200).send(result);
-        } catch (err) {
-            return res.status(400).send("Invalid product id");
-        }
-    }
     next();
 };
 
@@ -73,4 +64,31 @@ const createMenuValidation = async (
     next();
 };
 
-export { addProductValidation, deleteProductValidation, createMenuValidation };
+const deleteRestaurantValidation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    if (!req.session.user) return res.status(401).send("Unauthorized");
+    if (!req.session.restaurantUrl) {
+        return res.status(400).send("Not in a restaurant");
+    }
+    const [categoryOfUser, restaurantId] = await restaurantCategoryOfUser(
+        req.session.restaurantUrl,
+        req.session.user.email
+    );
+    if (isNaN(categoryOfUser as number)) {
+        return res.status(401).send("Not authorized");
+    }
+    if (categoryOfUser !== employeeCategoryEnum.Owner) {
+        return res.status(401).send("Not authorized");
+    }
+    next();
+};
+
+export {
+    addProductValidation,
+    deleteProductValidation,
+    createMenuValidation,
+    deleteRestaurantValidation,
+};

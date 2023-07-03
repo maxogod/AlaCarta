@@ -1,25 +1,5 @@
 import mongoose from "mongoose";
 
-const UserCategorySchema = new mongoose.Schema({
-    restaurant: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Restaurant",
-        required: true,
-    },
-    restaurantName: {
-        type: mongoose.Schema.Types.String,
-        required: true,
-    },
-    restaurantUrl: {
-        type: mongoose.Schema.Types.String,
-        required: true,
-    },
-    categoryEnum: {
-        type: mongoose.Schema.Types.Number,
-        required: true,
-    },
-});
-
 const UserSchema = new mongoose.Schema(
     {
         name: {
@@ -36,7 +16,27 @@ const UserSchema = new mongoose.Schema(
             required: true,
         },
         userCategories: {
-            type: [UserCategorySchema],
+            type: [
+                {
+                    restaurant: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "Restaurant",
+                        required: true,
+                    },
+                    restaurantName: {
+                        type: mongoose.Schema.Types.String,
+                        required: true,
+                    },
+                    restaurantUrl: {
+                        type: mongoose.Schema.Types.String,
+                        required: true,
+                    },
+                    categoryEnum: {
+                        type: mongoose.Schema.Types.Number,
+                        required: true,
+                    },
+                },
+            ],
             required: true,
         },
     },

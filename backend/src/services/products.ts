@@ -44,6 +44,42 @@ const addProductService = async (props: {
     return newProduct;
 };
 
+const updateProductService = async (props: {
+    name: string;
+    picture: string;
+    description: string;
+    productCategories: string[];
+    price: number;
+    restaurant: RestaurantType;
+    productId: string;
+}) => {
+    const { name, picture, description, productCategories, price, restaurant } =
+        props;
+    const menu = await Menu.findById(restaurant.menu);
+    if (!menu) return null;
+    productCategories?.forEach(async (category) => {
+        const categoryExists = await ProductCategory.findOne({
+            name: category,
+        });
+        if (!categoryExists) {
+            const newCategory = new ProductCategory({ name: category });
+            await newCategory.save();
+            restaurant.productCategories.push(newCategory.name);
+            await restaurant.save();
+        }
+    });
+    const objectId = new Types.ObjectId(props.productId);
+    const product = await Product.findById(objectId);
+    if (!product) return null;
+    if (name) product.name = name;
+    if (picture) product.picture = picture;
+    if (description) product.description = description;
+    if (productCategories) product.productCategories = productCategories;
+    if (price) product.price = price;
+    await product.save();
+    return product;
+};
+
 const getFilteredProducts = async (
     category: string,
     firstKPopular: number,
@@ -92,6 +128,7 @@ const deleteProductById = async (productId: string) => {
 
 export {
     addProductService,
+    updateProductService,
     getFilteredProducts,
     getProductById,
     deleteProductById,

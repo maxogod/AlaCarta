@@ -3,10 +3,11 @@ import {
     addProductController,
     deleteProductController,
     getProductsController,
+    updateProductController,
 } from "../controllers/products";
 import {
-    addProductValidation,
-    createMenuValidation,
+    addOrUpdateProductValidation,
+    createOrUpdateMenuValidation,
     deleteProductValidation,
     deleteRestaurantValidation,
 } from "../middlewares/restaurantValidation";
@@ -14,7 +15,11 @@ import {
     deleteRestaurantController,
     getRestaurantController,
 } from "../controllers/restaurant";
-import { createMenuController, getMenuController } from "../controllers/menu";
+import {
+    createMenuController,
+    getMenuController,
+    updateMenuController,
+} from "../controllers/menu";
 
 const router = Router();
 
@@ -24,16 +29,24 @@ router.get("/", getRestaurantController);
 router.delete("/", deleteRestaurantValidation, deleteRestaurantController);
 
 // Menu
-router.post("/createMenu", createMenuValidation, createMenuController);
+router.post("/menu", createOrUpdateMenuValidation, createMenuController);
+
+router.put("/menu", createOrUpdateMenuValidation, updateMenuController);
 
 router.get("/menu", getMenuController);
 
 // Products
-router.post("/addProduct", addProductValidation, addProductController);
+router.post("/products", addOrUpdateProductValidation, addProductController);
 
 router.get("/products", getProductsController);
 
 router.get("/products/:productId", getProductsController);
+
+router.put(
+    "/products/:productId",
+    addOrUpdateProductValidation,
+    updateProductController
+);
 
 router.delete(
     "/products/:productId",

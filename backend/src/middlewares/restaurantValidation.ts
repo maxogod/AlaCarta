@@ -5,7 +5,7 @@ import {
 } from "../services/restaurantInfoGetters";
 import { employeeCategoryEnum } from "../@types/enums";
 
-const addProductValidation = async (
+const addOrUpdateProductValidation = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -19,9 +19,9 @@ const addProductValidation = async (
         req.session.restaurantUrl
     );
     if (!userHasPermissions) return res.status(401).send("Unauthorized");
-    const { name, picture, description, price } = req.body;
-    if (!name || !picture || !description || !price) {
-        return res.status(400).send("Missing fields");
+    const { productCategories } = req.body;
+    if (productCategories && productCategories.length > 3) {
+        return res.status(400).send("Too many categories");
     }
     next();
 };
@@ -43,7 +43,7 @@ const deleteProductValidation = async (
     next();
 };
 
-const createMenuValidation = async (
+const createOrUpdateMenuValidation = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -57,10 +57,6 @@ const createMenuValidation = async (
         req.session.restaurantUrl
     );
     if (!userHasPermissions) return res.status(401).send("Unauthorized");
-    const { banner, color } = req.body;
-    if (!banner || !color) {
-        return res.status(400).send("Missing fields");
-    }
     next();
 };
 
@@ -87,8 +83,8 @@ const deleteRestaurantValidation = async (
 };
 
 export {
-    addProductValidation,
+    addOrUpdateProductValidation,
     deleteProductValidation,
-    createMenuValidation,
+    createOrUpdateMenuValidation,
     deleteRestaurantValidation,
 };

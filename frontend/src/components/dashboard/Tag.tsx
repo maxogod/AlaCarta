@@ -1,3 +1,5 @@
+import { ImCancelCircle } from 'react-icons/im'
+
 const Tag = ({ title, customComponents }: { title: string, customComponents: string }) => {
 
 
@@ -16,4 +18,28 @@ const Tag = ({ title, customComponents }: { title: string, customComponents: str
     )
 }
 
-export default Tag;
+const EditTag = ({ title, customComponents }: { title: string, customComponents: string }) => {
+
+
+    return (
+        <div className={` flex gap-2  w-fit px-3 py-1 text-lg rounded-full text-left ${customComponents} text-white `}>
+            {title.length > 50 ? (
+                <div className='text-left'>
+                    {title.slice(0, title.length / 2)}
+                    <br />
+                    {title.slice(title.length / 2)}
+                </div>
+            ) : (
+                title
+            )}
+            <div className='mt-1.5'>
+            <div className='ml-3 scale-125 hover:scale-150 transition-transform cursor-pointer'>
+                {<ImCancelCircle />}
+            </div>
+            </div>
+
+        </div>
+    )
+}
+
+export { EditTag, Tag };

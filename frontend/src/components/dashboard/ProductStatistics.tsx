@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Product } from '../models/product'
-import Tag from './Tag'
-import  { FilterOptions, RangeDatePicker } from './FilterOptions'
+import { Tag } from './Tag'
+import { FilterOptions, RangeDatePicker } from './FilterOptions'
 import ProductImage from './ProductImage'
 import ProductChart from './ProductChart'
 import PieChartStatistics from './PieChartStatistics'
+import EditDeleteSection from './EditDeleteSection';
 
 const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) => {
     const [filterOption, setFilterOption] = useState<string>();
@@ -17,8 +18,9 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                 <div className="relative top-4">
                     <div className="ml-3 text-customRed font-bold">
                         {selectedProduct && <ShowTags selectedProduct={selectedProduct} />}
-                        <div className="font-bold text-3xl w-fit">
+                        <div className="flex font-bold text-3xl w-fit">
                             {selectedProduct.name}
+                            <EditDeleteSection selectedProduct={selectedProduct}/>
                             <hr className="bg-customPink h-1 mt-1 rounded-lg" />
                         </div>
                         <p className="mt-2">{selectedProduct?.description}</p>

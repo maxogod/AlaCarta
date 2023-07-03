@@ -1,6 +1,6 @@
-import { Category } from '../models/category'
+
 import { Product } from '../models/product'
-import { Record } from '../models/record'
+
 
 const dummyProducts: Product[] = [
   {
@@ -13,6 +13,10 @@ const dummyProducts: Product[] = [
       id: "c-1",
       title: "Food"
     }, {
+      id: "c-2",
+      title: "Snacks"
+    },
+    {
       id: "c-2",
       title: "Snacks"
     }

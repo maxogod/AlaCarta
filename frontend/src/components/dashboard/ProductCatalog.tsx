@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Product } from '../models/product'
-import Tag from './Tag'
+import { Tag } from './Tag'
 
 
 const ProductCatalog = ({ productList, handleProductClick }: { productList: Product[], handleProductClick: (product: Product | null) => void }) => {
@@ -64,7 +64,7 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
                 {filterBy ? filterBy : 'Buscar por categoria'}
             </button>
 
-            {isOpen && <div className='overflow-y-auto scroll- absolute z-10 my-1 w-full h-44 bg-customRed opacity-95 mt-2 rounded-3xl font-bold text-white text-lg transition-all'>
+            {isOpen && <div className='overflow-y-auto absolute z-10 my-1 w-full h-44 bg-customRed opacity-95 mt-2 rounded-3xl font-bold text-white text-lg transition-all'>
                 <div className='flex flex-col text-center justify-center'>
                     <div onClick={() => showAllProdcuts()} className='my-2 mx-3 hover:bg-customDarkRed rounded-3xl transition-all'>
                         {allProductos}

@@ -35,4 +35,19 @@ const deleteRestaurantService = async (restaurantUrl: string) => {
     return { menuDeleteResult, productsDeleteResult, restaurantDeleteResult };
 };
 
-export { getRestaurantByUrl, deleteRestaurantService };
+const updateRestaurantService = async (
+    restaurantUrl: string,
+    name: string,
+    urlSuffix: string,
+    paymentInfo: string
+) => {
+    const restaurant = await Restaurant.findOne({ urlSuffix: restaurantUrl });
+    if (!restaurant) return null;
+    if (name) restaurant.name = name;
+    if (urlSuffix) restaurant.urlSuffix = urlSuffix;
+    if (paymentInfo) restaurant.paymentInfo = paymentInfo;
+    await restaurant.save();
+    return restaurant;
+};
+
+export { getRestaurantByUrl, deleteRestaurantService, updateRestaurantService };

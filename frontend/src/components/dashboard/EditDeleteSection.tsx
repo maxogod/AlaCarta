@@ -66,7 +66,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
             <div className={openEdit ? 'bg-black bg-opacity-25 fixed inset-0 z-10' : 'hidden'}></div>
             <div className={`${openEdit ? 'visible z-20' : 'h-0 w-0'} fixed pop-in-out inset-0  flex items-center justify-center transition-all`}>
                 {openEdit && <>
-                    <div className='bg-customBeige  2xl:w-3/4 w-11/12 rounded-3xl p-4'>
+                    <div className='bg-customBeige  2xl:w-3/4 w-11/12 p-5 rounded-3xl'>
                         <div className="m-5 border-2 border-customPink rounded-3xl">
                             <div className='relative flex'>
                                 <div className='mt-8 mx-8 2xl:text-2xl text-lg'>
@@ -75,62 +75,60 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                     <AiFillCloseCircle className='absolute top-6  right-5 cursor-pointer h-12 w-12 hover:scale-125 transition-all' onClick={() => setOpenEdit(false)} />
                                 </div>
                             </div>
-                            <div className='my-3 mx-8'>
-                                <form onSubmit={handleSubmit}>
-                                    <div className='mt-4  w-full'>
-                                        <div>
-                                            <label htmlFor="name" className="block text-lg text-customRed font-bold  2xl:text-2xl  ">{name}</label>
+                            <form onSubmit={handleSubmit} className='my-3 mx-8'>
+                                <div className='mt-4  w-full'>
+                                    <div>
+                                        <label htmlFor="name" className="block text-lg text-customRed font-bold  2xl:text-2xl  ">{name}</label>
+                                        <input
+                                            onChange={handleChange}
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            placeholder={selectedProduct.name}
+                                            className="border-2 text-lg border-customPink rounded-lg px-4 py-2 w-5/6" />
+                                    </div>
+                                    <div className='mt-2'>
+                                        <label htmlFor="description" className="block text-lg text-customRed font-bold  2xl:text-2xl">{description}</label>
+                                        <textarea
+                                            id="description"
+                                            name="description"
+                                            placeholder={selectedProduct.description}
+                                            className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-5/6 h-32 resize-none" />
+                                    </div>
+                                    <div className='md:flex gap-6 mt-3 '>
+                                        <div className='mt-2'>
+                                            <label htmlFor="price" className="block text-lg text-customRed font-bold mr-1  2xl:text-2xl">{price}</label>
+                                            <input
+                                                type="number"
+                                                id="price"
+                                                name="price"
+                                                placeholder={`${selectedProduct.price}`}
+                                                className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-28" />
+                                        </div>
+                                        <div className='mt-2'>
+                                            <label htmlFor="name" className="block text-lg text-customRed font-bold  2xl:text-2xl  ">{changeImage}</label>
                                             <input
                                                 onChange={handleChange}
                                                 type="text"
                                                 id="name"
                                                 name="name"
-                                                placeholder={selectedProduct.name}
-                                                className="border-2 text-lg border-customPink rounded-lg px-4 py-2 w-5/6" />
+                                                placeholder={selectedProduct.img}
+                                                className="border-2 text-lg border-customPink rounded-lg px-4 py-2 w-11/12" />
                                         </div>
-                                        <div className='mt-2'>
-                                            <label htmlFor="description" className="block text-lg text-customRed font-bold  2xl:text-2xl">{description}</label>
-                                            <textarea
-                                                id="description"
-                                                name="description"
-                                                placeholder={selectedProduct.description}
-                                                className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-5/6 h-32 resize-none" />
-                                        </div>
-                                        <div className='md:flex gap-9 mt-3 '>
-                                            <div>
-                                                <label htmlFor="price" className="block text-lg text-customRed font-bold mr-1  2xl:text-2xl">{price}</label>
-                                                <input
-                                                    type="number"
-                                                    id="price"
-                                                    name="price"
-                                                    placeholder={`${selectedProduct.price}`}
-                                                    className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-28" />
-                                            </div>
-                                            <ShowCategories selectedProduct={selectedProduct} />
-                                            <div>
-                                                <label htmlFor="name" className="block text-lg text-customRed font-bold  2xl:text-2xl  ">{changeImage}</label>
-                                                <input
-                                                    onChange={handleChange}
-                                                    type="text"
-                                                    id="name"
-                                                    name="name"
-                                                    placeholder={selectedProduct.img}
-                                                    className="border-2 text-lg border-customPink rounded-lg px-4 py-2 w-11/12" />
-                                            </div>
-                                        </div>
-                                        <div className='flex gap-14 items-center'>
-                                            <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>
-                                            <div className='flex gap-3 mt-5'>
-                                                <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"><Tag title='En Stock' customComponents='bg-customDarkRed scale-125' /></span>
-                                                <label className="relative inline-flex items-center cursor-pointer">
-                                                    <input type="checkbox" value="" className="sr-only peer" />
-                                                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-customPink dark:peer-focus:ring-customOrange rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-customRed"></div>
-                                                </label>
-                                            </div>
+                                        <ShowCategories selectedProduct={selectedProduct} />
+                                    </div>
+                                    <div className='flex gap-14 items-center'>
+                                        <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>
+                                        <div className='flex gap-3 mt-5'>
+                                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"><Tag title='En Stock' customComponents='bg-customDarkRed scale-125' /></span>
+                                            <label className="relative inline-flex items-center cursor-pointer">
+                                                <input type="checkbox" value="" className="sr-only peer" />
+                                                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-customPink dark:peer-focus:ring-customOrange rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-customRed"></div>
+                                            </label>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </>}
@@ -168,16 +166,17 @@ const DeletePopUp = ({ openDelete, setOpenDelete, selectedProduct }: { openDelet
 const ShowCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
 
     return (
-        <div className="relative mt-5">
-            <div
-                className=" mt-2  rounded-full flex justify-center gap-1 w-fit py-2 transition-all">
-                {selectedProduct.categories.map((category, index) => (
-                    <div key={index}>
-                        <EditTag title={category.title} customComponents='bg-customRed' />
-                    </div>
-                ))}
-                <div className='ml-7'>
+        <div className="relative">
+            <div className="rounded-full flex flex-col justify-center gap-1 w-fit py-2 transition-all">
+                <div className=''>
                     <AddCategories selectedProduct={selectedProduct} />
+                </div>
+                <div className='flex gap-2'>
+                    {selectedProduct.categories.map((category, index) => (
+                        <div key={index}>
+                            <EditTag title={category.title} customComponents='bg-customRed' />
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
@@ -200,14 +199,13 @@ const AddCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
     return (
         <>
             <button className={`
-            ${maxCategories ? 'bg-gray-400 pointer-events-none' : 'bg-customRed hover:bg-customDarkRed hover:scale-125 transition-all'}
+            ${maxCategories ? 'bg-gray-400 pointer-events-none' : 'bg-customDarkRed hover:scale-125 transition-all'}
             w-fit 
             h-fit 
             py-1 
             px-2 
             cursor-pointer 
-            bg-customRed 
-            hover:bg-customDarkRed hover:scale-125 transition-all
+            hover:scale-125 transition-all
             rounded-full 
             flex justify-center text-center gap-1 
             text-white text-lg font-bold`}
@@ -220,7 +218,7 @@ const AddCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
                 </div>
             </button>
             <div className='relative'>
-                {isOpen && <div className='overflow-y-auto scroll-m-1 z-10 absolute my-1 w-full h-20 bg-customRed bg-opacity-80 mt-2 rounded-3xl font-bold text-white text-lg transition-all'>
+                {isOpen && <div className='overflow-y-auto scroll-m-1 z-10 absolute my-1 w-full h-28 bg-customRed bg-opacity-80 mt-2 rounded-3xl font-bold text-white text-lg transition-all'>
                     <div className='flex flex-col text-center justify-center'>
                         {categories.map((category, index) => (
                             <div className='my-1 mx-3 hover:bg-customDarkRed rounded-3xl transition-all' key={index}>

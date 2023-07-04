@@ -5,6 +5,7 @@ import { dummyProducts } from './MockData'
 import { Product } from '../models/product'
 import ProductCatalog from './ProductCatalog'
 import ProductStatistics from './ProductStatistics'
+import RestaurantStatistics from './RestaurantStatistics'
 
 const Dashboard = () => {
 
@@ -37,7 +38,7 @@ const Dashboard = () => {
                     {selectedProduct ? (
                         <ProductStatistics selectedProduct={selectedProduct} />
                     ) : (
-                        <div/>
+                        <RestaurantStatistics allProducts={dummyProducts} />
                     )}
                 </div>
 

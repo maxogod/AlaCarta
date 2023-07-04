@@ -16,7 +16,7 @@ const FilterOptions = ({ setFilterOption }: { setFilterOption: React.Dispatch<Re
     }
 
     return (
-        <div className="ml-4 flex flex-col 2xl:gap-2 gap-1 items-stretch justify-center ">
+        <div className="ml-4 flex flex-col 2xl:gap-2 gap-1  justify-center ">
             {FilterOptions.map((option, index) => (
                 <div key={index} className="cursor-pointer hover:scale-125 transition-all">
                     <div

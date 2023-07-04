@@ -6,15 +6,26 @@ interface UserType extends Document {
     email: string;
     password: string;
     name: string;
-    userCategories: Types.DocumentArray<{
-        restaurant: Types.ObjectId;
-        categoryEnum: number;
-    }>;
+    userCategories: UserCategoriesType[];
 }
 
-interface UserCategoriesType extends Document {
+interface UserCategoriesType {
     restaurant: Types.ObjectId;
+    restaurantName: string;
+    restaurantUrl: string;
     categoryEnum: number;
 }
 
-export { UserType, UserCategoriesType };
+interface RestaurantType extends Document {
+    createdAt: Date;
+    updatedAt: Date;
+    name: string;
+    productCategories: string[];
+    urlSuffix: string;
+    paymentInfo: string;
+    employees: Types.ObjectId[];
+    orders: Types.ObjectId[];
+    menu?: Types.ObjectId | undefined;
+}
+
+export { UserType, UserCategoriesType, RestaurantType };

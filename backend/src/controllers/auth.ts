@@ -49,10 +49,14 @@ const registerController = async (req: Request, res: Response) => {
         restaurantUrl,
         parseInt(categoryEnum)
     );
-    if (!newUser) return res.status(409).send("User already exists");
+    if (!newUser)
+        return res
+            .status(409)
+            .send("User already exists or restaurant doesnt exist");
     req.session.user = newUser;
     res.status(201).send(newUser);
 };
+// TODO - Registration shouldnt include password, the employee should set it instead
 
 const registerRestaurantController = async (req: Request, res: Response) => {
     const {

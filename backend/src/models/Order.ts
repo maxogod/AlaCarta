@@ -7,6 +7,10 @@ const OrderSchema = new mongoose.Schema(
             ref: "Product",
             required: true,
         },
+        table: {
+            type: mongoose.Schema.Types.String,
+            required: true,
+        },
         status: {
             type: mongoose.Schema.Types.Boolean,
             required: true,

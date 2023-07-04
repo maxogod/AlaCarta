@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const MenuSchema = new mongoose.Schema(
     {
+        restaurant: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Restaurant",
+            required: true,
+        },
         banner: {
             type: mongoose.Schema.Types.String,
             required: true,

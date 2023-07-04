@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NavBar } from '../NavBar'
+import { NavBar } from '../shared/NavBar'
 import { Blurhash } from 'react-blurhash'
 import { dummyProducts } from './MockData'
 import { Product } from '../models/product'

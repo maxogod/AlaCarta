@@ -49,11 +49,15 @@ const registerValidation = async (
         restaurantUrl,
         req.session.user.email
     );
-    if (isNaN(categoryOfUser as number))
+    if (isNaN(categoryOfUser as number)) {
         return res.status(401).send("Not authorized");
+    }
     if (
-        category <= employeeCategoryEnum.Manager &&
-        categoryOfUser !== employeeCategoryEnum.Owner
+        (category <= employeeCategoryEnum.Manager &&
+            (categoryOfUser as number) !== employeeCategoryEnum.Owner) ||
+        (category === employeeCategoryEnum.Employee &&
+            (categoryOfUser as number) > employeeCategoryEnum.Manager) ||
+        (categoryOfUser as number) === employeeCategoryEnum.Employee
     ) {
         return res.status(401).send("Not authorized");
     }

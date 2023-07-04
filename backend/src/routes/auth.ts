@@ -10,7 +10,7 @@ import {
     loginValidation,
     registerValidation,
     registerRestaurantValidation,
-} from "../middlewares/validation";
+} from "../middlewares/authValidation";
 
 const router = Router();
 

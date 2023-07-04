@@ -3,8 +3,10 @@ import { RiDeleteBin7Line } from 'react-icons/ri';
 import { FaEdit } from 'react-icons/fa';
 import { AiFillCloseCircle } from 'react-icons/Ai';
 import { BiSolidAddToQueue } from 'react-icons/bi'
+import { BiSolidMessageSquareAdd } from 'react-icons/bi';
 import { Product } from '../models/product';
 import { EditTag, Tag } from './Tag';
+import { Category } from '../models/category';
 
 const EditDeleteSection = ({ selectedProduct }: { selectedProduct: Product }) => {
 
@@ -34,9 +36,129 @@ const EditDeleteSection = ({ selectedProduct }: { selectedProduct: Product }) =>
     )
 }
 
-const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boolean; setOpenEdit: (open: boolean) => void, selectedProduct: Product }) => {
+const AddProducts = () => {
 
-    const name = "Name"
+    const [isOpen, setIsOpen] = useState(false);
+
+
+    return (
+        <>
+            <div className='absolute right-5 -top-3 flex gap-5 hover:scale-150 transition-all cursor-pointer' onClick={() => setIsOpen(true)}>
+                <BiSolidMessageSquareAdd className="2xl:w-11 2xl:h-11 w-8 h-8" />
+            </div>
+            <AddPopUp openAdd={isOpen} setOpenAdd={setIsOpen} />
+        </>
+    )
+}
+
+
+const AddPopUp = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open: boolean) => void }) => {
+
+    const title = "¡Agregando un producto nuevo!"
+    const name = "Nombre"
+    const description = "Descripcion"
+    const price = "Precio"
+    const addImage = "Agregar Imagen"
+    const saveChanges = "Guardar Cambios"
+    const namePlaceHolder = "Igrese aqui el nombre del producto"
+    const descriptionPlaceHolder = "Ingrese una descripcion"
+    const pricePlaceHolder = "$1.000"
+    const addImagePlaceHolder = "Ingrese la URL de una Imagen"
+
+    const [productInfo, setproductInfo] = useState({
+        name: "",
+        description: "",
+        price: "",
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setproductInfo({ ...productInfo, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log("New product:");
+        setOpenAdd(false);
+    };
+
+
+    return (
+        <>
+            <div className={openAdd ? 'bg-black bg-opacity-25 fixed inset-0 z-10' : 'hidden'}></div>
+            <div className={`${openAdd ? 'visible z-20' : 'h-0 w-0'} fixed pop-in-out inset-0  flex items-center justify-center transition-all`}>
+                {openAdd && <>
+                    <div className='bg-customBeige  2xl:w-3/4 w-11/12 p-5 rounded-3xl'>
+                        <div className="m-5 border-2 border-customPink rounded-3xl">
+                            <div className='relative flex'>
+                                <div className='mt-8 mx-8 2xl:text-2xl text-lg'>
+                                    {title}
+                                    <hr className="mt-1 border-2 rounded-full border-customPink" />
+                                    <AiFillCloseCircle className='absolute top-6  right-5 cursor-pointer h-12 w-12 hover:scale-125 transition-all' onClick={() => setOpenAdd(false)} />
+                                </div>
+                            </div>
+                            <form onSubmit={handleSubmit} className='my-3 mx-8'>
+                                <div className='mt-4  w-full'>
+                                    <div>
+                                        <label htmlFor="name" className="block text-lg text-customRed font-bold  2xl:text-2xl  ">{name}</label>
+                                        <input
+                                            required
+                                            onChange={handleChange}
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            placeholder={namePlaceHolder}
+                                            className="border-2 text-lg border-customPink rounded-lg px-4 py-2 w-5/6" />
+                                    </div>
+                                    <div className='mt-2'>
+                                        <label htmlFor="description" className="block text-lg text-customRed font-bold  2xl:text-2xl">{description}</label>
+                                        <textarea
+                                            required
+                                            id="description"
+                                            name="description"
+                                            placeholder={descriptionPlaceHolder}
+                                            className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-5/6 h-32 resize-none" />
+                                    </div>
+                                    <div className='md:flex gap-6 mt-3 '>
+                                        <div className='mt-2'>
+                                            <label htmlFor="price" className="block text-lg text-customRed font-bold mr-1  2xl:text-2xl">{price}</label>
+                                            <input
+                                                required
+                                                type="number"
+                                                id="price"
+                                                name="price"
+                                                placeholder={pricePlaceHolder}
+                                                className="border-2 border-customPink rounded-lg text-sm px-4 py-2 w-28" />
+                                        </div>
+                                        <div className='mt-2'>
+                                            <label htmlFor="name" className="block text-lg text-customRed font-bold  2xl:text-2xl  ">{addImage}</label>
+                                            <input
+                                                required
+                                                onChange={handleChange}
+                                                type="text"
+                                                id="name"
+                                                name="name"
+                                                placeholder={addImagePlaceHolder}
+                                                className="border-2  border-customPink rounded-lg px-4 py-2 text-sm w-80" />
+                                        </div>
+                                        <AddCategories/>
+                                    </div>
+                                    <div className='flex gap-14 items-center'>
+                                        <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </>}
+            </div>
+        </>
+    );
+};
+
+
+const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boolean, setOpenEdit: (open: boolean) => void, selectedProduct: Product }) => {
+
+    const name = "Nombre"
     const description = "Descripcion"
     const price = "Precio"
     const saveChanges = "Guardar Cambios"
@@ -103,7 +225,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                                 id="price"
                                                 name="price"
                                                 placeholder={`${selectedProduct.price}`}
-                                                className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-28" />
+                                                className="border-2 border-customPink rounded-lg text-sm px-4 py-2 w-28" />
                                         </div>
                                         <div className='mt-2'>
                                             <label htmlFor="name" className="block text-lg text-customRed font-bold  2xl:text-2xl  ">{changeImage}</label>
@@ -113,9 +235,9 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                                 id="name"
                                                 name="name"
                                                 placeholder={selectedProduct.img}
-                                                className="border-2 text-lg border-customPink rounded-lg px-4 py-2 w-11/12" />
+                                                className="border-2 text-sm border-customPink rounded-lg px-4 py-2 w-11/12" />
                                         </div>
-                                        <ShowCategories selectedProduct={selectedProduct} />
+                                        <EditCategories selectedProduct={selectedProduct} />
                                     </div>
                                     <div className='flex gap-14 items-center'>
                                         <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>
@@ -163,13 +285,13 @@ const DeletePopUp = ({ openDelete, setOpenDelete, selectedProduct }: { openDelet
     )
 }
 
-const ShowCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
+const EditCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
 
     return (
         <div className="relative">
-            <div className="rounded-full flex flex-col justify-center gap-1 w-fit py-2 transition-all">
+            <div className="flex flex-col justify-center items-center gap-1 w-fit py-2 transition-all">
                 <div className=''>
-                    <AddCategories selectedProduct={selectedProduct} />
+                    <AddCategoriesDropDown selectedCategories={selectedProduct.categories} />
                 </div>
                 <div className='flex gap-2'>
                     {selectedProduct.categories.map((category, index) => (
@@ -183,18 +305,39 @@ const ShowCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
     )
 }
 
-const AddCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
+const AddCategories = () => {
+
+    const [selectedCategories, setSelectedCategories] = useState<Category[]>([])
+
+    return (
+        <div className="relative">
+            <div className="flex flex-col justify-center items-center gap-1 w-fit py-2 transition-all">
+                <div className=''>
+                    <AddCategoriesDropDown selectedCategories={selectedCategories} />
+                </div>
+                <div className='flex gap-2'>
+                    {selectedCategories.map((category, index) => (
+                        <div key={index}>
+                            <EditTag title={category.title} customComponents='bg-customRed' />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const AddCategoriesDropDown = ({ selectedCategories }: { selectedCategories: Category[] }) => {
 
     const addCategories = "Agregar Categorias"
 
-    const maxCategories = selectedProduct.categories.length === 3
+    const maxCategories = selectedCategories.length === 3
 
     const [isOpen, setIsOpen] = useState(false);
 
     const categories = [
-        "snacks", "empanadas", "pizza", "snacks", "empanadas", "pizza", "snacks", "empanadas", "pizza", "snacks", "empanadas", "pizza", "snacks", "empanadas", "pizza", "snacks", "empanadas", "pizza",
+        "snacks", "empanadas", "pizza"
     ]
-
 
     return (
         <>
@@ -219,9 +362,9 @@ const AddCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
             </button>
             <div className='relative'>
                 {isOpen && <div className='overflow-y-auto scroll-m-1 z-10 absolute my-1 w-full h-28 bg-customRed bg-opacity-80 mt-2 rounded-3xl font-bold text-white text-lg transition-all'>
-                    <div className='flex flex-col text-center justify-center'>
+                    <div className='flex flex-col text-center items-center justify-center'>
                         {categories.map((category, index) => (
-                            <div className='my-1 mx-3 hover:bg-customDarkRed rounded-3xl transition-all' key={index}>
+                            <div className='my-1 mx-3 hover:bg-customDarkRed rounded-3xl w-10/12 transition-all' key={index}>
                                 {category}
                             </div>
                         ))}
@@ -233,4 +376,4 @@ const AddCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
     )
 }
 
-export default EditDeleteSection;
+export { EditDeleteSection, AddProducts };

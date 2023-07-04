@@ -5,7 +5,7 @@ import { FilterOptions, RangeDatePicker } from './FilterOptions'
 import ProductImage from './ProductImage'
 import ProductChart from './ProductChart'
 import PieChartStatistics from './PieChartStatistics'
-import EditDeleteSection from './EditDeleteSection';
+import { EditDeleteSection } from './CrudElements';
 
 const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) => {
     const [filterOption, setFilterOption] = useState<string>();

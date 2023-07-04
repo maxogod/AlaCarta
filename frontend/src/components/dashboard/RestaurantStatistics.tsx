@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Product } from '../models/product';
 import ProductChart from './ProductChart';
 import {FilterOptions, RangeDatePicker} from './FilterOptions';
+import { AddProducts } from './CrudElements';
 import PieChartStatistics from './PieChartStatistics';
 
 const RestaurantStatistics = ({allProducts} : {allProducts: Product[]}) =>{
@@ -20,6 +21,7 @@ const RestaurantStatistics = ({allProducts} : {allProducts: Product[]}) =>{
                 <div className='ml-5 mt-8 text-customRed font-bold'>
                     <div className='flex gap-10 relative'>
                         <h1 className='2xl:text-4xl text-lg'>{restaurantName}</h1>
+                        <AddProducts/>
                     </div>
                 </div>
                 <ProductChart

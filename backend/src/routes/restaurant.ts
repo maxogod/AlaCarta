@@ -26,6 +26,8 @@ const router = Router();
 // Restaurant
 router.get("/", getRestaurantController);
 
+// router.put("/", updateRestaurantValidation, updateRestaurantController);
+
 router.delete("/", deleteRestaurantValidation, deleteRestaurantController);
 
 // Menu

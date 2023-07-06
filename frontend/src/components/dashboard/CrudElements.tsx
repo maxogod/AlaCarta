@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RiDeleteBin7Line } from 'react-icons/ri';
 import { FaEdit } from 'react-icons/fa';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { BiSolidAddToQueue } from 'react-icons/bi'
 import { BiSolidMessageSquareAdd } from 'react-icons/bi';
-import { Product } from '../../@types/product'; 
+import { Product } from '../../@types/product';
 import { EditTag, Tag } from './Tag';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -142,7 +142,7 @@ const AddPopUp = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open
                                                 placeholder={addImagePlaceHolder}
                                                 className="border-2  border-customPink rounded-lg px-4 py-2 text-sm w-80" />
                                         </div>
-                                        <AddCategories/>
+                                        <AddCategories />
                                     </div>
                                     <div className='flex gap-14 items-center'>
                                         <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>
@@ -165,12 +165,17 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
     const price = "Precio"
     const saveChanges = "Guardar Cambios"
     const changeImage = "Cambiar Imagen"
+    const inStock = "En Stock"
 
-    const [productInfo, setproductInfo] = useState({
-        name: "",
-        description: "",
-        price: "",
-    });
+    const [productInfo, setproductInfo] = useState<Product>(selectedProduct); // i set the current product so if i leave any camps as empty, it wont be modified
+    const [currentCategories, setCurrentCategories] = useState<string[]>(selectedProduct.productCategories);
+
+    useEffect(() => {
+        if (!openEdit){
+            setCurrentCategories(selectedProduct.productCategories)
+        }
+    }, [openEdit]);
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setproductInfo({ ...productInfo, [e.target.name]: e.target.value })
@@ -239,12 +244,12 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                                 placeholder={selectedProduct.picture}
                                                 className="border-2 text-sm border-customPink rounded-lg px-4 py-2 w-11/12" />
                                         </div>
-                                        <EditCategories selectedProduct={selectedProduct} />
+                                        <EditCategories selectedCategories={currentCategories} setSelectedCategories={setCurrentCategories} />
                                     </div>
                                     <div className='flex gap-14 items-center'>
                                         <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>
                                         <div className='flex gap-3 mt-5'>
-                                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"><Tag title='En Stock' customComponents='bg-customDarkRed scale-125' /></span>
+                                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"><Tag title={inStock} customComponents='bg-customDarkRed scale-125' /></span>
                                             <label className="relative inline-flex items-center cursor-pointer">
                                                 <input type="checkbox" value="" className="sr-only peer" />
                                                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-customPink dark:peer-focus:ring-customOrange rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-customRed"></div>
@@ -287,26 +292,6 @@ const DeletePopUp = ({ openDelete, setOpenDelete, selectedProduct }: { openDelet
     )
 }
 
-const EditCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
-
-    return (
-        <div className="relative">
-            <div className="flex flex-col justify-center items-center gap-1 w-fit py-2 transition-all">
-                <div className=''>
-                    <AddCategoriesDropDown selectedCategories={selectedProduct.productCategories} />
-                </div>
-                <div className='flex gap-2'>
-                    {selectedProduct.productCategories.map((category, index) => (
-                        <div key={index}>
-                            <EditTag title={category} customComponents='bg-customRed' />
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    )
-}
-
 const AddCategories = () => {
 
     const [selectedCategories, setSelectedCategories] = useState<string[]>([])
@@ -329,15 +314,50 @@ const AddCategories = () => {
     )
 }
 
-const AddCategoriesDropDown = ({ selectedCategories }: { selectedCategories: string[] }) => {
+const EditCategories = ({ selectedCategories, setSelectedCategories }: { selectedCategories: string[], setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>> }) => {
+
+    const removeFromCategories = ({ category }: { category: string }) => {
+        const updatedCategories = selectedCategories.filter((cat) => cat !== category);
+        setSelectedCategories(updatedCategories);
+      }
+
+    return (
+        <div className="relative">
+            <div className="flex flex-col justify-center items-center gap-1 w-fit py-2 transition-all">
+                <div className=''>
+                    <AddCategoriesDropDown selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
+                </div>
+                <div className='flex gap-2'>
+                    {selectedCategories.map((category, index) => (
+                        <div key={index}>
+                            <EditTag title={category} customComponents='bg-customRed' onCancelClick={() => removeFromCategories({ category })} />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const AddCategoriesDropDown = ({ selectedCategories, setSelectedCategories }: { selectedCategories: string[], setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>> }) => {
 
     const addCategories = "Agregar Categorias"
 
-    const maxCategories = selectedCategories.length === 3
+    const maxCategories = selectedCategories.length >= 3
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const categories = useSelector((state: RootState) => state.currentRestaurant.restaurant)?.productCategories
+    const allCategories = useSelector((state: RootState) => state.currentRestaurant.restaurant)?.productCategories
+
+    const addToCategories = ({ category }: { category: string }) => {
+        if (!selectedCategories.includes(category)) {
+            const updatedCategories = [...selectedCategories, category];
+            setSelectedCategories(updatedCategories);
+            setIsOpen(false)
+
+            return
+        }
+    }
 
     return (
         <>
@@ -363,9 +383,9 @@ const AddCategoriesDropDown = ({ selectedCategories }: { selectedCategories: str
             <div className='relative'>
                 {isOpen && <div className='overflow-y-auto scroll-m-1 z-10 absolute my-1 w-full h-28 bg-customRed bg-opacity-80 mt-2 rounded-3xl font-bold text-white text-lg transition-all'>
                     <div className='flex flex-col text-center items-center justify-center'>
-                        {categories?.map((category, index) => (
-                            <div className='my-1 mx-3 hover:bg-customDarkRed rounded-3xl w-10/12 transition-all' key={index}>
-                                {category}
+                        {allCategories?.map((category, index) => (
+                            <div className='my-1 mx-3 hover:bg-customDarkRed rounded-3xl w-10/12 transition-all cursor-pointer' key={index}>
+                                <div onClick={() => addToCategories({ category })}>{category}</div>
                             </div>
                         ))}
 

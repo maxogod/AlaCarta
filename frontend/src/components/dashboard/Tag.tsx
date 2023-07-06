@@ -6,10 +6,8 @@ const Tag = ({ title, customComponents }: { title: string, customComponents: str
     return (
         <div className={`pb-0 w-fit pl-2 pr-2 pt-0.5 rounded-xl text-center ${customComponents} text-white font-bold`}>
             {title.length > 50 ? (
-                <div className='text-left'>
-                    {title.slice(0, title.length / 2)}
-                    <br />
-                    {title.slice(title.length / 2)}
+                <div className='text-left overflow-ellipsis'>
+                    {title}
                 </div>
             ) : (
                 title
@@ -18,7 +16,7 @@ const Tag = ({ title, customComponents }: { title: string, customComponents: str
     )
 }
 
-const EditTag = ({ title, customComponents }: { title: string, customComponents: string }) => {
+const EditTag = ({ title, customComponents, onCancelClick }: { title: string, customComponents: string, onCancelClick?: () => void }) => {
 
 
     return (
@@ -33,7 +31,7 @@ const EditTag = ({ title, customComponents }: { title: string, customComponents:
                 title
             )}
             <div className='mt-1.5'>
-            <div className='ml-3 scale-125 hover:scale-150 transition-transform cursor-pointer'>
+            <div className='ml-3 scale-125 hover:scale-150 transition-transform cursor-pointer' onClick={onCancelClick}>
                 {<ImCancelCircle />}
             </div>
             </div>

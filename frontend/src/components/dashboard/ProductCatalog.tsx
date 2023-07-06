@@ -5,6 +5,7 @@ import { Tag } from './Tag'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
+import { log } from 'console'
 
 
 const ProductCatalog = ({ handleProductClick }: { handleProductClick: (product: Product | null) => void }) => {
@@ -17,11 +18,14 @@ const ProductCatalog = ({ handleProductClick }: { handleProductClick: (product: 
     
     const { restaurantUrl } = useParams()
 
+    console.log(filterBy);
+    
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/products`,
+                    `http://localhost:8080/api/${restaurantUrl}/products?category=${filterBy}`,
                     {
                         withCredentials: true,
                     }
@@ -35,7 +39,7 @@ const ProductCatalog = ({ handleProductClick }: { handleProductClick: (product: 
             }
         };
         fetchProducts()
-    }, []);
+    }, [filterBy]);
     
     
 
@@ -71,7 +75,7 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
 
 
     const showAllProdcuts = () => {
-        setfilterBy(allProductos)
+        setfilterBy("")
         handleProductClick(null)
         setIsOpen(false)
     }

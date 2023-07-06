@@ -4,9 +4,11 @@ import { FaEdit } from 'react-icons/fa';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { BiSolidAddToQueue } from 'react-icons/bi'
 import { BiSolidMessageSquareAdd } from 'react-icons/bi';
-import { Product } from '../models/product';
+import { Product } from '../../@types/product'; 
 import { EditTag, Tag } from './Tag';
-import { Category } from '../../@types/category';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+
 
 const EditDeleteSection = ({ selectedProduct }: { selectedProduct: Product }) => {
 
@@ -234,7 +236,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                                 type="text"
                                                 id="name"
                                                 name="name"
-                                                placeholder={selectedProduct.img}
+                                                placeholder={selectedProduct.picture}
                                                 className="border-2 text-sm border-customPink rounded-lg px-4 py-2 w-11/12" />
                                         </div>
                                         <EditCategories selectedProduct={selectedProduct} />
@@ -291,12 +293,12 @@ const EditCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
         <div className="relative">
             <div className="flex flex-col justify-center items-center gap-1 w-fit py-2 transition-all">
                 <div className=''>
-                    <AddCategoriesDropDown selectedCategories={selectedProduct.categories} />
+                    <AddCategoriesDropDown selectedCategories={selectedProduct.productCategories} />
                 </div>
                 <div className='flex gap-2'>
-                    {selectedProduct.categories.map((category, index) => (
+                    {selectedProduct.productCategories.map((category, index) => (
                         <div key={index}>
-                            <EditTag title={category.title} customComponents='bg-customRed' />
+                            <EditTag title={category} customComponents='bg-customRed' />
                         </div>
                     ))}
                 </div>
@@ -307,7 +309,7 @@ const EditCategories = ({ selectedProduct }: { selectedProduct: Product }) => {
 
 const AddCategories = () => {
 
-    const [selectedCategories, setSelectedCategories] = useState<Category[]>([])
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([])
 
     return (
         <div className="relative">
@@ -318,7 +320,7 @@ const AddCategories = () => {
                 <div className='flex gap-2'>
                     {selectedCategories.map((category, index) => (
                         <div key={index}>
-                            <EditTag title={category.title} customComponents='bg-customRed' />
+                            <EditTag title={category} customComponents='bg-customRed' />
                         </div>
                     ))}
                 </div>
@@ -327,7 +329,7 @@ const AddCategories = () => {
     )
 }
 
-const AddCategoriesDropDown = ({ selectedCategories }: { selectedCategories: Category[] }) => {
+const AddCategoriesDropDown = ({ selectedCategories }: { selectedCategories: string[] }) => {
 
     const addCategories = "Agregar Categorias"
 
@@ -335,9 +337,7 @@ const AddCategoriesDropDown = ({ selectedCategories }: { selectedCategories: Cat
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const categories = [
-        "snacks", "empanadas", "pizza"
-    ]
+    const categories = useSelector((state: RootState) => state.currentRestaurant.restaurant)?.productCategories
 
     return (
         <>
@@ -363,7 +363,7 @@ const AddCategoriesDropDown = ({ selectedCategories }: { selectedCategories: Cat
             <div className='relative'>
                 {isOpen && <div className='overflow-y-auto scroll-m-1 z-10 absolute my-1 w-full h-28 bg-customRed bg-opacity-80 mt-2 rounded-3xl font-bold text-white text-lg transition-all'>
                     <div className='flex flex-col text-center items-center justify-center'>
-                        {categories.map((category, index) => (
+                        {categories?.map((category, index) => (
                             <div className='my-1 mx-3 hover:bg-customDarkRed rounded-3xl w-10/12 transition-all' key={index}>
                                 {category}
                             </div>

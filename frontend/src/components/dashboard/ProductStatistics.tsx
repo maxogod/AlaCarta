@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Product } from '../models/product'
+import { Product } from '../../@types/product' 
 import { Tag } from './Tag'
 import { FilterOptions, RangeDatePicker } from './FilterOptions'
 import ProductImage from './ProductImage'
@@ -52,9 +52,9 @@ const ShowTags = ({ selectedProduct }: { selectedProduct: Product }) => {
 
     return (
         <div className='flex gap-3 my-3'>
-            {selectedProduct.categories.map((category, index) => (
+            {selectedProduct.productCategories.map((category, index) => (
                 <div key={index}>
-                    <Tag title={category.title} customComponents='bg-customRed' />
+                    <Tag title={category} customComponents='bg-customRed' />
                 </div>
             ))}
         </div>

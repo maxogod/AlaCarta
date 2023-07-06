@@ -1,4 +1,4 @@
-import { Product } from '../models/product';
+import { Product } from '../../@types/product';
 import { Tag } from './Tag';
 
 const ProductImage = ({ selectedProduct }: { selectedProduct: Product }) => {
@@ -10,7 +10,7 @@ const ProductImage = ({ selectedProduct }: { selectedProduct: Product }) => {
 
         <div className='w-1/5 h-1/5 flex-shrink-0'>
             <img
-                src={selectedProduct.img}
+                src={selectedProduct.picture}
                 className="border-2 2xl:border-4 border-customRed rounded-3xl w-full h-full transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30d"
                 alt=""
             />

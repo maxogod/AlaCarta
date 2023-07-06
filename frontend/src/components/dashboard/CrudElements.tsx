@@ -6,8 +6,11 @@ import { BiSolidAddToQueue } from 'react-icons/bi'
 import { BiSolidMessageSquareAdd } from 'react-icons/bi';
 import { Product } from '../../@types/product';
 import { EditTag, Tag } from './Tag';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { setCurrentProduct } from '../../redux/slices/currentRestaurantSlice';
 
 
 const EditDeleteSection = ({ selectedProduct }: { selectedProduct: Product }) => {
@@ -160,6 +163,9 @@ const AddPopUp = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open
 
 const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boolean, setOpenEdit: (open: boolean) => void, selectedProduct: Product }) => {
 
+    const { restaurantUrl } = useParams()
+    const dispatch = useDispatch();
+
     const name = "Nombre"
     const description = "Descripcion"
     const price = "Precio"
@@ -167,24 +173,64 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
     const changeImage = "Cambiar Imagen"
     const inStock = "En Stock"
 
-    const [productInfo, setproductInfo] = useState<Product>(selectedProduct); // i set the current product so if i leave any camps as empty, it wont be modified
-    const [currentCategories, setCurrentCategories] = useState<string[]>(selectedProduct.productCategories);
+    const [productInfo, setproductInfo] = useState({
+        name: "",
+        picture: "",
+        description: "",
+        price: "",
+        isAvailable: selectedProduct.isAvailable,
+    })
+    const [currentCategories, setCurrentCategories] = useState<string[]>(selectedProduct.productCategories)
+    const [isAvailable, setIsAvailable] = useState(selectedProduct.isAvailable)
 
     useEffect(() => {
-        if (!openEdit){
+        if (!openEdit) {
             setCurrentCategories(selectedProduct.productCategories)
+            setIsAvailable(selectedProduct.isAvailable)
         }
     }, [openEdit]);
 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> ) => {
         setproductInfo({ ...productInfo, [e.target.name]: e.target.value })
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Edited product:", selectedProduct);
-        setOpenEdit(false);
+        (async () => {
+            try {
+                const endpoint = `http://localhost:8080/api/${restaurantUrl}/products/${selectedProduct._id}`
+                console.log(endpoint);
+
+                const res = await axios.put(
+                    endpoint,
+                    {
+                        name: productInfo.name,
+                        picture: productInfo.picture,
+                        price: parseInt(productInfo.price),
+                        description: productInfo.description,
+                        productCategories: currentCategories,
+                        isAvailable: productInfo.isAvailable,
+                    },
+                    {
+                        withCredentials: true,
+                    }
+                );
+                if (res.status !== 200) return
+                const editedProduct = res.data;
+                console.log("prod info:");
+                console.log(productInfo);
+                dispatch(setCurrentProduct(editedProduct))
+                setOpenEdit(false);
+                window.location.reload()
+            } catch (err) {
+                return
+            }
+        })()
+    };
+
+    const handleChangeAvailability = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsAvailable(e.target.checked);
     };
 
 
@@ -219,6 +265,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                     <div className='mt-2'>
                                         <label htmlFor="description" className="block text-lg text-customRed font-bold  2xl:text-2xl">{description}</label>
                                         <textarea
+                                            onChange={handleChange}
                                             id="description"
                                             name="description"
                                             placeholder={selectedProduct.description}
@@ -228,6 +275,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                         <div className='mt-2'>
                                             <label htmlFor="price" className="block text-lg text-customRed font-bold mr-1  2xl:text-2xl">{price}</label>
                                             <input
+                                                onChange={handleChange}
                                                 type="number"
                                                 id="price"
                                                 name="price"
@@ -239,8 +287,8 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                             <input
                                                 onChange={handleChange}
                                                 type="text"
-                                                id="name"
-                                                name="name"
+                                                id="picture"
+                                                name="picture"
                                                 placeholder={selectedProduct.picture}
                                                 className="border-2 text-sm border-customPink rounded-lg px-4 py-2 w-11/12" />
                                         </div>
@@ -251,7 +299,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                                         <div className='flex gap-3 mt-5'>
                                             <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"><Tag title={inStock} customComponents='bg-customDarkRed scale-125' /></span>
                                             <label className="relative inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" value="" className="sr-only peer" />
+                                                <input type="checkbox" value="" className="sr-only peer" checked={isAvailable} onChange={handleChangeAvailability} />
                                                 <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-customPink dark:peer-focus:ring-customOrange rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-customRed"></div>
                                             </label>
                                         </div>
@@ -319,7 +367,7 @@ const EditCategories = ({ selectedCategories, setSelectedCategories }: { selecte
     const removeFromCategories = ({ category }: { category: string }) => {
         const updatedCategories = selectedCategories.filter((cat) => cat !== category);
         setSelectedCategories(updatedCategories);
-      }
+    }
 
     return (
         <div className="relative">

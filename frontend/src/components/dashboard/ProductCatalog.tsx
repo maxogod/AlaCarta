@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../redux/store'
 import axios from 'axios'
+import { setCurrentProduct } from '../../redux/slices/currentRestaurantSlice'
 import { Product } from '../../@types/product'
 import { Tag } from './Tag'
-import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
-import { log } from 'console'
 
 
-const ProductCatalog = ({ handleProductClick }: { handleProductClick: (product: Product | null) => void }) => {
+const ProductCatalog = () => {
+
+    const dispatch = useDispatch();
 
     const catalogTitle = "Catálogo de Productos"
 
@@ -17,8 +19,6 @@ const ProductCatalog = ({ handleProductClick }: { handleProductClick: (product: 
     const [products, setProducts] = useState<Product[] | null>();
     
     const { restaurantUrl } = useParams()
-
-    console.log(filterBy);
     
 
     useEffect(() => {
@@ -31,8 +31,6 @@ const ProductCatalog = ({ handleProductClick }: { handleProductClick: (product: 
                     }
                 );
                 if (res.status === 404) return
-                console.log(res.data);
-            
                 setProducts(res.data)
             } catch (err) {
                 return
@@ -41,6 +39,9 @@ const ProductCatalog = ({ handleProductClick }: { handleProductClick: (product: 
         fetchProducts()
     }, [filterBy]);
     
+    const handleProductClick = (product: Product | null) => {
+        dispatch(setCurrentProduct(product))
+    }
     
 
     return (

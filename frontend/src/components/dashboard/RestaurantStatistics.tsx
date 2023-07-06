@@ -3,21 +3,19 @@ import { Product } from '../../@types/product';
 import ProductChart from './ProductChart';
 import { FilterOptions, RangeDatePicker } from './FilterOptions';
 import { AddProducts } from './CrudElements';
-import PieChartStatistics from './PieChartStatistics';
 import { useGetRestaurant } from '../../hooks/restaurantHook';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 
-const RestaurantStatistics = ({ allProducts }: { allProducts: Product[] }) => {
+const RestaurantStatistics = () => {
 
     useGetRestaurant()
-
-    const [product, setProduct] = useState<Product>(allProducts[0]); //TODO what do?
-
+    
     const [filterOption, setFilterOption] = useState<string>();
     const [customStartDate, setCustomStartDate] = useState<Date>();
     const [customEndDate, setCustomEndDate] = useState<Date>();
     const restaurant = useSelector((state: RootState) => state.currentRestaurant.restaurant)   
+
 
 
 
@@ -33,7 +31,7 @@ const RestaurantStatistics = ({ allProducts }: { allProducts: Product[] }) => {
                     </div>
                 </div>
                 <ProductChart
-                    product={product}
+                    product={undefined}
                     filterOption={filterOption}
                     customStartDate={customStartDate}
                     customEndDate={customEndDate}

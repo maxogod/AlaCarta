@@ -6,12 +6,14 @@ import ProductCatalog from './ProductCatalog'
 import ProductStatistics from './ProductStatistics'
 import RestaurantStatistics from './RestaurantStatistics'
 import { Product } from '../../@types/product'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/store'
 
 const Dashboard = () => {
 
     const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
     const [imageLoader, setImageLoader] = useState(false)
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    const selectedProduct = useSelector((state: RootState) => state.currentRestaurant.product) 
 
     
 
@@ -24,22 +26,18 @@ const Dashboard = () => {
         img.src = src
     }, [src])
 
-    const handleProductClick = (product: Product | null) => {
-        setSelectedProduct(product);
-    }
-
 
     return (
         <>
             <BackgroundImage src={src} imageLoader={imageLoader} />
             <div className="fixed inset-0 scale-100">
                 <NavBar />
-                <ProductCatalog handleProductClick={handleProductClick} />
+                <ProductCatalog/>
                 <div className='relative w-full h-full'>
                     {selectedProduct ? (
                         <ProductStatistics selectedProduct={selectedProduct} />
                     ) : (
-                        <RestaurantStatistics allProducts={dummyProducts} />
+                        <RestaurantStatistics/>
                     )}
                 </div>
 

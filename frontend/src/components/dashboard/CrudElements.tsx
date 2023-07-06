@@ -59,6 +59,8 @@ const AddProducts = () => {
 
 const AddPopUp = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open: boolean) => void }) => {
 
+    const { restaurantUrl } = useParams()
+
     const title = "¡Agregando un producto nuevo!"
     const name = "Nombre"
     const description = "Descripcion"
@@ -68,22 +70,52 @@ const AddPopUp = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open
     const namePlaceHolder = "Igrese aqui el nombre del producto"
     const descriptionPlaceHolder = "Ingrese una descripcion"
     const pricePlaceHolder = "$1.000"
-    const addImagePlaceHolder = "Ingrese la URL de una Imagen"
+    const addImagePlaceHolder = "Ingrese la URL de una Imagen (.png, .jpg)"
 
+    
     const [productInfo, setproductInfo] = useState({
         name: "",
+        picture: "",
         description: "",
-        price: "",
-    });
+        price: ""
+    })
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const [currentCategories, setCurrentCategories] = useState<string[]>([])
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement> ) => {
         setproductInfo({ ...productInfo, [e.target.name]: e.target.value })
+        console.log(productInfo);
+        
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("New product:");
-        setOpenAdd(false);
+        (async () => {
+            try {
+                const endpoint = `http://localhost:8080/api/${restaurantUrl}/products`
+                const res = await axios.post(
+                    endpoint,
+                    {
+                        name: productInfo.name,
+                        picture: productInfo.picture,
+                        price: parseInt(productInfo.price),
+                        description: productInfo.description,
+                        productCategories: currentCategories,
+                    },
+                    {
+                        withCredentials: true,
+                    }
+                );
+                if (res.status !== 200) return
+                setOpenAdd(false);
+                window.location.reload()
+            } catch (err) {
+                console.log(err);
+                console.log(productInfo);
+                
+                return
+            }
+        })()
     };
 
 
@@ -117,6 +149,7 @@ const AddPopUp = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open
                                     <div className='mt-2'>
                                         <label htmlFor="description" className="block text-lg text-customRed font-bold  2xl:text-2xl">{description}</label>
                                         <textarea
+                                            onChange={handleChange}
                                             required
                                             id="description"
                                             name="description"
@@ -127,6 +160,7 @@ const AddPopUp = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open
                                         <div className='mt-2'>
                                             <label htmlFor="price" className="block text-lg text-customRed font-bold mr-1  2xl:text-2xl">{price}</label>
                                             <input
+                                                onChange={handleChange}
                                                 required
                                                 type="number"
                                                 id="price"
@@ -140,12 +174,12 @@ const AddPopUp = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open
                                                 required
                                                 onChange={handleChange}
                                                 type="text"
-                                                id="name"
-                                                name="name"
+                                                id="picture"
+                                                name="picture"
                                                 placeholder={addImagePlaceHolder}
                                                 className="border-2  border-customPink rounded-lg px-4 py-2 text-sm w-80" />
                                         </div>
-                                        <AddCategories />
+                                        <EditCategories selectedCategories={currentCategories} setSelectedCategories={setCurrentCategories} />
                                     </div>
                                     <div className='flex gap-14 items-center'>
                                         <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>
@@ -177,9 +211,9 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
         name: "",
         picture: "",
         description: "",
-        price: "",
-        isAvailable: selectedProduct.isAvailable,
+        price: ""
     })
+
     const [currentCategories, setCurrentCategories] = useState<string[]>(selectedProduct.productCategories)
     const [isAvailable, setIsAvailable] = useState(selectedProduct.isAvailable)
 
@@ -195,13 +229,15 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
         setproductInfo({ ...productInfo, [e.target.name]: e.target.value })
     }
 
+    const handleChangeAvailability = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsAvailable(e.target.checked);
+    };
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         (async () => {
             try {
                 const endpoint = `http://localhost:8080/api/${restaurantUrl}/products/${selectedProduct._id}`
-                console.log(endpoint);
-
                 const res = await axios.put(
                     endpoint,
                     {
@@ -210,7 +246,7 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
                         price: parseInt(productInfo.price),
                         description: productInfo.description,
                         productCategories: currentCategories,
-                        isAvailable: productInfo.isAvailable,
+                        isAvailable: isAvailable,
                     },
                     {
                         withCredentials: true,
@@ -228,13 +264,6 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
             }
         })()
     };
-
-    const handleChangeAvailability = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setIsAvailable(e.target.checked);
-    };
-
-
-
 
     return (
         <>
@@ -317,9 +346,30 @@ const EditPopUp = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boole
 
 const DeletePopUp = ({ openDelete, setOpenDelete, selectedProduct }: { openDelete: boolean; setOpenDelete: (open: boolean) => void, selectedProduct: Product }) => {
 
+    const { restaurantUrl } = useParams()
+
     const warningText = "¿Está seguro que desea eliminar este producto?"
     const remove = "Eliminar"
     const close = "Cerrar"
+
+    const deleteProduct = () => {
+        (async () => {
+            try {
+                const endpoint = `http://localhost:8080/api/${restaurantUrl}/products/${selectedProduct._id}`
+                const res = await axios.delete(
+                    endpoint,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                if (res.status !== 200) return
+                setOpenDelete(false);
+                window.location.reload()
+            } catch (err) {
+                return
+            }
+        })()
+    };
 
     return (
         <>
@@ -330,35 +380,13 @@ const DeletePopUp = ({ openDelete, setOpenDelete, selectedProduct }: { openDelet
                         <div className="mx-6 my-9 border-2 border-customPink rounded-3xl">
                             <h2 className='mt-8 mx-3 text-center text-2xl text-customRed font-semibold mb-2'>{warningText}</h2>
                             <div className='flex justify-center items-center gap-3 my-4'>
-                                <button className=' w-fit h-fit  px-4 py-2 bg-customRed hover:bg-customDarkRed transition-all text-white rounded-3xl cursor-pointer' onClick={() => setOpenDelete(false)}>{remove}</button>
+                                <button className=' w-fit h-fit  px-4 py-2 bg-customRed hover:bg-customDarkRed transition-all text-white rounded-3xl cursor-pointer' onClick={() => deleteProduct()}>{remove}</button>
                                 <button className='  w-fit h-fit px-4 py-2 bg-customRed hover:bg-customDarkRed transition-all text-white rounded-3xl cursor-pointer' onClick={() => setOpenDelete(false)}>{close}</button>
                             </div>
                         </div>
                     </div>}
             </div>
         </>
-    )
-}
-
-const AddCategories = () => {
-
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-
-    return (
-        <div className="relative">
-            <div className="flex flex-col justify-center items-center gap-1 w-fit py-2 transition-all">
-                <div className=''>
-                    <AddCategoriesDropDown selectedCategories={selectedCategories} />
-                </div>
-                <div className='flex gap-2'>
-                    {selectedCategories.map((category, index) => (
-                        <div key={index}>
-                            <EditTag title={category} customComponents='bg-customRed' />
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
     )
 }
 

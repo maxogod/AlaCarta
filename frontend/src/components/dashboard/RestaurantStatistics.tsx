@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { Product } from '../../@types/product';
-import ProductChart from './ProductChart';
-import { FilterOptions, RangeDatePicker } from './FilterOptions';
-import { AddProducts } from './CrudElements';
 import { useGetRestaurant } from '../../hooks/restaurantHook';
 import { useSelector } from 'react-redux';
+import ProductChart from './ProductChart'; 
 import { RootState } from '../../redux/store';
+import { ProductActions } from './ProductActions';
+import { FilterOptions, RangeDatePicker } from './FilterOptions';
+
 
 const RestaurantStatistics = () => {
 
@@ -27,7 +27,7 @@ const RestaurantStatistics = () => {
                 <div className='ml-5 mt-8 text-customRed font-bold'>
                     <div className='flex gap-10 relative'>
                         <h1 className='2xl:text-4xl text-lg'>{restaurant?.name}</h1>
-                        <AddProducts />
+                        <ProductActions selectedProduct={undefined} />
                     </div>
                 </div>
                 <ProductChart

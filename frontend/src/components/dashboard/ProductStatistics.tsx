@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Product } from '../../@types/product' 
-import { Tag } from './Tag'
-import { FilterOptions, RangeDatePicker } from './FilterOptions'
+import { Product } from '../../@types/product'  
+import { Tag } from './Tag' 
 import ProductImage from './ProductImage'
-import ProductChart from './ProductChart'
-import PieChartStatistics from './PieChartStatistics'
-import { EditDeleteSection } from './CrudElements';
+import ProductChart from './ProductChart' 
+import PieChartStatistics from './PieChartStatistics' 
+import { ProductActions } from './ProductActions' 
+import { FilterOptions, RangeDatePicker } from './FilterOptions'
+
 
 const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) => {
     const [filterOption, setFilterOption] = useState<string>();
@@ -19,7 +20,7 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                     <ShowTags selectedProduct={selectedProduct} />
                     <div className='flex gap-10 relative'>
                         <h1 className='2xl:text-4xl text-lg'>{selectedProduct.name}</h1>
-                        <EditDeleteSection selectedProduct={selectedProduct} />
+                        <ProductActions selectedProduct={selectedProduct} />
                     </div>
                     <p className="mt-1 2xl:text-lg text-xs">{selectedProduct?.description}</p>
                 </div>
@@ -44,6 +45,7 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
         </div>
     )
 }
+
 
 
 

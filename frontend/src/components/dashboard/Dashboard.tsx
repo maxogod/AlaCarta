@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { NavBar } from '../shared/NavBar'
 import { Blurhash } from 'react-blurhash'
-import { dummyProducts } from './MockData'
 import ProductCatalog from './ProductCatalog'
-import ProductStatistics from './ProductStatistics'
+import ProductStatistics from './ProductStatistics' 
 import RestaurantStatistics from './RestaurantStatistics'
-import { Product } from '../../@types/product'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 

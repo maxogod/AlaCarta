@@ -1,8 +1,7 @@
-import { dummyProducts } from './MockData';
 import { Pie, PieChart, Cell } from 'recharts'
-import { Product } from '../models/product';
+import { Product } from '../../@types/product'; 
 import { Record } from '../models/record';
-import { Tag } from './Tag';
+import { Tag } from './Tag'; 
 
 const PieChartStatistics = ({ selectedProduct }: { selectedProduct: Product }) => {
 

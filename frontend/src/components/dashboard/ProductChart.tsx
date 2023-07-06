@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Product } from '../../@types/product'; 
+import { Product } from '../../../@types/product'; 
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts'
 
 const ProductChart = ({ product, filterOption, customStartDate, customEndDate }: { product: Product, filterOption: string | undefined, customStartDate: Date | undefined, customEndDate: Date | undefined }) => {

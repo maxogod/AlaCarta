@@ -35,8 +35,22 @@ const addProductController = async (req: Request, res: Response) => {
 };
 
 const updateProductController = async (req: Request, res: Response) => {
-    const { name, picture, description, productCategories, price } = req.body;
-    if (!name && !picture && !description && !productCategories && !price) {
+    const {
+        name,
+        picture,
+        description,
+        productCategories,
+        price,
+        isAvailable,
+    } = req.body;
+    if (
+        !name &&
+        !picture &&
+        !description &&
+        !productCategories &&
+        !price &&
+        !isAvailable
+    ) {
         return res.status(400).send("Missing fields");
     }
     const { productId } = req.params;
@@ -51,6 +65,7 @@ const updateProductController = async (req: Request, res: Response) => {
         description,
         productCategories,
         price,
+        isAvailable,
         restaurant,
         productId,
     });

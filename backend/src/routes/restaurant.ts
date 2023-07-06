@@ -8,12 +8,16 @@ import {
 import {
     addOrUpdateProductValidation,
     createOrUpdateMenuValidation,
+    deleteEmployeeValidation,
     deleteOrUpdateRestaurantValidation,
     deleteProductValidation,
 } from "../middlewares/restaurantValidation";
 import {
+    deleteEmployeeController,
     deleteRestaurantController,
+    getEmployeesController,
     getRestaurantController,
+    updateEmployeeController,
     updateRestaurantController,
 } from "../controllers/restaurant";
 import {
@@ -63,11 +67,19 @@ router.delete(
 
 // TODO Orders
 
-// TODO Employees
-// router.get("/employees");
+// Employees
+router.get("/employees", getEmployeesController);
 
-// router.put("/employees/:employeeId");
+router.put(
+    "/employees/:employeeId",
+    deleteOrUpdateRestaurantValidation,
+    updateEmployeeController
+);
 
-// router.delete("/employees/:employeeId");
+router.delete(
+    "/employees/:employeeId",
+    deleteEmployeeValidation,
+    deleteEmployeeController
+);
 
 export default router;

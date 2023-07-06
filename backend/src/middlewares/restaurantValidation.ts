@@ -4,6 +4,7 @@ import {
     restaurantCategoryOfUser,
 } from "../services/restaurantInfoGetters";
 import { employeeCategoryEnum } from "../@types/enums";
+import { getUserById } from "../services/restaurant";
 
 const addOrUpdateProductValidation = async (
     req: Request,
@@ -82,9 +83,43 @@ const deleteOrUpdateRestaurantValidation = async (
     next();
 };
 
+const deleteEmployeeValidation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    const { employeeId } = req.params;
+    if (!employeeId) return res.status(400).send("Missing data");
+    if (!req.session.user) return res.status(401).send("Unauthorized");
+    if (!req.session.restaurantUrl) {
+        return res.status(400).send("Not in a restaurant");
+    }
+    const [categoryOfUser, restaurantId] = await restaurantCategoryOfUser(
+        req.session.restaurantUrl,
+        req.session.user.email
+    );
+    const employee = await getUserById(employeeId);
+    if (!employee) return res.status(400).send("Employee not found");
+    const [categoryOfEmployee, restaurantId2] = await restaurantCategoryOfUser(
+        req.session.restaurantUrl,
+        employee.email
+    );
+    if (
+        isNaN(categoryOfUser as number) ||
+        isNaN(categoryOfEmployee as number)
+    ) {
+        return res.status(401).send("Not authorized");
+    }
+    if ((categoryOfUser as number) >= (categoryOfEmployee as number)) {
+        return res.status(401).send("Not authorized");
+    }
+    next();
+};
+
 export {
     addOrUpdateProductValidation,
     deleteProductValidation,
     createOrUpdateMenuValidation,
     deleteOrUpdateRestaurantValidation,
+    deleteEmployeeValidation,
 };

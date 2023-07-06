@@ -56,6 +56,7 @@ const registerController = async (req: Request, res: Response) => {
     req.session.user = newUser;
     res.status(201).send(newUser);
 };
+
 // TODO - Registration shouldnt include password, the employee should set it instead
 
 const registerRestaurantController = async (req: Request, res: Response) => {

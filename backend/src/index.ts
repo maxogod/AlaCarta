@@ -60,8 +60,6 @@ app.use(/^\/api(?!\/auth).*$/, (req, res, next) => {
 app.use("/api/auth", authRoute);
 app.use("/api/:restaurantUrl", setRestaurantUrlInSession, restaurantRoute);
 
-// TODO deletion and cascade deletion
-
 const start = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI!, {});

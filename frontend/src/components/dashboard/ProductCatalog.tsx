@@ -9,6 +9,9 @@ const ProductCatalog = ({ productList, handleProductClick }: { productList: Prod
 
     const [filterBy, setfilterBy] = useState("");
 
+
+    
+
     return (
         <div className="z-10  absolute bg-customBeige rounded-r-3xl w-96 h-screen flex flex-col items-center justify-center">
             

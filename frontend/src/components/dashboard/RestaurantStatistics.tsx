@@ -6,19 +6,21 @@ import { AddProducts } from './CrudElements';
 import PieChartStatistics from './PieChartStatistics';
 import { RestaurantType } from '../../@types/stateTypes';
 import { useGetRestaurant } from '../../hooks/restaurantHook';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 const RestaurantStatistics = ({ allProducts }: { allProducts: Product[] }) => {
+
+    useGetRestaurant()
 
     const [product, setProduct] = useState<Product>(allProducts[0]);
 
     const [filterOption, setFilterOption] = useState<string>();
     const [customStartDate, setCustomStartDate] = useState<Date>();
     const [customEndDate, setCustomEndDate] = useState<Date>();
-    const [restaurant, setRestaurant] = useState<RestaurantType | null>(useGetRestaurant());     
-    const restaurantName = "Restaurante Epico"
+    const restaurant = useSelector((state: RootState) => state.currentRestaurant.restaurant)   
 
 
-    console.log(restaurant?.name);
 
 
 
@@ -27,7 +29,7 @@ const RestaurantStatistics = ({ allProducts }: { allProducts: Product[] }) => {
             <div className='border-2 border-customPink rounded-3xl w-[95%] h-[90%]'>
                 <div className='ml-5 mt-8 text-customRed font-bold'>
                     <div className='flex gap-10 relative'>
-                        <h1 className='2xl:text-4xl text-lg'>{restaurantName}</h1>
+                        <h1 className='2xl:text-4xl text-lg'>{restaurant?.name}</h1>
                         <AddProducts />
                     </div>
                 </div>

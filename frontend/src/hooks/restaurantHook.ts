@@ -16,7 +16,7 @@ const useGetRestaurant = () => {
     axios.defaults.withCredentials = true;
     useEffect(() => {
         if (restaurant) return;
-        const fetchSession = async () => {
+        const fetchRestaurant = async () => {
             try {
                 const res = await axios.get(
                     `http://localhost:8080/api/${restaurantUrl}`,
@@ -31,9 +31,11 @@ const useGetRestaurant = () => {
                 return
             }
         };
-        fetchSession();
+        fetchRestaurant();
 
     }, []);
+
+    
 
     return restaurant;
 };

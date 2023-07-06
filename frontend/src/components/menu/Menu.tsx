@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { Product } from "../models/product";
 import { dummyProducts } from "../dashboard/MockData";
 import Categories from "./CategoryBar";
-import { AiOutlineMenu } from "react-icons/Ai";
+import { AiOutlineMenu } from "react-icons/ai";
 
 
 const Menu = () => {

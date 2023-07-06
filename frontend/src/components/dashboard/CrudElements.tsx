@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { RiDeleteBin7Line } from 'react-icons/ri';
 import { FaEdit } from 'react-icons/fa';
-import { AiFillCloseCircle } from 'react-icons/Ai';
+import { AiFillCloseCircle } from 'react-icons/ai';
 import { BiSolidAddToQueue } from 'react-icons/bi'
 import { BiSolidMessageSquareAdd } from 'react-icons/bi';
 import { Product } from '../models/product';

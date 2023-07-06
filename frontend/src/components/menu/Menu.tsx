@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavBar } from "../shared/NavBar";
-import { Category } from "../models/category";
+import { Category } from "../../@types/category";
 import { Blurhash } from "react-blurhash";
 import { useParams } from 'react-router-dom';
 import { Product } from "../models/product";

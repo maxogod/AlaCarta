@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { Product } from '../models/product';
+import { Product } from '../../@types/product';
 import ProductChart from './ProductChart';
 import { FilterOptions, RangeDatePicker } from './FilterOptions';
 import { AddProducts } from './CrudElements';
 import PieChartStatistics from './PieChartStatistics';
-import { RestaurantType } from '../../@types/stateTypes';
 import { useGetRestaurant } from '../../hooks/restaurantHook';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -13,7 +12,7 @@ const RestaurantStatistics = ({ allProducts }: { allProducts: Product[] }) => {
 
     useGetRestaurant()
 
-    const [product, setProduct] = useState<Product>(allProducts[0]);
+    const [product, setProduct] = useState<Product>(allProducts[0]); //TODO what do?
 
     const [filterOption, setFilterOption] = useState<string>();
     const [customStartDate, setCustomStartDate] = useState<Date>();

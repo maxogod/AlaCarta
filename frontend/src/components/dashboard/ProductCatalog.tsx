@@ -1,15 +1,42 @@
-import { useState } from 'react'
-import { Product } from '../models/product'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { Product } from '../../@types/product'
 import { Tag } from './Tag'
+import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/store'
 
 
-const ProductCatalog = ({ productList, handleProductClick }: { productList: Product[], handleProductClick: (product: Product | null) => void }) => {
+const ProductCatalog = ({ handleProductClick }: { handleProductClick: (product: Product | null) => void }) => {
 
     const catalogTitle = "Catálogo de Productos"
 
     const [filterBy, setfilterBy] = useState("");
 
+    const [products, setProducts] = useState<Product[] | null>();
+    
+    const { restaurantUrl } = useParams()
 
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await axios.get(
+                    `http://localhost:8080/api/${restaurantUrl}/products`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                if (res.status === 404) return
+                console.log(res.data);
+            
+                setProducts(res.data)
+            } catch (err) {
+                return
+            }
+        };
+        fetchProducts()
+    }, []);
+    
     
 
     return (
@@ -20,7 +47,7 @@ const ProductCatalog = ({ productList, handleProductClick }: { productList: Prod
                 <div className='w-80'>
                     <ShowProducts filterState={[filterBy, setfilterBy]} handleProductClick={handleProductClick} />
                     <div className='overflow-y-auto 2xl:h-[44rem] h-[25rem]'>
-                        {productList.map((product, index) => (
+                        {products?.map((product, index) => (
                             <div key={index} onClick={() => handleProductClick(product)}>
                                 <ProductThumbnail product={product} />
                             </div>
@@ -34,6 +61,8 @@ const ProductCatalog = ({ productList, handleProductClick }: { productList: Prod
 
 const ShowProducts = ({ filterState, handleProductClick }: { filterState: [string, React.Dispatch<React.SetStateAction<string>>], handleProductClick: (product: Product | null) => void }) => {
 
+    const categories = useSelector((state: RootState) => state.currentRestaurant.restaurant)?.productCategories
+
     const [filterBy, setfilterBy] = filterState;
 
     const [isOpen, setIsOpen] = useState(false);
@@ -46,10 +75,6 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
         handleProductClick(null)
         setIsOpen(false)
     }
-
-    const categories = [
-        "snacks", "empanadas", "pizza", "pizza", "pizza", "pizza", "pizza", "pizza"
-    ]
 
     return (
         <div className=" my-0.5 relative">
@@ -68,7 +93,7 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
                     </div>
                     <hr className="bg-white h-1  ml-3 mr-1 rounded-xl" />
 
-                    {categories.map((category, index) => (
+                    {categories?.map((category, index) => (
                         <div className='my-1 mx-3 hover:bg-customDarkRed rounded-3xl transition-all' key={index} onClick={() => setfilterBy(category)}>
                             {category}
                         </div>
@@ -82,23 +107,24 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
 const ProductThumbnail = ({ product }: { product: Product }) => {
 
     const priceTitle = "Precio:"
-
-    const displayedCategories = product.categories.slice(0, 3);
+    const productName = product.name
+    const productPrice = product.price
+    const displayedCategories = product.productCategories.slice(0, 3);
 
 
     return (
         <div className='bg-white rounded-lg mt-5 ml-2 h-24 w-11/12 hover:scale-105 ease-in-out duration-200 flex cursor-pointer'>
-            <img src={product.img} alt='' className='w-16 h-24 object-cover rounded-lg' />
+            <img src={product.picture} alt='' className='w-16 h-24 object-cover rounded-lg' />
             <div className='flex-col ml-2 mt-3 text-sm'>
-                <h1 className='font-bold'>
-                    {product.name.length > 25 ? product.name.substring(0, 25) + '...' : product.name}
+                <h1 className='font-bold text-ellipsis'>
+                    {productName}
                 </h1>
                 <hr className="bg-customPink h-1 w-48 rounded-lg" />
-                <h1 className='font-bold mt-1'>{priceTitle} ${product.price}</h1>
+                <h1 className='font-bold mt-1'>{priceTitle} ${productPrice}</h1>
                 <div className='flex justify-normal gap-2 w-52  overflow-x-scroll'>
                     {displayedCategories.map((category, index) => (
                         <div key={index}>
-                            <Tag title={category.title} customComponents={"bg-customRed"} />
+                            <Tag title={category} customComponents={"bg-customRed"} />
                         </div>
                     ))}
                 </div>

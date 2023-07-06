@@ -6,7 +6,7 @@ import { BiSolidAddToQueue } from 'react-icons/bi'
 import { BiSolidMessageSquareAdd } from 'react-icons/bi';
 import { Product } from '../models/product';
 import { EditTag, Tag } from './Tag';
-import { Category } from '../models/category';
+import { Category } from '../../@types/category';
 
 const EditDeleteSection = ({ selectedProduct }: { selectedProduct: Product }) => {
 

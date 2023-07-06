@@ -1,5 +1,5 @@
 import { AiFillPlusCircle } from "react-icons/ai"
-import { Category } from "../models/category"
+import { Category } from "../../@types/category"
 
 const Categories = ({ deploy, categories, handleCategoryClick }: { deploy: boolean, categories: Category[], handleCategoryClick: (category: Category) => void }) => {
     

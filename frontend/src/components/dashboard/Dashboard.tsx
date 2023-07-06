@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import { NavBar } from '../shared/NavBar'
 import { Blurhash } from 'react-blurhash'
 import { dummyProducts } from './MockData'
-import { Product } from '../models/product'
 import ProductCatalog from './ProductCatalog'
 import ProductStatistics from './ProductStatistics'
 import RestaurantStatistics from './RestaurantStatistics'
+import { Product } from '../../@types/product'
 
 const Dashboard = () => {
 
@@ -34,7 +34,7 @@ const Dashboard = () => {
             <BackgroundImage src={src} imageLoader={imageLoader} />
             <div className="fixed inset-0 scale-100">
                 <NavBar />
-                <ProductCatalog productList={dummyProducts} handleProductClick={handleProductClick} />
+                <ProductCatalog handleProductClick={handleProductClick} />
                 <div className='relative w-full h-full'>
                     {selectedProduct ? (
                         <ProductStatistics selectedProduct={selectedProduct} />

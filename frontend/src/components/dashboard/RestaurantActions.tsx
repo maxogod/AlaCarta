@@ -1,19 +1,19 @@
 import { useState } from 'react'
-import { RiDeleteBin7Line } from 'react-icons/ri';
+import { BiSolidMessageSquareAdd } from "react-icons/bi";
+import AddProduct from "./restaurantActions/AddProduct";
 import { FaEdit } from 'react-icons/fa';
-import { BiSolidMessageSquareAdd } from 'react-icons/bi';
-import { Product } from '../../@types/product';
-import DeleteProduct from './productActions/DeleteProduct';
-import AddProduct from './productActions/AddProduct';
-import { EditProduct } from './productActions/EditProduct';
+import { RiDeleteBin7Line } from 'react-icons/ri';
+import DeleteRestaurant from './restaurantActions/DeleteRestaurant';
 
 
+const RestaurantActions = () => {
 
-const ProductActions = ({ selectedProduct }: { selectedProduct: Product }) => {
+    const [openAdd, setOpenAdd] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
 
     const icons = [
+        { icon: <BiSolidMessageSquareAdd className="2xl:w-11 2xl:h-11 w-8 h-8" />, action: () => setOpenAdd(true) },
         { icon: <FaEdit className="2xl:w-11 2xl:h-11 w-8 h-8" />, action: () => setOpenEdit(true) },
         { icon: <RiDeleteBin7Line className="2xl:w-11 2xl:h-11 w-8 h-8" />, action: () => setOpenDelete(true) }
     ];
@@ -24,19 +24,17 @@ const ProductActions = ({ selectedProduct }: { selectedProduct: Product }) => {
                 {icons.map((comp, index) => (
                     <div
                         key={index}
-                        className='hover:scale-150 transition-all cursor-pointer'
+                        className='hover:scale-150 transition-all cursor-pointer mt-10'
                         onClick={comp.action}
                     >
                         {comp.icon}
                     </div>
                 ))}
-                <EditProduct openEdit={openEdit} setOpenEdit={setOpenEdit} selectedProduct={selectedProduct} />
-                <DeleteProduct openDelete={openDelete} setOpenDelete={setOpenDelete} selectedProduct={selectedProduct} />
+                <AddProduct openAdd={openAdd} setOpenAdd={setOpenAdd} />
+                <DeleteRestaurant openDelete={openDelete} setOpenDelete={setOpenDelete}/>
             </div>
         </>
     );
-};
+}
 
-
-
-export { ProductActions };
+export default RestaurantActions;

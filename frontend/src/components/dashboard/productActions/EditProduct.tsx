@@ -16,8 +16,8 @@ const EditProduct = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boo
     const name = "Nombre"
     const description = "Descripcion"
     const price = "Precio"
-    const saveChanges = "Guardar Cambios"
     const changeImage = "Cambiar Imagen"
+    const saveChanges = "Guardar Cambios"
     const inStock = "En Stock"
 
     const [productInfo, setproductInfo] = useState({

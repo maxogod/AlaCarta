@@ -32,6 +32,7 @@ const RestaurantActions = () => {
                     </div>
                 ))}
                 <AddProduct openAdd={openAdd} setOpenAdd={setOpenAdd} />
+                <EditRestaurant openEdit={openEdit} setOpenEdit={setOpenEdit}/>
                 <DeleteRestaurant openDelete={openDelete} setOpenDelete={setOpenDelete}/>
      
             </div>

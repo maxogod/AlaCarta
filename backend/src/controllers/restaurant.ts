@@ -80,7 +80,6 @@ const updateRestaurantController = async (req: Request, res: Response) => {
     if (!name && !urlSuffix && !paymentInfo) {
         return res.status(400).send("No data to update");
     }
-
     const restaurant = await updateRestaurantService(
         restaurantUrl,
         name,

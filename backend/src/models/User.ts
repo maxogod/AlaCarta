@@ -4,7 +4,6 @@ const UserSchema = new mongoose.Schema(
     {
         name: {
             type: mongoose.Schema.Types.String,
-            required: true,
         },
         email: {
             type: mongoose.Schema.Types.String,
@@ -13,7 +12,6 @@ const UserSchema = new mongoose.Schema(
         },
         password: {
             type: mongoose.Schema.Types.String,
-            required: true,
         },
         userCategories: {
             type: [
@@ -23,14 +21,6 @@ const UserSchema = new mongoose.Schema(
                         ref: "Restaurant",
                         required: true,
                     },
-                    restaurantName: {
-                        type: mongoose.Schema.Types.String,
-                        required: true,
-                    },
-                    restaurantUrl: {
-                        type: mongoose.Schema.Types.String,
-                        required: true,
-                    },
                     categoryEnum: {
                         type: mongoose.Schema.Types.Number,
                         required: true,
@@ -38,6 +28,9 @@ const UserSchema = new mongoose.Schema(
                 },
             ],
             required: true,
+        },
+        changeInfoCode: {
+            type: mongoose.Schema.Types.String,
         },
     },
     { timestamps: true }

@@ -4,6 +4,7 @@ import { getDefaultProductCategories } from "../utils/defaultValues";
 import { employeeCategoryEnum } from "../@types/enums";
 import User from "../models/User";
 import Restaurant from "../models/Restaurant";
+import { mailingService } from "./mailing";
 
 const authenticateUser = async (email: string, password: string) => {
     const user = await User.findOne({ email });
@@ -14,9 +15,7 @@ const authenticateUser = async (email: string, password: string) => {
 };
 
 const createUser = async (
-    name: string,
     email: string,
-    password: string,
     restaurantUrl: string,
     categoryEnum: number
 ) => {
@@ -25,21 +24,18 @@ const createUser = async (
 
     if (existingUser || !restaurant) return null;
 
-    const hashedPassword = hashPassword(password);
     const newUser = new User({
-        name,
         email,
-        password: hashedPassword,
         userCategories: [
             {
                 restaurant: restaurant._id,
-                restaurantName: restaurant.name,
-                restaurantUrl: restaurant.urlSuffix,
                 categoryEnum: categoryEnum,
             },
         ],
+        changeInfoCode: hashPassword(email),
     });
     await newUser.save();
+    await mailingService(email, newUser.changeInfoCode as string);
     restaurant.employees.push(newUser._id);
     await restaurant.save();
     return newUser;
@@ -66,8 +62,6 @@ const updateUser = async (
     if (newFields.newRestaurant) {
         user.userCategories.push({
             restaurant: newFields.newRestaurant,
-            restaurantName: newFields.newRestaurantName!,
-            restaurantUrl: newFields.newRestaurantUrl!,
             categoryEnum: newFields.newCategoryEnum!,
         });
     }
@@ -130,4 +124,25 @@ const createRestaurant = async (
     }
 };
 
-export { authenticateUser, updateUser, createUser, createRestaurant };
+const changeUserInfoService = async (
+    email: string,
+    name: string,
+    password: string,
+    changeInfoCode: string
+) => {
+    const user = await User.findOne({ email });
+    if (!user) return null;
+    if (user.changeInfoCode !== changeInfoCode) return null;
+    user.name = name;
+    user.password = hashPassword(password);
+    await user.save();
+    return user;
+};
+
+export {
+    authenticateUser,
+    updateUser,
+    createUser,
+    createRestaurant,
+    changeUserInfoService,
+};

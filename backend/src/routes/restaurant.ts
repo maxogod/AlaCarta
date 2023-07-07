@@ -32,6 +32,7 @@ const router = Router();
 router.get("/", getRestaurantController);
 
 router.put("/", deleteOrUpdateRestaurantValidation, updateRestaurantController);
+// TODO delete category deletes it from all products
 
 router.delete(
     "/",

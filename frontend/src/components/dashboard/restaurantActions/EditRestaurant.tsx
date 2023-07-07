@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { setCurrentProduct, setCurrentRestaurant } from '../../../redux/slices/currentRestaurantSlice';
+import { setCurrentProduct } from '../../../redux/slices/currentRestaurantSlice';
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { RootState } from '../../../redux/store';
@@ -27,12 +27,15 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
         urlSuffix: "",
         paymentInfo: ""
     })
-    const [categories, setCategories] = useState<string[] | undefined>(restaurant?.productCategories);
+    const [currentCategories, setCurrentCategories] = useState<string[] | undefined>(restaurant?.productCategories);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setRestaurantInfo({ ...restaurantInfo, [e.target.name]: e.target.value })
     }
 
+    useEffect(() => {
+        setCurrentCategories(restaurant?.productCategories)
+    }, [openEdit]);
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,6 +49,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                         name: restaurantInfo.name,
                         urlSuffix: restaurantInfo.urlSuffix,
                         paymentInfo: restaurantInfo.paymentInfo,
+                        productCategories: currentCategories
                     },
                     {
                         withCredentials: true,
@@ -113,7 +117,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                                     </div>
                                     <div>
                                         <h1 className=' mr-10 mb-1 text-lg text-customRed font-bold '> {categoriesSection}</h1>
-                                        <ShowAllCategories allCategories={categories} setAllCategories={setCategories} />
+                                        <ShowAllCategories allCategories={currentCategories} setAllCategories={setCurrentCategories} />
 
 
 
@@ -136,18 +140,14 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
 const ShowAllCategories = ({ allCategories, setAllCategories }: { allCategories: string[] | undefined, setAllCategories: React.Dispatch<React.SetStateAction<string[] | undefined>> }) => {
 
     const newCategoryText = "¡Nueva Categoria!"
-    
-
     const [newCategory, setNewCategory] = useState<string>("");
-
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewCategory(e.target.value)
     }
 
-    const addCategory = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (newCategoryText.trim() !== "" && !allCategories?.includes(newCategoryText)) {
+    const addCategory = () => {
+        if (newCategory.trim() !== "" && !allCategories?.includes(newCategory)) {
             const updatedCategories = [...allCategories ?? [], newCategory];
             setAllCategories(updatedCategories);
             setNewCategory("");
@@ -177,18 +177,14 @@ const ShowAllCategories = ({ allCategories, setAllCategories }: { allCategories:
                     type="text"
                     id="newCategory"
                     name="newCategory"
+                    value={newCategory}
                     placeholder={newCategoryText}
                     className="border-2 border-customPink rounded-3xl text-lg h-10 px-3 w-full" />
-                <button type="submit" onClick={() => addCategory}><IoIosAddCircle className="h-10 w-10"/></button>
+
+                <div onClick={() => addCategory()}><IoIosAddCircle className=" cursor-pointer h-10 w-10 hover:scale-125 transition-all" /></div>
             </div>
         </>
     )
 };
-
-
-
-
-
-
 
 export default EditRestaurant;

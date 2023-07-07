@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { setCurrentProduct, setCurrentRestaurant } from '../../../redux/slices/currentRestaurantSlice';
@@ -6,7 +6,7 @@ import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { RootState } from '../../../redux/store';
 import { EditTag } from '../Tag';
-import {IoIosAddCircle} from "react-icons/io";
+import { IoIosAddCircle } from "react-icons/io";
 
 const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenEdit: (open: boolean) => void }) => {
 
@@ -28,8 +28,6 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
         paymentInfo: ""
     })
     const [categories, setCategories] = useState<string[] | undefined>(restaurant?.productCategories);
-
-
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setRestaurantInfo({ ...restaurantInfo, [e.target.name]: e.target.value })
@@ -57,7 +55,6 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                 const editedProduct = res.data;
                 dispatch(setCurrentProduct(editedProduct))
                 setOpenEdit(false);
-                console.log(restaurant?.urlSuffix);
                 navigate(`/${restaurantInfo.urlSuffix}/dashboard`)
                 window.location.reload() // --> TODO super SOS
             } catch (err) {
@@ -116,7 +113,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                                     </div>
                                     <div>
                                         <h1 className=' mr-10 mb-1 text-lg text-customRed font-bold '> {categoriesSection}</h1>
-                                        <ShowAllCategories />
+                                        <ShowAllCategories allCategories={categories} setAllCategories={setCategories} />
 
 
 
@@ -136,16 +133,31 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
 
 
 
-const ShowAllCategories = () => {
+const ShowAllCategories = ({ allCategories, setAllCategories }: { allCategories: string[] | undefined, setAllCategories: React.Dispatch<React.SetStateAction<string[] | undefined>> }) => {
 
-    const allCategoriesText = "Categorias"
     const newCategoryText = "¡Nueva Categoria!"
+    
 
-    const allCategories = useSelector((state: RootState) => state.currentRestaurant.restaurant)?.productCategories
+    const [newCategory, setNewCategory] = useState<string>("");
 
-    const addToCategories = ({ category }: { category: string }) => {
 
-        return
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewCategory(e.target.value)
+    }
+
+    const addCategory = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (newCategoryText.trim() !== "" && !allCategories?.includes(newCategoryText)) {
+            const updatedCategories = [...allCategories ?? [], newCategory];
+            setAllCategories(updatedCategories);
+            setNewCategory("");
+        }
+    };
+
+
+    const removeFromCategories = ({ category }: { category: string }) => {
+        const updatedCategories = allCategories?.filter((cat) => cat !== category);
+        setAllCategories(updatedCategories);
     }
 
     return (
@@ -154,24 +166,25 @@ const ShowAllCategories = () => {
                 <div className=' overflow-y-auto h-36'>
                     {allCategories?.map((category, index) => (
                         <div className='my-1 mx-3  rounded-3xl transition-all cursor-pointer' key={index}>
-                            <EditTag title={category} customComponents='bg-customRed hover:bg-customDarkRed' onCancelClick={undefined} />
+                            <EditTag title={category} customComponents='bg-customRed hover:bg-customDarkRed' onCancelClick={() => removeFromCategories({ category })} />
                         </div>
                     ))}
                 </div>
             </div>
             <div className='mt-2 flex gap-1'>
                 <input
-                    //onChange={handleChange}
+                    onChange={handleChange}
                     type="text"
                     id="newCategory"
                     name="newCategory"
                     placeholder={newCategoryText}
                     className="border-2 border-customPink rounded-3xl text-lg h-10 px-3 w-full" />
-                    <button><IoIosAddCircle className="h-10 w-10" /></button>
+                <button type="submit" onClick={() => addCategory}><IoIosAddCircle className="h-10 w-10"/></button>
             </div>
         </>
     )
 };
+
 
 
 

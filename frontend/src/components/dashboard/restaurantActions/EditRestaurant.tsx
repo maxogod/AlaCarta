@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { setCurrentProduct } from '../../../redux/slices/currentRestaurantSlice';
+import { useNavigate, useParams } from "react-router-dom";
+import { setCurrentProduct, setCurrentRestaurant } from '../../../redux/slices/currentRestaurantSlice';
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { RootState } from '../../../redux/store';
@@ -10,6 +10,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
 
     const { restaurantUrl } = useParams()
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const restaurant = useSelector((state: RootState) => state.currentRestaurant.restaurant)
 
@@ -31,8 +32,6 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
         setRestaurantInfo({ ...restaurantInfo, [e.target.name]: e.target.value })
     }
 
-    console.log(restaurantInfo);
-    
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -44,7 +43,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                     endpoint,
                     {
                         name: restaurantInfo.name,
-                        uelSuffix: restaurantInfo.urlSuffix,
+                        urlSuffix: restaurantInfo.urlSuffix,
                         paymentInfo: restaurantInfo.paymentInfo,
                     },
                     {
@@ -53,10 +52,10 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                 );
                 if (res.status !== 200) return
                 const editedProduct = res.data;
-                console.log("prod info:");
-                console.log(restaurantInfo);
                 dispatch(setCurrentProduct(editedProduct))
                 setOpenEdit(false);
+                console.log(restaurant?.urlSuffix);
+                navigate(`/${restaurantInfo.urlSuffix}/dashboard`)
                 window.location.reload()
             } catch (err) {
                 return

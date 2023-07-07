@@ -13,8 +13,6 @@ const Dashboard = () => {
     const [imageLoader, setImageLoader] = useState(false)
     const selectedProduct = useSelector((state: RootState) => state.currentRestaurant.product) 
 
-    
-
 
     useEffect(() => {
         const img = new Image()
@@ -22,8 +20,10 @@ const Dashboard = () => {
             setImageLoader(true)
         }
         img.src = src
-    }, [src])
+    }, [src ])
 
+    console.log(selectedProduct);
+    
 
     return (
         <>

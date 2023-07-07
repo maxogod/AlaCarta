@@ -10,16 +10,10 @@ import RestaurantActions from './RestaurantActions';
 const RestaurantStatistics = () => {
 
     useGetRestaurant()
-    
     const [filterOption, setFilterOption] = useState<string>();
     const [customStartDate, setCustomStartDate] = useState<Date>();
     const [customEndDate, setCustomEndDate] = useState<Date>();
     const restaurant = useSelector((state: RootState) => state.currentRestaurant.restaurant)   
-
-
-
-
-
 
     return (
         <div className="absolute right-12 w-[65%] 2xl:w-[75%] h-5/6 mt-20 flex items-center justify-center  rounded-3xl bg-customBeige ml-5 overflow-hidden">

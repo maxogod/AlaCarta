@@ -4,6 +4,7 @@ import AddProduct from "./restaurantActions/AddProduct";
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin7Line } from 'react-icons/ri';
 import DeleteRestaurant from './restaurantActions/DeleteRestaurant';
+import EditRestaurant from './restaurantActions/EditRestaurant';
 
 
 const RestaurantActions = () => {
@@ -32,6 +33,7 @@ const RestaurantActions = () => {
                 ))}
                 <AddProduct openAdd={openAdd} setOpenAdd={setOpenAdd} />
                 <DeleteRestaurant openDelete={openDelete} setOpenDelete={setOpenDelete}/>
+     
             </div>
         </>
     );

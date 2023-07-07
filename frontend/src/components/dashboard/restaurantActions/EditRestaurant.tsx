@@ -1,49 +1,36 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setCurrentProduct } from '../../../redux/slices/currentRestaurantSlice'; 
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { Product } from '../../../@types/product'; 
 import { Tag } from '../Tag';
+import { RootState } from '../../../redux/store';
 
-const EditProduct = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boolean, setOpenEdit: (open: boolean) => void, selectedProduct: Product }) => {
+const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenEdit: (open: boolean) => void }) => {
 
     const { restaurantUrl } = useParams()
     const dispatch = useDispatch();
 
-    const name = "Nombre"
-    const description = "Descripcion"
-    const price = "Precio"
-    const saveChanges = "Guardar Cambios"
-    const changeImage = "Cambiar Imagen"
-    const inStock = "En Stock"
+    const restaurant = useSelector((state: RootState) => state.currentRestaurant.restaurant)   
 
-    const [productInfo, setproductInfo] = useState({
+    const name = "Nombre"
+    const urlSuffix = "Url del restaurante"
+    const paymentInfo = "CBU"
+
+    const [restaurantInfo, setRestaurantInfo] = useState({
         name: "",
-        picture: "",
-        description: "",
-        price: ""
+        urlSuffix: "",
+        paymentInfo: ""
     })
 
-    const [currentCategories, setCurrentCategories] = useState<string[]>(selectedProduct.productCategories)
-    const [isAvailable, setIsAvailable] = useState(selectedProduct.isAvailable)
-
-    useEffect(() => {
-        if (!openEdit) {
-            setCurrentCategories(selectedProduct.productCategories)
-            setIsAvailable(selectedProduct.isAvailable)
-        }
-    }, [openEdit]);
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-        setproductInfo({ ...productInfo, [e.target.name]: e.target.value })
+        setRestaurantInfo({ ...restaurantInfo, [e.target.name]: e.target.value })
     }
 
-    const handleChangeAvailability = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setIsAvailable(e.target.checked);
-    };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -53,10 +40,10 @@ const EditProduct = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boo
                 const res = await axios.put(
                     endpoint,
                     {
-                        name: productInfo.name,
-                        picture: productInfo.picture,
-                        price: parseInt(productInfo.price),
-                        description: productInfo.description,
+                        name: restaurantInfo.name,
+                        picture: restaurantInfo.picture,
+                        price: parseInt(restaurantInfo.price),
+                        description: restaurantInfo.description,
                         productCategories: currentCategories,
                         isAvailable: isAvailable,
                     },
@@ -67,7 +54,7 @@ const EditProduct = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boo
                 if (res.status !== 200) return
                 const editedProduct = res.data;
                 console.log("prod info:");
-                console.log(productInfo);
+                console.log(restaurantInfo);
                 dispatch(setCurrentProduct(editedProduct))
                 setOpenEdit(false);
                 window.location.reload()
@@ -155,4 +142,4 @@ const EditProduct = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boo
     )
 }
 
-export {EditProduct};
+export default EditRestaurant;

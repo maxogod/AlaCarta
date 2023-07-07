@@ -8,12 +8,13 @@ import {
 import {
     addOrUpdateProductValidation,
     createOrUpdateMenuValidation,
+    deleteOrUpdateRestaurantValidation,
     deleteProductValidation,
-    deleteRestaurantValidation,
 } from "../middlewares/restaurantValidation";
 import {
     deleteRestaurantController,
     getRestaurantController,
+    updateRestaurantController,
 } from "../controllers/restaurant";
 import {
     createMenuController,
@@ -26,9 +27,13 @@ const router = Router();
 // Restaurant
 router.get("/", getRestaurantController);
 
-// router.put("/", updateRestaurantValidation, updateRestaurantController);
+router.put("/", deleteOrUpdateRestaurantValidation, updateRestaurantController);
 
-router.delete("/", deleteRestaurantValidation, deleteRestaurantController);
+router.delete(
+    "/",
+    deleteOrUpdateRestaurantValidation,
+    deleteRestaurantController
+);
 
 // Menu
 router.post("/menu", createOrUpdateMenuValidation, createMenuController);
@@ -57,5 +62,12 @@ router.delete(
 );
 
 // TODO Orders
+
+// TODO Employees
+// router.get("/employees");
+
+// router.put("/employees/:employeeId");
+
+// router.delete("/employees/:employeeId");
 
 export default router;

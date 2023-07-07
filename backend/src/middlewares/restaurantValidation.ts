@@ -60,7 +60,7 @@ const createOrUpdateMenuValidation = async (
     next();
 };
 
-const deleteRestaurantValidation = async (
+const deleteOrUpdateRestaurantValidation = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -86,5 +86,5 @@ export {
     addOrUpdateProductValidation,
     deleteProductValidation,
     createOrUpdateMenuValidation,
-    deleteRestaurantValidation,
+    deleteOrUpdateRestaurantValidation,
 };

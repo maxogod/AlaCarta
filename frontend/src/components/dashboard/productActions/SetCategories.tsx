@@ -4,7 +4,7 @@ import { EditTag } from "../Tag";
 import { useSelector } from "react-redux";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
-const SetCategories = ({ selectedCategories, setSelectedCategories }: { selectedCategories: string[] | undefined, setSelectedCategories: React.Dispatch<React.SetStateAction<string[] >> }) => {
+const SetCategories = ({ selectedCategories, setSelectedCategories }: { selectedCategories: string[], setSelectedCategories: React.Dispatch<React.SetStateAction<string[] >> }) => {
 
     const removeFromCategories = ({ category }: { category: string }) => {
         const updatedCategories = selectedCategories.filter((cat) => cat !== category);

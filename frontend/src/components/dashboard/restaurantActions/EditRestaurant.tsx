@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { setCurrentProduct, setCurrentRestaurant } from '../../../redux/slices/currentRestaurantSlice';
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { RootState } from '../../../redux/store';
+import { EditTag } from '../Tag';
+import {IoIosAddCircle} from "react-icons/io";
 
 const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenEdit: (open: boolean) => void }) => {
 
@@ -17,6 +19,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
     const name = "Nombre"
     const urlSuffix = "Url del restaurante"
     const paymentInfo = "CBU"
+    const categoriesSection = "Categorias"
     const saveChanges = "Guardar Cambios"
 
     const [restaurantInfo, setRestaurantInfo] = useState({
@@ -56,7 +59,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                 setOpenEdit(false);
                 console.log(restaurant?.urlSuffix);
                 navigate(`/${restaurantInfo.urlSuffix}/dashboard`)
-                window.location.reload()
+                window.location.reload() // --> TODO super SOS
             } catch (err) {
                 return
             }
@@ -78,8 +81,8 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                                 </div>
                             </div>
                             <form onSubmit={handleSubmit} className='my-3 mx-8'>
-                                <div className='  w-full'>
-                                    <div className='flex gap-5'>
+                                <div className='  w-full flex gap-12'>
+                                    <div className='flex flex-col w-2/5 gap-3'>
                                         <div>
                                             <label htmlFor="name" className="block text-lg text-customRed font-bold   ">{name}</label>
                                             <input
@@ -100,9 +103,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                                                 placeholder={restaurant?.urlSuffix}
                                                 className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-full" />
                                         </div>
-                                    </div>
-                                    <div className='md:flex gap-6 mt-3 '>
-                                        <div className='mt-2'>
+                                        <div>
                                             <label htmlFor="paymentInfo" className="block text-lg text-customRed font-bold mr-1">{paymentInfo}</label>
                                             <input
                                                 onChange={handleChange}
@@ -113,11 +114,15 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                                                 className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-full" />
                                         </div>
                                     </div>
+                                    <div>
+                                        <h1 className=' mr-10 mb-1 text-lg text-customRed font-bold '> {categoriesSection}</h1>
+                                        <ShowAllCategories />
 
-                                    <div className='flex gap-14 items-center'>
-                                        <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>
+
+
                                     </div>
                                 </div>
+                                <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>
                             </form>
                         </div>
                     </div>
@@ -127,5 +132,50 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
 
     )
 }
+
+
+
+
+const ShowAllCategories = () => {
+
+    const allCategoriesText = "Categorias"
+    const newCategoryText = "¡Nueva Categoria!"
+
+    const allCategories = useSelector((state: RootState) => state.currentRestaurant.restaurant)?.productCategories
+
+    const addToCategories = ({ category }: { category: string }) => {
+
+        return
+    }
+
+    return (
+        <>
+            <div className='flex flex-col text-left border-2 border-customRed rounded-3xl p-2 px-5 w-3/2 2xl:w-96'>
+                <div className=' overflow-y-auto h-36'>
+                    {allCategories?.map((category, index) => (
+                        <div className='my-1 mx-3  rounded-3xl transition-all cursor-pointer' key={index}>
+                            <EditTag title={category} customComponents='bg-customRed hover:bg-customDarkRed' onCancelClick={undefined} />
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <div className='mt-2 flex gap-1'>
+                <input
+                    //onChange={handleChange}
+                    type="text"
+                    id="newCategory"
+                    name="newCategory"
+                    placeholder={newCategoryText}
+                    className="border-2 border-customPink rounded-3xl text-lg h-10 px-3 w-full" />
+                    <button><IoIosAddCircle className="h-10 w-10" /></button>
+            </div>
+        </>
+    )
+};
+
+
+
+
+
 
 export default EditRestaurant;

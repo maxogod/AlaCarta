@@ -30,11 +30,13 @@ const EditProduct = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boo
     const [currentCategories, setCurrentCategories] = useState<string[]>(selectedProduct.productCategories)
     const [isAvailable, setIsAvailable] = useState(selectedProduct.isAvailable)
 
+
+    console.log(currentCategories);
+    
+
     useEffect(() => {
-        if (!openEdit) {
-            setCurrentCategories(selectedProduct.productCategories)
-            setIsAvailable(selectedProduct.isAvailable)
-        }
+        setCurrentCategories(selectedProduct.productCategories)
+        setIsAvailable(selectedProduct.isAvailable)
     }, [openEdit]);
 
 
@@ -67,8 +69,6 @@ const EditProduct = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boo
                 );
                 if (res.status !== 200) return
                 const editedProduct = res.data;
-                console.log("prod info:");
-                console.log(productInfo);
                 dispatch(setCurrentProduct(editedProduct))
                 setOpenEdit(false);
                 window.location.reload()
@@ -134,7 +134,7 @@ const EditProduct = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boo
                                                 placeholder={selectedProduct.picture}
                                                 className="border-2 text-sm border-customPink rounded-lg px-4 py-2 w-11/12" />
                                         </div>
-                                        <SetCategories selectedCategories={currentCategories} setSelectedCategories={setCurrentCategories} />
+                                       {openEdit && <SetCategories selectedCategories={currentCategories} setSelectedCategories={setCurrentCategories} />}
                                     </div>
                                     <div className='flex gap-14 items-center'>
                                         <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>

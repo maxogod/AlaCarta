@@ -5,7 +5,6 @@ import { setCurrentProduct } from '../../../redux/slices/currentRestaurantSlice'
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { RootState } from '../../../redux/store';
-import { SetCategories } from '../productActions/SetCategories';
 
 const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenEdit: (open: boolean) => void }) => {
 
@@ -32,6 +31,9 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
         setRestaurantInfo({ ...restaurantInfo, [e.target.name]: e.target.value })
     }
 
+    console.log(restaurantInfo);
+    
+
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -44,7 +46,6 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                         name: restaurantInfo.name,
                         uelSuffix: restaurantInfo.urlSuffix,
                         paymentInfo: restaurantInfo.paymentInfo,
-                        productCategories: categories,
                     },
                     {
                         withCredentials: true,
@@ -81,7 +82,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                                 <div className='  w-full'>
                                     <div className='flex gap-5'>
                                         <div>
-                                            <label htmlFor="name" className="block text-lg text-customRed font-bold  2xl:text-2xl  ">{name}</label>
+                                            <label htmlFor="name" className="block text-lg text-customRed font-bold   ">{name}</label>
                                             <input
                                                 onChange={handleChange}
                                                 type="text"
@@ -91,7 +92,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                                                 className="border-2 text-lg border-customPink rounded-lg px-4 py-2 w-full" />
                                         </div>
                                         <div>
-                                            <label htmlFor="urlSuffix" className="block text-lg text-customRed font-bold  2xl:text-2xl">{urlSuffix}</label>
+                                            <label htmlFor="urlSuffix" className="block text-lg text-customRed font-bold ">{urlSuffix}</label>
                                             <input
                                                 onChange={handleChange}
                                                 type="text"
@@ -103,7 +104,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                                     </div>
                                     <div className='md:flex gap-6 mt-3 '>
                                         <div className='mt-2'>
-                                            <label htmlFor="paymentInfo" className="block text-lg text-customRed font-bold mr-1  2xl:text-2xl">{paymentInfo}</label>
+                                            <label htmlFor="paymentInfo" className="block text-lg text-customRed font-bold mr-1">{paymentInfo}</label>
                                             <input
                                                 onChange={handleChange}
                                                 type="text"

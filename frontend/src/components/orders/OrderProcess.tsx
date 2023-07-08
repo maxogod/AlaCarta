@@ -2,7 +2,7 @@
 const OrderProcess = () => {
     return (
         <div>
-            
+            PROCESS
         </div>
     );
 };

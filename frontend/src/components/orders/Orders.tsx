@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Blurhash } from 'react-blurhash';
 import { NavBar } from '../shared/NavBar';
+import OrderControl from './OrderControl';
+import OrderProcess from './OrderProcess';
 
 const Orders = () => {
     const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
     const [imageLoader, setImageLoader] = useState(false)
 
-    const [openControl, setOpenControl] = useState(false);
+    const [openControl, setOpenControl] = useState(true);
     const [openProcess, setOpenProcess] = useState(false);
 
     useEffect(() => {
@@ -23,50 +25,40 @@ const Orders = () => {
             <BackgroundImage src={src} imageLoader={imageLoader} />
             <div className="fixed inset-0 scale-100">
                 <NavBar />
-                <ViewOrder />
-
+                <ViewOrder setOpenControl={setOpenControl} setOpenProcess={setOpenProcess} />
+                {openControl && <OrderControl/>}
+                {openProcess && <OrderProcess/>}
 
             </div>
         </>
     )
 }
 
-function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boolean }) {
-    return (
-        <>
-            {!imageLoader && (
-                <Blurhash
-                    hash='LYGRuJw^S5R*ysn%ozax4=R*t7n~'
-                    resolutionX={32}
-                    resolutionY={32}
-                    punch={1} />
-            )}
-            {imageLoader && (
-                <img
-                    className="blur-lg object-cover object-center h-screen w-screen fixed"
-                    src={src}
-                    alt=""
-                />
-            )}
-        </>
-    )
-}
-
-const ViewOrder = () => {
+const ViewOrder = ({setOpenControl, setOpenProcess}:{setOpenControl: React.Dispatch<React.SetStateAction<boolean>>, setOpenProcess: React.Dispatch<React.SetStateAction<boolean>>}) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
     const control = "Control"
     const process = "Proceso"
 
+
+
     const options = [
-        control, process
+        control,
+        process 
     ]
 
     const changeView = (changedView: string) => {
-        setCurrentView(changedView)
-        setIsOpen(false)
-    }
+        if (changedView === control) {
+          setOpenControl(true);
+          setOpenProcess(false);
+        } else if (changedView === process) {
+          setOpenControl(false);
+          setOpenProcess(true);
+        }
+        setCurrentView(changedView);
+        setIsOpen(false);
+      };
 
 
     const [currentView, setCurrentView] = useState(control);
@@ -105,6 +97,27 @@ const ViewOrder = () => {
         </>
     )
 };
+
+function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boolean }) {
+    return (
+        <>
+            {!imageLoader && (
+                <Blurhash
+                    hash='LYGRuJw^S5R*ysn%ozax4=R*t7n~'
+                    resolutionX={32}
+                    resolutionY={32}
+                    punch={1} />
+            )}
+            {imageLoader && (
+                <img
+                    className="blur-lg object-cover object-center h-screen w-screen fixed"
+                    src={src}
+                    alt=""
+                />
+            )}
+        </>
+    )
+}
 
 
 

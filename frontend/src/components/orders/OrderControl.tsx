@@ -2,7 +2,7 @@
 const OrderControl = () => {
     return (
         <div>
-            
+            CONTROL
         </div>
     );
 };

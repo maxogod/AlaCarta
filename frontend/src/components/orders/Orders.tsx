@@ -78,7 +78,7 @@ const ViewOrder = ({setOpenControl, setOpenProcess}:{setOpenControl: React.Dispa
                     </div>
                     {isOpen && <div className='
                     my-1
-                    bg-customRed opacity-75
+                    bg-customRed bg-opacity-75
                     text-white font-bold text-center text-sm lg:text-lg 2xl:text-2xl 
                      rounded-xl 2xl:rounded-3xl w-11/12 lg:w-full  h-fit  py-1 
                     flex flex-col justify-center items-center

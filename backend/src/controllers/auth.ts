@@ -9,6 +9,7 @@ import {
     changeUserInfoService,
 } from "../services/auth";
 import User from "../models/User";
+import { mailingService } from "../services/mailing";
 
 const loginController = async (req: Request, res: Response) => {
     if (req.session.user) return res.status(200).send("Already logged in");
@@ -104,6 +105,13 @@ const changeUserInfoController = async (req: Request, res: Response) => {
     );
     if (!user) return res.status(400).send("No user found or invalid code");
     await User.populate(user, "userCategories.restaurant");
+    req.session.user = user;
+    res.cookie("qid", req.sessionID, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24, // 1 day
+        sameSite: "none",
+        secure: true,
+    });
     res.status(200).send(user);
 };
 

@@ -22,7 +22,17 @@ const createUser = async (
     const existingUser = await User.findOne({ email });
     const restaurant = await Restaurant.findOne({ urlSuffix: restaurantUrl });
 
-    if (existingUser || !restaurant) return null;
+    if (!restaurant) return null;
+    if (existingUser) {
+        existingUser.userCategories.push({
+            restaurant: restaurant._id,
+            categoryEnum: categoryEnum,
+        });
+        await existingUser.save();
+        restaurant.employees.push(existingUser._id);
+        await restaurant.save();
+        return existingUser;
+    }
 
     const newUser = new User({
         email,
@@ -135,6 +145,7 @@ const changeUserInfoService = async (
     if (user.changeInfoCode !== changeInfoCode) return null;
     user.name = name;
     user.password = hashPassword(password);
+    user.changeInfoCode = undefined;
     await user.save();
     return user;
 };

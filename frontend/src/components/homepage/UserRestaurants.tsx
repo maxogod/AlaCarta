@@ -28,12 +28,23 @@ const UserRestaurants = ({ sessionUser }: { sessionUser: UserType }) => {
                             ~{employeeCategoryEnum[userCategory.categoryEnum]}
                         </i>
                     </div>
-                    <Link
-                        to={`/${userCategory.restaurant.urlSuffix}/dashboard`}
-                        className={`absolute right-2 drop-shadow-4xl text-sm border text-slate-900 ${buttonProps[i % buttonProps.length]} sm:p-2 p-1 rounded-lg hover:bg-transparent ease-in-out duration-300`}
-                    >
-                        Dashboard
-                    </Link>
+                    {
+                        userCategory.categoryEnum <= employeeCategoryEnum.Manager ? (
+                            <Link
+                                to={`/${userCategory.restaurant.urlSuffix}/dashboard`}
+                                className={`absolute right-2 drop-shadow-4xl text-sm border text-slate-900 ${buttonProps[i % buttonProps.length]} sm:p-2 p-1 rounded-lg hover:bg-transparent ease-in-out duration-300`}
+                            >
+                                Dashboard
+                            </Link>
+                        ) : (
+                            <Link
+                                to={`/${userCategory.restaurant.urlSuffix}/orders`}
+                                className={`absolute right-2 drop-shadow-4xl text-sm border text-slate-900 ${buttonProps[i % buttonProps.length]} sm:p-2 p-1 rounded-lg hover:bg-transparent ease-in-out duration-300`}
+                            >
+                                Orders
+                            </Link>
+                        )
+                    }
                 </div>
             ))}
         </div>

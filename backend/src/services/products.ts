@@ -50,11 +50,20 @@ const updateProductService = async (props: {
     description: string;
     productCategories: string[];
     price: number;
+    isAvailable: boolean;
     restaurant: RestaurantType;
     productId: string;
 }) => {
-    const { name, picture, description, productCategories, price, restaurant } =
-        props;
+    const {
+        name,
+        picture,
+        description,
+        productCategories,
+        price,
+        isAvailable,
+        restaurant,
+        productId,
+    } = props;
     const menu = await Menu.findById(restaurant.menu);
     if (!menu) return null;
     productCategories?.forEach(async (category) => {
@@ -68,7 +77,7 @@ const updateProductService = async (props: {
             await restaurant.save();
         }
     });
-    const objectId = new Types.ObjectId(props.productId);
+    const objectId = new Types.ObjectId(productId);
     const product = await Product.findById(objectId);
     if (!product) return null;
     if (name) product.name = name;
@@ -76,6 +85,7 @@ const updateProductService = async (props: {
     if (description) product.description = description;
     if (productCategories) product.productCategories = productCategories;
     if (price) product.price = price;
+    if (isAvailable !== undefined) product.isAvailable = isAvailable;
     await product.save();
     return product;
 };

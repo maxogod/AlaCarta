@@ -1,7 +1,5 @@
 interface UserCategoryType {
-    restaurant: string;
-    restaurantName: string;
-    restaurantUrl: string;
+    restaurant: RestaurantType;
     categoryEnum: number;
 }
 
@@ -15,9 +13,8 @@ interface UserType {
     updatedAt: Date;
 }
 
-
 interface RestaurantType {
-    _id: string
+    _id: string;
     name: string;
     productCategories: string[];
     urlSuffix: string;

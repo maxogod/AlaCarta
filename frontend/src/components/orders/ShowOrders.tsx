@@ -30,7 +30,7 @@ const ShowOrders = () => {
     }, []);
 
     return (
-        <div className="flex flex-col w-full justify-center items-center gap-3 mt-5">
+        <div className="flex flex-col w-full justify-center items-center gap-3 mt-3">
             {orders?.map((order, index) => (
                 <div key={index}>
                     <OrderThumbnail order={order}/>

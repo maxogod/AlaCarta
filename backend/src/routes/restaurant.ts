@@ -11,6 +11,7 @@ import {
     deleteEmployeeValidation,
     deleteOrUpdateRestaurantValidation,
     deleteProductValidation,
+    getOrderStatisticsValidation,
 } from "../middlewares/restaurantValidation";
 import {
     deleteEmployeeController,
@@ -25,6 +26,12 @@ import {
     getMenuController,
     updateMenuController,
 } from "../controllers/menu";
+import {
+    addOrderController,
+    getOrderStatisticsController,
+    getOrdersController,
+    updateOrderStatusController,
+} from "../controllers/orders";
 
 const router = Router();
 
@@ -65,7 +72,26 @@ router.delete(
     deleteProductController
 );
 
-// TODO Orders
+// Orders
+router.post("/orders", addOrderController);
+
+router.put("/orders/:orderId", updateOrderStatusController);
+
+router.get("/orders", getOrdersController);
+
+// Order Statistics
+
+router.get(
+    "/orders/statistics",
+    getOrderStatisticsValidation,
+    getOrderStatisticsController
+);
+
+router.get(
+    "/orders/statistics/:productId",
+    getOrderStatisticsValidation,
+    getOrderStatisticsController
+);
 
 // Employees
 router.get("/employees", getEmployeesController);

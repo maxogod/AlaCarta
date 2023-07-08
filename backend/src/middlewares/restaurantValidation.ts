@@ -116,10 +116,28 @@ const deleteEmployeeValidation = async (
     next();
 };
 
+const getOrderStatisticsValidation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+) => {
+    if (!req.session.user) return res.status(401).send("Unauthorized");
+    if (!req.session.restaurantUrl) {
+        return res.status(400).send("Not in a restaurant");
+    }
+    const userHasPermissions = await checkUserPermissions(
+        req.session.user.email,
+        req.session.restaurantUrl
+    );
+    if (!userHasPermissions) return res.status(401).send("Unauthorized");
+    next();
+};
+
 export {
     addOrUpdateProductValidation,
     deleteProductValidation,
     createOrUpdateMenuValidation,
     deleteOrUpdateRestaurantValidation,
     deleteEmployeeValidation,
+    getOrderStatisticsValidation,
 };

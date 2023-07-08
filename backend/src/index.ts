@@ -51,7 +51,7 @@ app.use(populateSession);
 app.use(logRequests);
 
 // middleware to check if user is logged in before accessing routes
-app.use(/^\/api(?!\/auth).*$/, (req, res, next) => {
+app.use(/^\/api(?!\/(auth|[^/]+\/orders)).*$/, (req, res, next) => {
     if (req.session.user) next();
     else res.sendStatus(401);
 });

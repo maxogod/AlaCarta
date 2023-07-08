@@ -15,11 +15,10 @@ const ProductCatalog = () => {
     const catalogTitle = "Catálogo de Productos"
 
     const [filterBy, setfilterBy] = useState("");
-
-    const [products, setProducts] = useState<Product[] | null>();
     
     const { restaurantUrl } = useParams()
     
+    const [products, setProducts] = useState<Product[] | null>();
 
     useEffect(() => {
         const fetchProducts = async () => {

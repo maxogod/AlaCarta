@@ -22,7 +22,6 @@ const Dashboard = () => {
         img.src = src
     }, [src ])
 
-    console.log(selectedProduct);
     
 
     return (

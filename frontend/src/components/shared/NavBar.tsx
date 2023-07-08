@@ -20,7 +20,7 @@ const NavBar = () => {
         { title: 'Home', to: "/" },
         { title: 'DashBoard', to: `/${restaurantUrl}/dashboard` },
         { title: 'Menú', to: `/${restaurantUrl}/menu` },
-        { title: 'Pedidos', to: `/${restaurantUrl}/orders` },
+        { title: 'Pedidos', to:  `/${restaurantUrl}/orders` },
         { title: 'Empleados', to: "/" }
     ]
 

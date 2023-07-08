@@ -26,4 +26,15 @@ interface RestaurantType {
     updatedAt: Date;
 }
 
-export type { UserType, RestaurantType };
+interface OrderType {
+    _id: string;
+    products: string[];
+    table: string;
+    statusEnum: number;
+    price: number;
+    restaurant: number;
+
+}
+
+
+export type { UserType, RestaurantType, OrderType };

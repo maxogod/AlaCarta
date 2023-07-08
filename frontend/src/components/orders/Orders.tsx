@@ -26,15 +26,15 @@ const Orders = () => {
             <div className="fixed inset-0 scale-100">
                 <NavBar />
                 <ViewOrder setOpenControl={setOpenControl} setOpenProcess={setOpenProcess} />
-                {openControl && <OrderControl/>}
-                {openProcess && <OrderProcess/>}
+                {openControl && <OrderControl />}
+                {openProcess && <OrderProcess />}
 
             </div>
         </>
     )
 }
 
-const ViewOrder = ({setOpenControl, setOpenProcess}:{setOpenControl: React.Dispatch<React.SetStateAction<boolean>>, setOpenProcess: React.Dispatch<React.SetStateAction<boolean>>}) => {
+const ViewOrder = ({ setOpenControl, setOpenProcess }: { setOpenControl: React.Dispatch<React.SetStateAction<boolean>>, setOpenProcess: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -45,20 +45,20 @@ const ViewOrder = ({setOpenControl, setOpenProcess}:{setOpenControl: React.Dispa
 
     const options = [
         control,
-        process 
+        process
     ]
 
     const changeView = (changedView: string) => {
         if (changedView === control) {
-          setOpenControl(true);
-          setOpenProcess(false);
+            setOpenControl(true);
+            setOpenProcess(false);
         } else if (changedView === process) {
-          setOpenControl(false);
-          setOpenProcess(true);
+            setOpenControl(false);
+            setOpenProcess(true);
         }
         setCurrentView(changedView);
         setIsOpen(false);
-      };
+    };
 
 
     const [currentView, setCurrentView] = useState(control);
@@ -84,10 +84,10 @@ const ViewOrder = ({setOpenControl, setOpenProcess}:{setOpenControl: React.Dispa
                     flex flex-col justify-center items-center
                     '>
                         {options.map((option, index) => (
-                            <div 
-                            key={index} 
-                            onClick={() => changeView(option)}
-                            className='hover:bg-customDarkRed transition-all cursor-pointer my-1 w-11/12 px-10 rounded-3xl'>
+                            <div
+                                key={index}
+                                onClick={() => changeView(option)}
+                                className='hover:bg-customDarkRed transition-all cursor-pointer my-1 w-11/12 px-10 rounded-3xl'>
                                 {option}
                             </div>
                         ))}

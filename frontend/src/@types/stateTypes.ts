@@ -1,5 +1,5 @@
 interface UserCategoryType {
-    restaurant: RestaurantType;
+    restaurant: string;
     categoryEnum: number;
 }
 
@@ -19,7 +19,7 @@ interface RestaurantType {
     productCategories: string[];
     urlSuffix: string;
     paymentInfo: string;
-    employees: string[];
+    employees: UserType[];
     orders: string[];
     menu?: string[] | undefined;
     createdAt: Date;
@@ -33,8 +33,6 @@ interface OrderType {
     statusEnum: number;
     price: number;
     restaurant: number;
-
 }
-
 
 export type { UserType, RestaurantType, OrderType };

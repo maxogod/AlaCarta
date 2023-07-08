@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Blurhash } from 'react-blurhash';
 import { NavBar } from '../shared/NavBar';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
 
 const Orders = () => {
     const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
     const [imageLoader, setImageLoader] = useState(false)
-    const selectedProduct = useSelector((state: RootState) => state.currentRestaurant.product)
 
+    const [openControl, setOpenControl] = useState(false);
+    const [openProcess, setOpenProcess] = useState(false);
 
     useEffect(() => {
         const img = new Image()
@@ -64,14 +63,20 @@ const ViewOrder = () => {
         control, process
     ]
 
-    const currentView = "CurrentView"
+    const changeView = (changedView: string) => {
+        setCurrentView(changedView)
+        setIsOpen(false)
+    }
+
+
+    const [currentView, setCurrentView] = useState(control);
     return (
         <>
             <div className='absolute lg:right-10 z-10 bottom-3 2xl:bottom-12 flex'>
                 <div className='flex flex-col-reverse gap-0.5 justify-center items-center w-screen lg:w-full'>
                     <div className='
                 bg-customRed hover:bg-customDarkRed transition-all hover:border-customBeige
-                rounded-2xl w-11/12 lg:w-fit h-fit lg:px-10 py-1
+                rounded-2xl w-11/12 lg:w-52 h-fit lg:px-10 py-1
                 border-2 border-customDarkRed  
                 text-white font-bold text-center text-sm lg:text-lg 2xl:text-2xl 
                 flex justify-center items-center
@@ -87,7 +92,10 @@ const ViewOrder = () => {
                     flex flex-col justify-center items-center
                     '>
                         {options.map((option, index) => (
-                            <div key={index} className='hover:bg-customDarkRed transition-all cursor-pointer my-1   w-11/12 px-10 rounded-3xl'>
+                            <div 
+                            key={index} 
+                            onClick={() => changeView(option)}
+                            className='hover:bg-customDarkRed transition-all cursor-pointer my-1 w-11/12 px-10 rounded-3xl'>
                                 {option}
                             </div>
                         ))}

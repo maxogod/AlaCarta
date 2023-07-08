@@ -76,7 +76,6 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
                             className="border border-customRed focus:border-customOrange focus:outline-none rounded-xl p-2"
                             type="email"
                             name="email"
-                            id="email"
                             placeholder="e.g. alacarta@email.com"
                             required
                             onChange={handleChange} />
@@ -87,7 +86,6 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
                             className="border border-customRed focus:border-customOrange focus:outline-none rounded-xl p-2"
                             type="text"
                             name="name"
-                            id="name"
                             placeholder="e.g. Ethan Gold"
                             required
                             onChange={handleChange} />
@@ -98,7 +96,6 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
                             className="border border-customRed focus:border-customOrange focus:outline-none rounded-xl p-2"
                             type="password"
                             name="password"
-                            id="password"
                             placeholder="e.g. password123"
                             required
                             onChange={handleChange} />
@@ -109,7 +106,6 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
                             className="border border-customRed focus:border-customOrange focus:outline-none rounded-xl p-2"
                             type="text"
                             name="changeInfoCode"
-                            id="changeInfoCode"
                             placeholder="e.g. $2a$10$IqwDo8tque3Y9m4Dod8YUOf/UBBBXlWI1PHNrmPU/pbCfpR53RUp."
                             required
                             onChange={handleChange} />

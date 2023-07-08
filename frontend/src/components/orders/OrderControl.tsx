@@ -10,7 +10,7 @@ const OrderControl = () => {
         <>
             <ContentPane>
                 <TitleCard title= {orderControlTitle}/>
-                <ShowOrders/>
+                <ShowOrders orderStatus={0}/>
             </ContentPane>
         </>
     )

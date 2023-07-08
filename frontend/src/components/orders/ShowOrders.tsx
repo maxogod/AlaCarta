@@ -1,10 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { OrderType } from '../../@types/stateTypes';
 import OrderThumbnail from './OrderThumbnail';
 
-const ShowOrders = () => {
+const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
 
 
     const { restaurantUrl } = useParams()
@@ -17,7 +17,7 @@ const ShowOrders = () => {
         const fetchOrders = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/orders`,
+                    `http://localhost:8080/api/${restaurantUrl}/orders?filterByEnum=${orderStatus}`,
                     {
                         withCredentials: true,
                     }

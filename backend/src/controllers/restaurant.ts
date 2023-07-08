@@ -76,15 +76,16 @@ const deleteRestaurantController = async (req: Request, res: Response) => {
 const updateRestaurantController = async (req: Request, res: Response) => {
     const { restaurantUrl } = req.session;
     if (!restaurantUrl) return res.status(400).send("Not in a restaurant");
-    const { name, urlSuffix, paymentInfo } = req.body;
-    if (!name && !urlSuffix && !paymentInfo) {
+    const { name, urlSuffix, paymentInfo, productCategories } = req.body;
+    if (!name && !urlSuffix && !paymentInfo && !productCategories) {
         return res.status(400).send("No data to update");
     }
     const restaurant = await updateRestaurantService(
         restaurantUrl,
         name,
         urlSuffix,
-        paymentInfo
+        paymentInfo,
+        productCategories
     );
     if (!restaurant) return res.status(400).send("Error updating restaurant");
     return res.status(200).send(restaurant);

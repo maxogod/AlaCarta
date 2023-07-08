@@ -76,13 +76,15 @@ const updateRestaurantService = async (
     restaurantUrl: string,
     name: string,
     urlSuffix: string,
-    paymentInfo: string
+    paymentInfo: string,
+    productCategories: string[]
 ) => {
     const restaurant = await Restaurant.findOne({ urlSuffix: restaurantUrl });
     if (!restaurant) return null;
     if (name) restaurant.name = name;
     if (urlSuffix) restaurant.urlSuffix = urlSuffix;
     if (paymentInfo) restaurant.paymentInfo = paymentInfo;
+    if (productCategories) restaurant.productCategories = productCategories;
     await restaurant.save();
     return restaurant;
 };

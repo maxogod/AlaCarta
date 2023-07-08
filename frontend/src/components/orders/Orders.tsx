@@ -68,7 +68,7 @@ const ViewOrder = () => {
     return (
         <>
             <div className='absolute lg:right-10 z-10 bottom-3 2xl:bottom-12 flex'>
-                <div className='flex flex-col-reverse gap-1 justify-center items-center w-screen lg:w-full'>
+                <div className='flex flex-col-reverse gap-0.5 justify-center items-center w-screen lg:w-full'>
                     <div className='
                 bg-customRed hover:bg-customDarkRed transition-all hover:border-customBeige
                 rounded-2xl w-11/12 lg:w-fit h-fit lg:px-10 py-1
@@ -80,13 +80,14 @@ const ViewOrder = () => {
                         {currentView}
                     </div>
                     {isOpen && <div className='
+                    my-1
                     bg-customRed opacity-75
                     text-white font-bold text-center text-sm lg:text-lg 2xl:text-2xl 
-                     rounded-xl 2xl:rounded-2xl w-11/12 md:w-full 2xl:w-fit h-fit  px-5 lg:px-10 py-1 
+                     rounded-xl 2xl:rounded-3xl w-11/12 lg:w-full  h-fit  py-1 
                     flex flex-col justify-center items-center
                     '>
                         {options.map((option, index) => (
-                            <div key={index} className='hover:bg-customDarkRed transition-all cursor-pointer  w-11/12 px-5 rounded-3xl'>
+                            <div key={index} className='hover:bg-customDarkRed transition-all cursor-pointer my-1   w-11/12 px-10 rounded-3xl'>
                                 {option}
                             </div>
                         ))}

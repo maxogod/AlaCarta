@@ -11,6 +11,8 @@ const ShowOrders = () => {
 
     const [orders, setOrders] = useState<OrderType[] | null>();
 
+    const ordersMock = orders?.flatMap(item => [item, { ...item }]);
+
     useEffect(() => {
         const fetchOrders = async () => {
             try {
@@ -30,12 +32,13 @@ const ShowOrders = () => {
     }, []);
 
     return (
-        <div className="flex flex-col w-full justify-center items-center gap-3 mt-3">
-            {orders?.map((order, index) => (
+        <div className=' flex flex-col overflow-y-auto h-5/6 items-center gap-2 mt-3 '>
+            {ordersMock?.map((order, index) => (
                 <div key={index}>
-                    <OrderThumbnail order={order}/>
+                    <OrderThumbnail order={order} />
                 </div>
             ))}
+            
         </div>
     );
 };

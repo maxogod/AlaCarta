@@ -15,8 +15,6 @@ const OrderThumbnail = ({ order }: { order: OrderType }) => {
         <BsDash />,
         order.table.padStart(4, '0')
     ]
-
-
     return (
         <div className="
         relative

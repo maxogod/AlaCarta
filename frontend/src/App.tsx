@@ -14,6 +14,7 @@ function App() {
         <Route path='/:restaurantUrl/dashboard' element={<Dashboard />} />
         <Route path='/' element={<HomePage />} />
         <Route path='/:restaurantUrl/menu' element={<Menu />} />
+        <Route path='/:restaurantUrl/orders' element={<div>Orders</div>} />
       </Routes>
     </Router>
   )

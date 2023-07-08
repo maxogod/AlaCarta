@@ -11,12 +11,17 @@ const OrderSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.String,
             required: true,
         },
-        status: {
-            type: mongoose.Schema.Types.Boolean,
+        statusEnum: {
+            type: mongoose.Schema.Types.Number,
             required: true,
         },
         price: {
             type: mongoose.Schema.Types.Number,
+            required: true,
+        },
+        restaurant: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Restaurant",
             required: true,
         },
     },

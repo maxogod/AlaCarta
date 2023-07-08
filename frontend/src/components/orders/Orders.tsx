@@ -64,7 +64,7 @@ const ViewOrder = ({setOpenControl, setOpenProcess}:{setOpenControl: React.Dispa
     const [currentView, setCurrentView] = useState(control);
     return (
         <>
-            <div className='absolute lg:right-10 z-10 bottom-3 2xl:bottom-12 flex'>
+            <div className='absolute lg:right-10 z-10 bottom-3 2xl:bottom-12 flex opacity-70 hover:opacity-100'>
                 <div className='flex flex-col-reverse gap-0.5 justify-center items-center w-screen lg:w-full'>
                     <div className='
                 bg-customRed hover:bg-customDarkRed transition-all hover:border-customBeige

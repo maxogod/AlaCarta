@@ -1,14 +1,19 @@
+import ContentPane from "../shared/ContentPane";
+import ShowOrders from "./ShowOrders";
+import TitleCard from "./TitleCard";
 
 const OrderControl = () => {
+
+    const orderControlTitle = "Control de Pedidos"
+
     return (
-        <div className="flex items-center justify-center w-screen h-screen">
-            <div className=" w-11/12 h-5/6 p-4 bg-customBeige rounded-3xl flex justify-center items-center">
-                <div className="h-full w-full border-2 border-customPink rounded-3xl">
-                    content
-                </div>
-            </div>
-        </div>
-    );
-};
+        <>
+            <ContentPane>
+                <TitleCard title= {orderControlTitle}/>
+                <ShowOrders/>
+            </ContentPane>
+        </>
+    )
+}
 
 export default OrderControl;

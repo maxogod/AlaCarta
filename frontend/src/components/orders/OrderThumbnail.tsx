@@ -10,6 +10,8 @@ import { useParams } from "react-router-dom";
 const OrderThumbnail = ({ order }: { order: OrderType }) => {
 
     
+    const [showDetails, setShowDetails] = useState(false);
+
     const acceptOrderText = "Acceptar"
     const denyOrderText = "Rechazar"
     const finishOrderText = "Finalizado"
@@ -27,20 +29,23 @@ const OrderThumbnail = ({ order }: { order: OrderType }) => {
       ];
 
     return (
-        <div className="
+        <div
+        onClick={() => setShowDetails((prev) => (!prev))}
+        className={`
         relative
-        2xl:w-[180vh] md:w-[170vh] w-[35vh] h-fit py-3 px-5
+        2xl:w-[180vh] md:w-[170vh] w-[35vh] py-3 px-5
+        h-fit
         bg-white border-customRed rounded-2xl 
-        ">
-            <div className=" w-fit flex justify-start items-center text-center 2xl:gap-1 gap-0.5 text-xs 2xl:text-lg font-bold text-customRed">
+        `}>
+            <div className={`w-fit flex justify-start items-center text-center 2xl:gap-1 gap-0.5 text-xs 2xl:text-lg font-bold text-customRed`}>
                 {orderInfo.map((info, index) => (
                     <div className="flex gap-1" key={index}>
                         <h1 className="hidden lg:block text-customDarkRed">{info.title}</h1>
-                        {info.name}
-                        {index !== orderInfo.length - 1 && <BsDash className={"mt-0.5 text-customDarkRed"} />}
+                        <h1>{info.name}</h1>
+                        {index !== orderInfo.length - 1 && <BsDash className={" 2xl:mt-1.5 text-customDarkRed"} />}
                     </div>
                 ))}
-                <MdExpandMore className="ml-2 h-7 w-7"/>
+                <MdExpandMore className="ml-1 h-7 w-7"/>
                 <div className="absolute right-5 flex gap-3">
                     {(order.statusEnum < 2) &&
                         <>
@@ -49,15 +54,35 @@ const OrderThumbnail = ({ order }: { order: OrderType }) => {
                         </>
                     }
                 </div>
-
             </div>
+            {showDetails && <ShowOrderDetails order={order}/>}
         </div>
 
     );
 };
 
 
+const ShowOrderDetails = ({order} : {order: OrderType}) => {
 
+    const orderedProducts = order.products
+
+    return(
+        <div className="mt-2 flex flex-col lg:gap-0.5 gap-1 text-xs lg:text-sm font-bold text-customRed ">
+            {orderedProducts.map((product, index) => (
+                <div key={index} className="flex gap-1">
+                 <h1>{product.name}</h1> <BsDash className={"mt-1 text-customDarkRed"}/> 
+                 <div className="hidden lg:block"><h1>{product.description}</h1> <BsDash className={"mt-1 text-customDarkRed"}/></div>
+                 <h1>${product.price}</h1> 
+                </div>
+            ))}
+
+
+        </div>
+    )
+
+
+
+}
 
 const CustomButton = ({ title, altIcon, order, statusNumChange, customComp }: { title: string, altIcon: JSX.Element, order: OrderType, statusNumChange: number, customComp: string }) => {
 

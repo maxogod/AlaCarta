@@ -13,7 +13,6 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
 
     console.log(orders);
     
-
     useEffect(() => {
         const fetchOrders = async () => {
             try {

@@ -29,11 +29,7 @@ const EditProduct = ({ openEdit, setOpenEdit, selectedProduct }: { openEdit: boo
 
     const [currentCategories, setCurrentCategories] = useState<string[]>(selectedProduct.productCategories)
     const [isAvailable, setIsAvailable] = useState(selectedProduct.isAvailable)
-
-
-    console.log(currentCategories);
-
-
+    
     useEffect(() => {
         setCurrentCategories(selectedProduct.productCategories)
         setIsAvailable(selectedProduct.isAvailable)

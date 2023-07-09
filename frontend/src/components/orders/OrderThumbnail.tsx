@@ -7,7 +7,7 @@ import { MdExpandMore } from "react-icons/md";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const OrderThumbnail = ({ order }: { order: OrderType }) => {
+const OrderThumbnail = ({ order, setUpdateOrders }: { order: OrderType, setUpdateOrders: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
     
     const [showDetails, setShowDetails] = useState(false);
@@ -30,7 +30,7 @@ const OrderThumbnail = ({ order }: { order: OrderType }) => {
 
     return (
         <div
-        onClick={() => setShowDetails((prev) => (!prev))}
+        
         className={`
         relative
         2xl:w-[180vh] md:w-[170vh] w-[35vh] py-3 px-5
@@ -45,12 +45,14 @@ const OrderThumbnail = ({ order }: { order: OrderType }) => {
                         {index !== orderInfo.length - 1 && <BsDash className={" 2xl:mt-1.5 text-customDarkRed"} />}
                     </div>
                 ))}
+                <div onClick={() => setShowDetails((prev) => (!prev))} className=" w-fit 2xl:w-[100vh] cursor-pointer">
                 <MdExpandMore className="ml-1 h-7 w-7"/>
-                <div className="absolute right-5 flex gap-3">
+                </div>
+                <div className="absolute right-4 flex gap-3">
                     {(order.statusEnum < 2) &&
                         <>
-                            <CustomButton order={order} statusNumChange={changeStatusTo} title={checkButton} altIcon={<IoCheckmarkCircleSharp className="w-5 h-5" />} customComp={checkButtonBg} />
-                            <CustomButton order={order} statusNumChange={3} title={cancelButton} altIcon={<MdCancel className="w-5 h-5" />} customComp={"bg-customRed"} />
+                            <CustomButton order={order} statusNumChange={changeStatusTo} title={checkButton} altIcon={<IoCheckmarkCircleSharp className="w-5 h-5" />} customComp={checkButtonBg} setUpdateOrders={setUpdateOrders} />
+                            <CustomButton order={order} statusNumChange={3} title={cancelButton} altIcon={<MdCancel className="w-5 h-5" />} customComp={"bg-customRed"} setUpdateOrders={setUpdateOrders}/>
                         </>
                     }
                 </div>
@@ -88,14 +90,11 @@ const ShowOrderDetails = ({order} : {order: OrderType}) => {
 
 }
 
-const CustomButton = ({ title, altIcon, order, statusNumChange, customComp }: { title: string, altIcon: JSX.Element, order: OrderType, statusNumChange: number, customComp: string }) => {
+const CustomButton = ({ title, altIcon, order, statusNumChange, customComp, setUpdateOrders }: { title: string, altIcon: JSX.Element, order: OrderType, statusNumChange: number, customComp: string, setUpdateOrders:React.Dispatch<React.SetStateAction<boolean>> }) => {
 
     const { restaurantUrl } = useParams()
 
     const changeStatus = (order: OrderType, statusType: number) => {
-        console.log(order);
-        console.log(statusType);
-    
         const statusChange = async () => {
             try {
               const res = await axios.put(
@@ -113,7 +112,7 @@ const CustomButton = ({ title, altIcon, order, statusNumChange, customComp }: { 
             }
           }
           statusChange()
-          window.location.reload()
+          setUpdateOrders(true)
     }
 
 

@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useGetRestaurant } from '../../hooks/restaurantHook';
 import { useSelector } from 'react-redux';
-import ProductChart from './ProductChart'; 
+import ProductChart from './LineChartStatistics'; 
 import { RootState } from '../../redux/store';
 import { FilterOptions, RangeDatePicker } from './FilterOptions';
 import RestaurantActions from './RestaurantActions';
+import { RestaurantPieChart } from './PieChartStatistics';
+import LineChartStatistics from './LineChartStatistics';
 
 
 const RestaurantStatistics = () => {
@@ -24,7 +26,7 @@ const RestaurantStatistics = () => {
                         <RestaurantActions/>
                     </div>
                 </div>
-                <ProductChart
+                <LineChartStatistics
                     product={undefined}
                     filterOption={filterOption}
                     customStartDate={customStartDate}
@@ -39,6 +41,7 @@ const RestaurantStatistics = () => {
                         setCustomStartDate={setCustomStartDate}
                         setCustomEndDate={setCustomEndDate}
                     />
+                    <RestaurantPieChart/>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        
         customOrange: "#F26B3F",
         customBeige: "#EFE5CE",
         customPink: "#F3AA97",

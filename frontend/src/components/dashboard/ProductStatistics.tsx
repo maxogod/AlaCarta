@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Product } from '../../@types/product'
 import { Tag } from '../shared/Tag'
 import ProductImage from './ProductImage'
-import ProductChart from './ProductChart'
-import PieChartStatistics from './PieChartStatistics'
-import { ProductActions } from './ProductActions'
+import LineChartStatistics from './LineChartStatistics'
+import { ProductPieChart } from './PieChartStatistics' 
+import { ProductActions } from './ProductActions' 
 import { FilterOptions, RangeDatePicker } from './FilterOptions'
 
 
@@ -24,23 +24,24 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                     </div>
                     <p className="mt-1 2xl:text-lg text-xs">{selectedProduct?.description}</p>
                 </div>
-                <ProductChart
+                <LineChartStatistics
                     product={selectedProduct}
                     filterOption={filterOption}
                     customStartDate={customStartDate}
                     customEndDate={customEndDate}
                 />
-                <div className=' w-full 2xl:ml-3 ml-2  flex 2xl:gap-7 gap-4 '>
-                    <FilterOptions setFilterOption={setFilterOption} />
-                    <RangeDatePicker
-                        filterOption={filterOption}
-                        customStartDate={customStartDate}
-                        customEndDate={customEndDate}
-                        setCustomStartDate={setCustomStartDate}
-                        setCustomEndDate={setCustomEndDate}
-                    />
-                    <ProductImage selectedProduct={selectedProduct} />
-                </div>
+                    <div className='relative w-full 2xl:ml-3 ml-2 mb-10 flex 2xl:gap-7 gap-4 '>
+                        <FilterOptions setFilterOption={setFilterOption} />
+                        <RangeDatePicker
+                            filterOption={filterOption}
+                            customStartDate={customStartDate}
+                            customEndDate={customEndDate}
+                            setCustomStartDate={setCustomStartDate}
+                            setCustomEndDate={setCustomEndDate}
+                        />
+                        <ProductImage selectedProduct={selectedProduct} />
+                        <ProductPieChart selectedProduct={selectedProduct}/>
+                    </div>
             </div>
         </div>
     )

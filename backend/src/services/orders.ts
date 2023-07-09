@@ -15,13 +15,16 @@ const addOrderService = async (
     let products = [];
     for (const productId of productsAsStrings) {
         const id = new Types.ObjectId(productId);
-        products.push(await Product.findById(id));
+        const product = await Product.findById(id);
+        if (!product) continue;
+        product.sells++;
+        await product.save();
+        products.push(product);
     }
     if (products.length !== productsAsStrings.length) return null;
 
     let price = 0;
     products.forEach(async (product) => {
-        if (!product) return null;
         price += product.price;
     });
     if (price === 0) return null;

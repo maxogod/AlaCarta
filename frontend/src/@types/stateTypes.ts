@@ -1,3 +1,5 @@
+import { Product } from "./product";
+
 interface UserCategoryType {
     restaurant: string;
     categoryEnum: number;
@@ -28,11 +30,13 @@ interface RestaurantType {
 
 interface OrderType {
     _id: string;
-    products: string[];
+    products: Product[];
     table: string;
     statusEnum: number;
     price: number;
     restaurant: number;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 export type { UserType, RestaurantType, OrderType };

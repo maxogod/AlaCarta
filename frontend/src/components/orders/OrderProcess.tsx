@@ -1,4 +1,5 @@
 import ContentPane from "../shared/ContentPane";
+import ShowOrders from "./ShowOrders";
 import TitleCard from "./TitleCard";
 
 const OrderProcess = () => {
@@ -9,6 +10,7 @@ const OrderProcess = () => {
         <>
             <ContentPane>
                 <TitleCard title={orderProcessTitle} />
+                <ShowOrders orderStatus={1}/>
             </ContentPane>
         </>
     )

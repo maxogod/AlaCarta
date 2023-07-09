@@ -1,21 +1,23 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { OrderType } from '../../@types/stateTypes';
 import OrderThumbnail from './OrderThumbnail';
 
-const ShowOrders = () => {
+const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
 
 
     const { restaurantUrl } = useParams()
 
     const [orders, setOrders] = useState<OrderType[] | null>();
 
+    console.log(orders);
+    
     useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/orders`,
+                    `http://localhost:8080/api/${restaurantUrl}/orders?filterByEnum=${orderStatus}`,
                     {
                         withCredentials: true,
                     }
@@ -23,19 +25,21 @@ const ShowOrders = () => {
                 if (res.status === 404) return
                 setOrders(res.data)
             } catch (err) {
-                return
+                console.log(err);
+                
             }
         }
         fetchOrders()
     }, []);
 
     return (
-        <div className="flex flex-col w-full justify-center items-center gap-3 mt-5">
+        <div className=' flex flex-col overflow-y-auto h-5/6 items-center gap-2 mt-3 '>
             {orders?.map((order, index) => (
                 <div key={index}>
-                    <OrderThumbnail order={order}/>
+                    <OrderThumbnail order={order} />
                 </div>
             ))}
+            
         </div>
     );
 };

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Product } from '../../@types/product'  
 import { Tag } from './Tag' 
 import ProductImage from './ProductImage'
-import ProductChart from './LineChartStatistics' 
+import LineChartStatistics from './LineChartStatistics'
 import { ProductPieChart } from './PieChartStatistics' 
 import { ProductActions } from './ProductActions' 
 import { FilterOptions, RangeDatePicker } from './FilterOptions'
@@ -24,7 +24,7 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                     </div>
                     <p className="mt-1 2xl:text-lg text-xs">{selectedProduct?.description}</p>
                 </div>
-                <ProductChart
+                <LineChartStatistics
                     product={selectedProduct}
                     filterOption={filterOption}
                     customStartDate={customStartDate}

@@ -6,6 +6,7 @@ import { RootState } from '../../redux/store';
 import { FilterOptions, RangeDatePicker } from './FilterOptions';
 import RestaurantActions from './RestaurantActions';
 import { RestaurantPieChart } from './PieChartStatistics';
+import LineChartStatistics from './LineChartStatistics';
 
 
 const RestaurantStatistics = () => {
@@ -25,12 +26,12 @@ const RestaurantStatistics = () => {
                         <RestaurantActions/>
                     </div>
                 </div>
-                {/* <ProductChart
+                <LineChartStatistics
                     product={undefined}
                     filterOption={filterOption}
                     customStartDate={customStartDate}
                     customEndDate={customEndDate}
-                /> */}
+                />
                 <div className=' w-full 2xl:ml-3 ml-2  flex 2xl:gap-7 gap-4 '>
                     <FilterOptions setFilterOption={setFilterOption} />
                     <RangeDatePicker

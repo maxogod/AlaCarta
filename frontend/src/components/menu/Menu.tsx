@@ -50,11 +50,11 @@ const Menu = () => {
             <NavBar />
             {
                 isRestaurantLoaded ?
-                    <div className="fixed inset-0 flex py-5" style={{ background: restaurant!.menu?.color }}>
+                    <div className="fixed inset-0 flex py-5" style={{ background: restaurant!.menu.color }}>
                         {deployEdit && <EditMenu
                             setDeploy={setDeployEdit}
-                            currentColor={restaurant!.menu?.color}
-                            currentPicture={restaurant!.menu?.banner} />}
+                            currentColor={restaurant!.menu.color}
+                            currentPicture={restaurant!.menu.banner} />}
                         {
                             !deployCategory && (!isInMobile || (isInMobile && !deployCart)) &&
                             <div className="h-full absolute left-0 mt-3 z-10 flex sm:items-center ml-2">

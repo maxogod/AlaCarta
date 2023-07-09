@@ -5,6 +5,7 @@ import { employeeCategoryEnum } from "../@types/enums";
 import User from "../models/User";
 import Restaurant from "../models/Restaurant";
 import { mailingService } from "./mailing";
+import Menu from "../models/Menu";
 
 const authenticateUser = async (email: string, password: string) => {
     const user = await User.findOne({ email });
@@ -98,6 +99,15 @@ const createRestaurant = async (
         paymentInfo,
         productCategories: defaultProductCategories,
     });
+
+    const menu = new Menu({
+        restaurant: newRestaurant._id,
+        banner: "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg",
+        color: "#70eef0",
+        products: [],
+    });
+    await menu.save();
+    newRestaurant.menu = menu._id;
 
     const owner = await User.findOne({ email: ownerEmail });
     if (owner) {

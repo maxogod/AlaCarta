@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom'
 const EditMenu = ({ setDeploy, currentColor, currentPicture }:
     {
         setDeploy: (deploy: boolean) => void
-        currentColor: string | undefined
-        currentPicture: string | undefined
+        currentColor: string
+        currentPicture: string
     }) => {
 
     const [color, setColor] = useState<string>(currentColor || "")

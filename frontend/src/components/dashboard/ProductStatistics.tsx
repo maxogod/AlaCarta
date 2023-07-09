@@ -3,7 +3,7 @@ import { Product } from '../../@types/product'
 import { Tag } from './Tag' 
 import ProductImage from './ProductImage'
 import ProductChart from './ProductChart' 
-import PieChartStatistics from './PieChartStatistics' 
+import { ProductPieChart } from './PieChartStatistics' 
 import { ProductActions } from './ProductActions' 
 import { FilterOptions, RangeDatePicker } from './FilterOptions'
 
@@ -30,7 +30,7 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                     customStartDate={customStartDate}
                     customEndDate={customEndDate}
                 />
-                    <div className=' w-full 2xl:ml-3 ml-2  flex 2xl:gap-7 gap-4 '>
+                    <div className='relative w-full 2xl:ml-3 ml-2  flex 2xl:gap-7 gap-4 '>
                         <FilterOptions setFilterOption={setFilterOption} />
                         <RangeDatePicker
                             filterOption={filterOption}
@@ -40,7 +40,9 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                             setCustomEndDate={setCustomEndDate}
                         />
                         <ProductImage selectedProduct={selectedProduct} />
+                        <ProductPieChart selectedProduct={selectedProduct}/>
                     </div>
+                    
             </div>
         </div>
     )

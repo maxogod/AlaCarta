@@ -10,8 +10,6 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
     const { restaurantUrl } = useParams()
 
     const [orders, setOrders] = useState<OrderType[] | null>();
-
-    console.log(orders);
     
     useEffect(() => {
         const fetchOrders = async () => {

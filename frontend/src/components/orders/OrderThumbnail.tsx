@@ -64,6 +64,8 @@ const OrderThumbnail = ({ order }: { order: OrderType }) => {
 
 const ShowOrderDetails = ({order} : {order: OrderType}) => {
 
+    const createdAtText = "creado a : "
+    const orderDate = `${order.createdAt}`
     const orderedProducts = order.products
 
     return(
@@ -71,12 +73,14 @@ const ShowOrderDetails = ({order} : {order: OrderType}) => {
             {orderedProducts.map((product, index) => (
                 <div key={index} className="flex gap-1">
                  <h1>{product.name}</h1> <BsDash className={"mt-1 text-customDarkRed"}/> 
-                 <div className="hidden lg:block"><h1>{product.description}</h1> <BsDash className={"mt-1 text-customDarkRed"}/></div>
+                 <h1 className="hidden lg:block">{product.description}</h1> <BsDash className={"hidden lg:block mt-1 text-customDarkRed"}/>
                  <h1>${product.price}</h1> 
                 </div>
             ))}
-
-
+            <div className="flex gap-1 text-gray-950 opacity-75 font-normal ">
+            <h1 className="font-bold">{createdAtText}</h1>
+            <h1>{orderDate}</h1>
+            </div>
         </div>
     )
 

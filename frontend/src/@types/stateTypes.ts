@@ -35,7 +35,8 @@ interface OrderType {
     statusEnum: number;
     price: number;
     restaurant: number;
-
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 

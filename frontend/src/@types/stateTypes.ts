@@ -23,7 +23,17 @@ interface RestaurantType {
     paymentInfo: string;
     employees: UserType[];
     orders: string[];
-    menu?: string[] | undefined;
+    menu?: MenuType | undefined;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+interface MenuType {
+    _id: string;
+    products: string[];
+    banner: string;
+    color: string;
+    restaurant: string;
     createdAt: Date;
     updatedAt: Date;
 }

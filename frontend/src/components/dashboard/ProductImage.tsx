@@ -1,5 +1,5 @@
 import { Product } from '../../@types/product';
-import { Tag } from './Tag';
+import { Tag } from '../shared/Tag';
 
 const ProductImage = ({ selectedProduct }: { selectedProduct: Product }) => {
 

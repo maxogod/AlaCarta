@@ -27,7 +27,7 @@ function App() {
             user ? <Dashboard /> : <Navigate to="/" />
           } />
           <Route path='/' element={<HomePage />} />
-          <Route path='/:restaurantUrl/menu' element={<Menu />} />
+          <Route path='/:restaurantUrl' element={<Menu />} />
           <Route path='/:restaurantUrl/orders' element={
             user ? <Orders /> : <Navigate to="/" />
           } />

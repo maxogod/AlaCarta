@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { Product } from '../../@types/product'  
-import { Tag } from './Tag' 
+import { Product } from '../../@types/product'
+import { Tag } from '../shared/Tag'
 import ProductImage from './ProductImage'
-import ProductChart from './ProductChart' 
-import PieChartStatistics from './PieChartStatistics' 
-import { ProductActions } from './ProductActions' 
+import ProductChart from './ProductChart'
+import PieChartStatistics from './PieChartStatistics'
+import { ProductActions } from './ProductActions'
 import { FilterOptions, RangeDatePicker } from './FilterOptions'
 
 
@@ -30,17 +30,17 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                     customStartDate={customStartDate}
                     customEndDate={customEndDate}
                 />
-                    <div className=' w-full 2xl:ml-3 ml-2  flex 2xl:gap-7 gap-4 '>
-                        <FilterOptions setFilterOption={setFilterOption} />
-                        <RangeDatePicker
-                            filterOption={filterOption}
-                            customStartDate={customStartDate}
-                            customEndDate={customEndDate}
-                            setCustomStartDate={setCustomStartDate}
-                            setCustomEndDate={setCustomEndDate}
-                        />
-                        <ProductImage selectedProduct={selectedProduct} />
-                    </div>
+                <div className=' w-full 2xl:ml-3 ml-2  flex 2xl:gap-7 gap-4 '>
+                    <FilterOptions setFilterOption={setFilterOption} />
+                    <RangeDatePicker
+                        filterOption={filterOption}
+                        customStartDate={customStartDate}
+                        customEndDate={customEndDate}
+                        setCustomStartDate={setCustomStartDate}
+                        setCustomEndDate={setCustomEndDate}
+                    />
+                    <ProductImage selectedProduct={selectedProduct} />
+                </div>
             </div>
         </div>
     )

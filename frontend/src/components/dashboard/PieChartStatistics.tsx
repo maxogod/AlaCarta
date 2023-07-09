@@ -1,7 +1,7 @@
 import { Pie, PieChart, Cell } from 'recharts'
-import { Product } from '../../@types/product'; 
+import { Product } from '../../@types/product';
 import { Record } from '../models/record';
-import { Tag } from './Tag'; 
+import { Tag } from '../shared/Tag';
 
 const PieChartStatistics = ({ selectedProduct }: { selectedProduct: Product }) => {
 

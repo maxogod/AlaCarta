@@ -1,54 +1,57 @@
-import { useEffect, useState } from "react";
+import { useGetRestaurant } from "../../hooks/restaurantHook";
+import LoadingScreen from "../shared/LoadingScreen";
 import { NavBar } from "../shared/NavBar";
-import { Blurhash } from "react-blurhash";
-import { useParams } from 'react-router-dom';
+import Banner from "./Banner";
 import Categories from "./CategoryBar";
-import { AiOutlineMenu } from "react-icons/ai";
+import OrderCart from "./OrderCart";
+import ProductList from "./ProductList";
+import { useEffect, useState } from "react";
 
 
 const Menu = () => {
 
+    const [isRestaurantLoaded, setIsRestaurantLoaded] = useState(false)
+    const [selectedCategory, setSelectedCategory] = useState<string>("")
+    const [kPopular, setKPopular] = useState<number>(10000)
+    const { restaurant, isLoading } = useGetRestaurant()
+
+    useEffect(() => {
+        if (!isLoading) {
+            setIsRestaurantLoaded(true)
+        }
+    }, [isLoading])
+
+    const handleSelectCategory = (category: string) => {
+        setSelectedCategory(category)
+    }
+
+    const handleKPopular = (k: number) => {
+        setKPopular(k)
+    }
+
     return (
         <>
-            <div className="fixed inset-0 scale-100">
-
-            </div>
+            <NavBar />
+            {
+                isRestaurantLoaded ?
+                    <div className="fixed inset-0 flex py-5" style={{ background: restaurant!.menu?.color }}>
+                        <Categories
+                            deploy={true}
+                            categories={restaurant!.productCategories}
+                            handleCategoryClick={handleSelectCategory}
+                            handleKPopular={handleKPopular} />
+                        <div className="flex flex-col px-5">
+                            <Banner />
+                            <ProductList category={selectedCategory} kPopular={kPopular} />
+                        </div>
+                        <OrderCart />
+                    </div>
+                    :
+                    <LoadingScreen />
+            }
         </>
     );
 }
 
-function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boolean }) {
-    return (
-        <>
-            {!imageLoader && (
-                <Blurhash
-                    hash='LYGRuJw^S5R*ysn%ozax4=R*t7n~'
-                    resolutionX={32}
-                    resolutionY={32}
-                    punch={1} />
-            )}
-            {imageLoader && (
-                <img
-                    className="blur-lg object-cover object-center h-screen w-screen fixed"
-                    src={src}
-                    alt=""
-                />
-            )}
-        </>
-    )
-}
-
-
-
-const CategoryButton = ({ handleDeployCategoriesClick }: { handleDeployCategoriesClick: () => void }) => {
-    return(
-        <div className="bg-white rounded-3xl w-15 h-15 mt-20">
-            <button className="bg-white rounded-3xl flex items-center space-x-2 h-15 w-15" onClick={handleDeployCategoriesClick}>
-                <AiOutlineMenu className="transform h-20 w-20"/>
-            </button>
-        </div>
-        
-    )
-}
 
 export default Menu;

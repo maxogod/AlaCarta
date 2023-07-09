@@ -31,9 +31,9 @@ const EditTag = ({ title, customComponents, onCancelClick }: { title: string, cu
                 title
             )}
             <div className='mt-1.5'>
-            <div className='ml-3 scale-125 hover:scale-150 transition-transform cursor-pointer' onClick={onCancelClick}>
-                {<ImCancelCircle />}
-            </div>
+                <div className='ml-3 scale-125 hover:scale-150 transition-transform cursor-pointer' onClick={onCancelClick}>
+                    {<ImCancelCircle />}
+                </div>
             </div>
 
         </div>

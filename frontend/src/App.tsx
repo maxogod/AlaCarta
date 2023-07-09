@@ -7,6 +7,7 @@ import HomePage from './components/homepage/HomePage'
 import Dashboard from './components/dashboard/Dashboard'
 import { useEffect, useState } from 'react'
 import LoadingScreen from './components/shared/LoadingScreen'
+import NotFound from './components/informational/NotFound'
 
 function App() {
   const { user, isLoading } = useGetSession()
@@ -33,6 +34,7 @@ function App() {
           <Route path='/:restaurantUrl/employees' element={
             user ? <Employees /> : <Navigate to="/" />
           } />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       )
         :

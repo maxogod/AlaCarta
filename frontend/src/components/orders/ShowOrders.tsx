@@ -30,8 +30,6 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
             }
         }
         fetchOrders()
-        console.log("fethcing orders...");
-        
         setUpdateOrders(false)
     }, [updateOrders]);
 

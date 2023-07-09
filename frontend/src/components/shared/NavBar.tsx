@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const NavBar = () => {
 
     const [isHovered, setIsHovered] = useState(false);
-    const { restaurantUrl } = useParams()
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -14,6 +12,8 @@ const NavBar = () => {
     const handleMouseLeave = () => {
         setIsHovered(false);
     };
+
+    const {restaurantUrl} = useParams()
 
 
     const itemsNav = [

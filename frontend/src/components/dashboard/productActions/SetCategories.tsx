@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { RootState } from "../../../redux/store";
-import { EditTag } from "../Tag";
+import { EditTag } from "../../shared/Tag";
 import { useSelector } from "react-redux";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
-const SetCategories = ({ selectedCategories, setSelectedCategories }: { selectedCategories: string[], setSelectedCategories: React.Dispatch<React.SetStateAction<string[] >> }) => {
+const SetCategories = ({ selectedCategories, setSelectedCategories }: { selectedCategories: string[], setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>> }) => {
 
     const removeFromCategories = ({ category }: { category: string }) => {
         const updatedCategories = selectedCategories.filter((cat) => cat !== category);
@@ -86,4 +86,4 @@ const SelectCategories = ({ selectedCategories, setSelectedCategories }: { selec
     )
 }
 
-export {SetCategories}
+export { SetCategories }

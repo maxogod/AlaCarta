@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams } from "react-router-dom"
 import { IoRestaurantSharp } from "react-icons/io5"
+import { useDispatch } from "react-redux"
+import { addToCart } from "../../redux/slices/cartSlice"
 
 const ProductList = ({ category, kPopular }: { category: string, kPopular: number }) => {
 
@@ -11,6 +13,7 @@ const ProductList = ({ category, kPopular }: { category: string, kPopular: numbe
     const [products, setProducts] = useState<Product[] | null>();
 
     useEffect(() => {
+        setProductsLoaded(false)
         const fetchProducts = async () => {
             try {
                 const res = await axios.get(
@@ -52,22 +55,24 @@ const ProductList = ({ category, kPopular }: { category: string, kPopular: numbe
 function ProductThumbnailForMenu({ product }: { product: Product }) {
 
     const priceTitle = "Precio:"
-    const productName = product.name
-    const productPrice = product.price
+    const dispatch = useDispatch()
 
+    const handleProductClick = () => {
+        dispatch(addToCart({ productId: product._id, name: product.name, price: product.price }))
+    }
 
     return (
         <div
             className='bg-white text-sm rounded-lg h-24 w-full hover:scale-105 ease-in-out duration-200 flex cursor-pointer font-bold p-2'
-            onClick={() => { }}>
+            onClick={handleProductClick}>
             <img
                 src={product.picture}
                 alt='Product Image'
                 className='w-1/3 h-full object-cover rounded-lg mr-1' />
             <div className="overflow-y-hidden text-ellipsis w-full">
-                <h1>{productName}</h1>
+                <h1>{product.name}</h1>
                 <hr className="bg-customPink h-1" />
-                <h1>{priceTitle} ${productPrice}</h1>
+                <h1>{priceTitle} ${product.price}</h1>
                 <div className='flex gap-1 overflow-x-scroll'>
                     {product.productCategories.map((category, index) => (
                         <small

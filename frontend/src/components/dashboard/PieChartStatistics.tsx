@@ -107,21 +107,25 @@ const RestaurantPieChart = () => {
     const [allProducts, setAllProducts] = useState<Product[] | null>(null);
     const [chartScale, setChartScale] = useState<number>((window.innerWidth))
 
-    const fetchProducts = async () => {
-        try {
-            const res = await axios.get(
-                `http://localhost:8080/api/${restaurantUrl}/products`,
-                {
-                    withCredentials: true,
-                }
-            );
-            if (res.status === 404) return
-            setAllProducts(res.data)
-        } catch (err) {
-            return
-        }
-    };
-    fetchProducts()
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await axios.get(
+                    `http://localhost:8080/api/${restaurantUrl}/products`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                if (res.status === 404) return
+                setAllProducts(res.data)
+            } catch (err) {
+                return
+            }
+        };
+        fetchProducts()
+    }, []);
+
+    console.log(allProducts);
 
     const handleResize = () => {
         if (window.innerWidth <= 1280) {
@@ -166,7 +170,7 @@ const RestaurantPieChart = () => {
                     label={renderCustomizedLabel}
                     fill="#8884d8"
                     nameKey={"name"}
-                    dataKey={"sales"}>
+                    dataKey={"sells"}>
                     {allProducts?.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={customComponentsS[index % customComponentsS.length]} />
                     ))}

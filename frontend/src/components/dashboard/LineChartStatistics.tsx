@@ -32,8 +32,6 @@ const LineChartStatistics = ({ product, filterOption, customStartDate, customEnd
     const fetchOrders = async () => {
       const start = dateStart ? dateStart : ""
       const end = dateEnd ? dateEnd : ""
-      console.log("start:" + start);
-      console.log("end: " + end);
       try {
         let endpoint = `http://localhost:8080/api/${restaurantUrl}/orders/statistics?dateStart=${start}&dateEnd=${end}`
         if(product){

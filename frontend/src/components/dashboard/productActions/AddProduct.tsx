@@ -31,8 +31,6 @@ const AddProduct = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (op
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         setproductInfo({ ...productInfo, [e.target.name]: e.target.value })
-        console.log(productInfo);
-
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -58,8 +56,6 @@ const AddProduct = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (op
                 window.location.reload()
             } catch (err) {
                 console.log(err);
-                console.log(productInfo);
-
                 return
             }
         })()

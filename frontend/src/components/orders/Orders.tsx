@@ -41,8 +41,6 @@ const ViewOrder = ({ setOpenControl, setOpenProcess }: { setOpenControl: React.D
     const control = "Control"
     const process = "Proceso"
 
-
-
     const options = [
         control,
         process

@@ -10,6 +10,8 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
     const { restaurantUrl } = useParams()
 
     const [orders, setOrders] = useState<OrderType[] | null>();
+
+    const [updateOrders, setUpdateOrders] = useState<boolean>(true);
     
     useEffect(() => {
         const fetchOrders = async () => {
@@ -28,13 +30,16 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
             }
         }
         fetchOrders()
-    }, []);
+        console.log("fethcing orders...");
+        
+        setUpdateOrders(false)
+    }, [updateOrders]);
 
     return (
         <div className=' flex flex-col overflow-y-auto h-5/6 items-center gap-2 mt-3 '>
             {orders?.map((order, index) => (
                 <div key={index}>
-                    <OrderThumbnail order={order} />
+                    <OrderThumbnail order={order} setUpdateOrders={setUpdateOrders} />
                 </div>
             ))}
             

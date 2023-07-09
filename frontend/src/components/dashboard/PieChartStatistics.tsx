@@ -12,22 +12,23 @@ const ProductPieChart = ({ selectedProduct }: { selectedProduct: Product | undef
     const [allProducts, setAllProducts] = useState<Product[] | null>(null);
     const [chartScale, setChartScale] = useState<number>((window.innerWidth))
 
-    const fetchProducts = async () => {
-        try {
-            const res = await axios.get(
-                `http://localhost:8080/api/${restaurantUrl}/products`,
-                {
-                    withCredentials: true,
-                }
-            );
-            if (res.status === 404) return
-            setAllProducts(res.data)
-        } catch (err) {
-            return
-        }
-    };
-    fetchProducts()
-
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await axios.get(
+                    `http://localhost:8080/api/${restaurantUrl}/products`,
+                    {
+                        withCredentials: true,
+                    }
+                );
+                if (res.status === 404) return
+                setAllProducts(res.data)
+            } catch (err) {
+                return
+            }
+        };
+        fetchProducts()
+    }, []);
 
     function allSales(): number {
         let totalSells = 0;
@@ -125,8 +126,6 @@ const RestaurantPieChart = () => {
         fetchProducts()
     }, []);
 
-    console.log(allProducts);
-
     const handleResize = () => {
         if (window.innerWidth <= 1280) {
             setChartScale(150)
@@ -177,7 +176,7 @@ const RestaurantPieChart = () => {
                 </Pie>
             </PieChart>
             <div>
-                
+
             </div>
 
         </div>

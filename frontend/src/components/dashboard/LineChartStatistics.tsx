@@ -74,6 +74,8 @@ const ProductChart = ({ product, filterOption, customStartDate, customEndDate }:
         const fetchOrders = async () => {
             const start = dateStart? dateStart: ""
             const end = dateEnd? dateEnd: ""
+            console.log("start:" + start);
+            console.log("end: " + end);
             try {
                 const res = await axios.get(
                     `http://localhost:8080/api/${restaurantUrl}/orders/statistics/${product._id}?dateStart=${start}&dateEnd=${end}`,
@@ -83,11 +85,8 @@ const ProductChart = ({ product, filterOption, customStartDate, customEndDate }:
                 );
                 if (res.status === 404) return
                 setOrders(res.data)
-                console.log(product._id);
-                console.log(product.name);
-                console.log("start: " + start);
-                console.log("end:" + end);
             } catch (err) {
+              console.log(err);
                 return
             }
         };
@@ -95,15 +94,47 @@ const ProductChart = ({ product, filterOption, customStartDate, customEndDate }:
         fetchOrders();
     }, [filterOption]);
 
-    console.log(orders);
+    
+
+    function createSortedData(orders: OrderType[]): { date: string; ventas: number }[] {
+      const orderDictionary: Record<string, number> = {};
+    
+      orders.forEach((order) => {
+        const dateKey = formatDate(order.createdAt); // Format the date as "dd/mm/yyyy"
+    
+        if (orderDictionary[dateKey]) {
+          orderDictionary[dateKey] += 1;
+        } else {
+          orderDictionary[dateKey] = 1;
+        }
+      });
+
+      const sortedData = Object.entries(orderDictionary).map(([date, ventas]) => ({
+        date,
+        ventas,
+      }));
+    
+      return sortedData;
+    }
+    
+    function formatDate(orderDate: Date): string {
+      const date = new Date(orderDate)
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = String(date.getFullYear()).slice(-2);
+      return `${day}/${month}/${year}`;
+    }
+
+
+
 
     return (
         <>
             <div className='relative mt-2  flex rounded-3xl   justify-center 2xl:scale-100 scale-x-90'>
                 <div>
-                    <LineChart width={chartWidth} height={chartHeight} data={orders? orders : []} margin={{ top: 10, right: 50, left: 0, bottom: 10 }}>
+                    <LineChart width={chartWidth} height={chartHeight} data={createSortedData(orders? orders : [] )} margin={{ top: 10, right: 50, left: 0, bottom: 10 }}>
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey={"createdAt"} />
+                        <XAxis dataKey={"date"} />
                         <YAxis />
                         <Tooltip />
                         <Legend />

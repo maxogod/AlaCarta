@@ -16,7 +16,7 @@ const ProductCatalog = () => {
 
     const [filterBy, setfilterBy] = useState("");
 
-    const [products, setProducts] = useState<Product[] | null>(null);
+    const [products, setProducts] = useState<Product[] | null>();
     
     const { restaurantUrl } = useParams()
     

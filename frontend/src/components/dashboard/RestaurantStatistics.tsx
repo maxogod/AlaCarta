@@ -5,6 +5,7 @@ import ProductChart from './ProductChart';
 import { RootState } from '../../redux/store';
 import { FilterOptions, RangeDatePicker } from './FilterOptions';
 import RestaurantActions from './RestaurantActions';
+import { RestaurantPieChart } from './PieChartStatistics';
 
 
 const RestaurantStatistics = () => {
@@ -39,6 +40,7 @@ const RestaurantStatistics = () => {
                         setCustomStartDate={setCustomStartDate}
                         setCustomEndDate={setCustomEndDate}
                     />
+                    <RestaurantPieChart/>
                 </div>
             </div>
         </div>

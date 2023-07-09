@@ -4,31 +4,31 @@ import { BsDash } from "react-icons/bs";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { MdExpandMore } from "react-icons/md";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const OrderThumbnail = ({ order }: { order: OrderType }) => {
 
-
-    const acceptOrder = "Acceptar"
-    const denyOrder = "Rechazar"
-    const finishOrder = "Finalizado"
-    const cancelOrder = "Cancelar"
-
-    const checkButton = order?.statusEnum === 0 ? acceptOrder : finishOrder;
+    
+    const acceptOrderText = "Acceptar"
+    const denyOrderText = "Rechazar"
+    const finishOrderText = "Finalizado"
+    const cancelOrderText = "Cancelar"
+    
+    const changeStatusTo = order.statusEnum === 0 ? 1 : 2
+    const checkButton = order?.statusEnum === 0 ? acceptOrderText : finishOrderText;
     const checkButtonBg = order?.statusEnum === 0 ? "bg-green-500" : "bg-customOrange";
-    const cancelButton = order?.statusEnum === 0 ? denyOrder : cancelOrder;
-
-
+    const cancelButton = order?.statusEnum === 0 ? denyOrderText : cancelOrderText;
 
     const orderInfo = [
         { title: "Orden:", name: " #" + order._id.slice(-5) },
         { title: "Total:", name: " $" + order.price.toString() },
-        { title: "Mesa:", name: " #" + order.table.padStart(4, '0') }
+        { title: "Mesa:", name: " #" + order.table.padStart(3, '0') }
       ];
 
     return (
         <div className="
         relative
-        cursor-pointer
         2xl:w-[180vh] md:w-[170vh] w-[35vh] h-fit py-3 px-5
         bg-white border-customRed rounded-2xl 
         ">
@@ -40,17 +40,14 @@ const OrderThumbnail = ({ order }: { order: OrderType }) => {
                         {index !== orderInfo.length - 1 && <BsDash className={"mt-0.5 text-customDarkRed"} />}
                     </div>
                 ))}
-                <div className="ml-5">
-                    <MdExpandMore className="h-7 w-7"/>
-                </div>
+                <MdExpandMore className="ml-2 h-7 w-7"/>
                 <div className="absolute right-5 flex gap-3">
                     {(order.statusEnum < 2) &&
                         <>
-                            <CustomButton title={checkButton} altIcon={<IoCheckmarkCircleSharp className="w-5 h-5" />} customComp={checkButtonBg} />
-                            <CustomButton title={cancelButton} altIcon={<MdCancel className="w-5 h-5" />} customComp={"bg-customRed"} />
+                            <CustomButton order={order} statusNumChange={changeStatusTo} title={checkButton} altIcon={<IoCheckmarkCircleSharp className="w-5 h-5" />} customComp={checkButtonBg} />
+                            <CustomButton order={order} statusNumChange={3} title={cancelButton} altIcon={<MdCancel className="w-5 h-5" />} customComp={"bg-customRed"} />
                         </>
                     }
-
                 </div>
 
             </div>
@@ -62,18 +59,43 @@ const OrderThumbnail = ({ order }: { order: OrderType }) => {
 
 
 
-const CustomButton = ({ title, altIcon, customComp }: { title: string, altIcon: JSX.Element, customComp: string }) => {
+const CustomButton = ({ title, altIcon, order, statusNumChange, customComp }: { title: string, altIcon: JSX.Element, order: OrderType, statusNumChange: number, customComp: string }) => {
+
+    const { restaurantUrl } = useParams()
+
+    const changeStatus = (order: OrderType, statusType: number) => {
+        console.log(order);
+        console.log(statusType);
+    
+        const statusChange = async () => {
+            try {
+              const res = await axios.put(
+                `http://localhost:8080/api/${restaurantUrl}/orders/${order._id}`,
+                {
+                  statusEnum: statusType,
+                },
+                {
+                  withCredentials: true,
+                }
+              );
+              if (res.status === 404) return;
+            } catch (err) {
+              return;
+            }
+          }
+          statusChange()
+          window.location.reload()
+    }
 
 
     return (
-        <button className={` ${customComp} font-bold text-lg text-white rounded-full lg:rounded-lg lg:px-3 hover:scale-125 transition-transform`}>
+        <button onClick={() => changeStatus(order, statusNumChange)} className={` ${customComp} font-bold text-lg text-white rounded-full lg:rounded-lg lg:px-3 hover:scale-125 transition-transform`}>
             <div className="hidden lg:block">
                 {title}
             </div>
             <div className="lg:hidden block">
                 {altIcon}
             </div>
-
         </button>
     )
 }

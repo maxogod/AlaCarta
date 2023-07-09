@@ -11,7 +11,8 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
 
     const [orders, setOrders] = useState<OrderType[] | null>();
 
-    const ordersMock = orders?.flatMap(item => [item, { ...item }]);
+    console.log(orders);
+    
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -25,7 +26,8 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
                 if (res.status === 404) return
                 setOrders(res.data)
             } catch (err) {
-                return
+                console.log(err);
+                
             }
         }
         fetchOrders()
@@ -33,7 +35,7 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
 
     return (
         <div className=' flex flex-col overflow-y-auto h-5/6 items-center gap-2 mt-3 '>
-            {ordersMock?.map((order, index) => (
+            {orders?.map((order, index) => (
                 <div key={index}>
                     <OrderThumbnail order={order} />
                 </div>

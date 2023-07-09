@@ -3,21 +3,26 @@ import { useEffect, useState } from "react"
 import { Blurhash } from "react-blurhash"
 import { NavBar } from "../shared/NavBar"
 import TitleCard from "../orders/TitleCard"
-import { useSelector } from "react-redux"
-import { RootState } from "../../redux/store"
 import { useGetRestaurant } from "../../hooks/restaurantHook"
 import EmployeeThumbnail from "./EmployeeThumbnail"
 import RegisterEmployee from "./RegisterEmployee"
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
+import { IoRestaurantSharp } from "react-icons/io5"
 
 const Employees = () => {
 
     const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
     const [imageLoader, setImageLoader] = useState(false)
     const [showAddEmployee, setShowAddEmployee] = useState(false)
-    const restaurant = useSelector((state: RootState) => state.currentRestaurant.restaurant)
-    useGetRestaurant()
+    const { restaurant, isLoading } = useGetRestaurant()
+    const [isRestaurantLoaded, setIsRestaurantLoaded] = useState(false)
     const title = `Empleados de ${restaurant?.name}`
+
+    useEffect(() => {
+        if (!isLoading) {
+            setIsRestaurantLoaded(true)
+        }
+    }, [isLoading])
 
     useEffect(() => {
         const img = new Image()
@@ -41,17 +46,29 @@ const Employees = () => {
                 </div>
             }
             <ContentPane>
-                <TitleCard title={title} />
-                <div className="mt-10 flex flex-wrap justify-center gap-3 overflow-x-hidden">
-                    {restaurant?.employees.map((employee) => (
-                        <EmployeeThumbnail key={employee._id} employee={employee} restaurant={restaurant} />
-                    ))}
-                    <div
-                        className="bg-customRed hover:bg-customDarkRed transition-colors cursor-pointer drop-shadow-lg w-40 h-40 p-2 rounded-md sm:text-lg overflow-x-scroll text-sm flex items-center justify-center"
-                        onClick={openAddEmployee}>
-                        <BiSolidMessageSquareAdd className="text-white text-5xl" />
-                    </div>
-                </div>
+                {
+                    isRestaurantLoaded ? (
+                        <>
+                            <TitleCard title={title} />
+                            <div className="mt-10 flex flex-wrap justify-center gap-3 overflow-x-hidden">
+                                {restaurant?.employees.map((employee) => (
+                                    <EmployeeThumbnail key={employee._id} employee={employee} restaurant={restaurant} />
+                                ))}
+                                <div
+                                    className="bg-customRed hover:bg-customDarkRed transition-colors cursor-pointer drop-shadow-lg w-40 h-40 p-2 rounded-md sm:text-lg overflow-x-scroll text-sm flex items-center justify-center"
+                                    onClick={openAddEmployee}>
+                                    <BiSolidMessageSquareAdd className="text-white text-5xl" />
+                                </div>
+                            </div>
+                        </>
+                    )
+                        :
+                        (
+                            <div className='h-screen w-screen fixed inset-0 flex animate-pulse items-center justify-center'>
+                                <IoRestaurantSharp className="text-9xl animate-spin text-customRed" />
+                            </div>
+                        )
+                }
             </ContentPane>
         </>
     )

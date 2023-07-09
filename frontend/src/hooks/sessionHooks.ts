@@ -14,7 +14,10 @@ const useGetSession = () => {
 
     axios.defaults.withCredentials = true;
     useEffect(() => {
-        if (user) return;
+        if (user) {
+            setIsLoading(false);
+            return;
+        }
         const fetchSession = async () => {
             try {
                 const res = await axios.get(

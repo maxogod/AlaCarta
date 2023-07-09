@@ -10,10 +10,14 @@ const useGetSession = () => {
     const [user, setUser] = useState(
         useSelector((state: RootState) => state.currentUser).user
     );
+    const [isLoading, setIsLoading] = useState(true);
 
     axios.defaults.withCredentials = true;
     useEffect(() => {
-        if (user) return;
+        if (user) {
+            setIsLoading(false);
+            return;
+        }
         const fetchSession = async () => {
             try {
                 const res = await axios.get(
@@ -25,7 +29,9 @@ const useGetSession = () => {
                 if (res.status === 401) return;
                 setUser(res.data);
                 dispatch(setCurrentUser(res.data));
+                setIsLoading(false);
             } catch (error) {
+                setIsLoading(false);
                 return;
             }
         };
@@ -33,7 +39,7 @@ const useGetSession = () => {
         fetchSession();
     }, []);
 
-    return user;
+    return { user, isLoading };
 };
 
 export { useGetSession };

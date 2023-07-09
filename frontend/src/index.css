@@ -2,15 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-.overflow-x-scroll::-webkit-scrollbar {
-  width: 5px;
-  scrollbar-width: thin;
-}
-
+/* Vertical Scrollbar */
 ::-webkit-scrollbar {
     width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ce51603a;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ce516071;
+}
+
+/* Horizontal Scrollbar */
+::-webkit-scrollbar {
+    height: 10px;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {

@@ -1,7 +1,7 @@
 import { Product } from "./product";
 
 interface UserCategoryType {
-    restaurant: RestaurantType;
+    restaurant: string;
     categoryEnum: number;
 }
 
@@ -21,7 +21,7 @@ interface RestaurantType {
     productCategories: string[];
     urlSuffix: string;
     paymentInfo: string;
-    employees: string[];
+    employees: UserType[];
     orders: string[];
     menu?: string[] | undefined;
     createdAt: Date;
@@ -38,6 +38,5 @@ interface OrderType {
     createdAt: Date;
     updatedAt: Date;
 }
-
 
 export type { UserType, RestaurantType, OrderType };

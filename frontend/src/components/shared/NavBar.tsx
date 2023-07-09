@@ -20,12 +20,12 @@ const NavBar = () => {
         { title: 'Home', to: "/" },
         { title: 'DashBoard', to: `/${restaurantUrl}/dashboard` },
         { title: 'Menú', to: `/${restaurantUrl}/menu` },
-        { title: 'Pedidos', to:  `/${restaurantUrl}/orders` },
-        { title: 'Empleados', to: "/" }
+        { title: 'Pedidos', to: `/${restaurantUrl}/orders` },
+        { title: 'Empleados', to: `/${restaurantUrl}/employees` }
     ]
 
     return (
-        <div className='z-50 absolute w-full' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div className='z-50 fixed w-full' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <nav className={`rounded-b-3xl bg-customRed h-16
                 ${isHovered ? 'translate-y-0' : '-translate-y-16'} transition-transform duration-300`}>
                 <div className="p-5 ">

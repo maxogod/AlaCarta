@@ -70,7 +70,7 @@ function ProductThumbnailForMenu({ product }: { product: Product }) {
                 alt='Product Image'
                 className='w-1/3 h-full object-cover rounded-lg mr-1' />
             <div className="overflow-y-hidden text-ellipsis w-full">
-                <h1>{product.name}</h1>
+                <h1 className="overflow-ellipsis whitespace-nowrap max-w-[30%]">{product.name}</h1>
                 <hr className="bg-customPink h-1" />
                 <h1>{priceTitle} ${product.price}</h1>
                 <div className='flex gap-1 overflow-x-scroll'>

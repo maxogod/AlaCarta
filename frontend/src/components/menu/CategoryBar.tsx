@@ -1,41 +1,53 @@
 import { AiFillPlusCircle } from "react-icons/ai"
+import { BiSolidLeftArrow } from "react-icons/bi"
 
-const Categories = ({ deploy, categories, handleCategoryClick, handleKPopular }:
+const Categories = ({ deploy, setDeploy, categories, handleCategoryClick, handleKPopular }:
     {
         deploy: boolean,
+        setDeploy: (deploy: boolean) => void,
         categories: string[],
         handleCategoryClick: (category: string) => void
         handleKPopular: (k: number) => void
     }) => {
 
     return (
-        <div className={`bg-white bg-opacity-30 drop-shadow-3xl rounded-r-3xl w-64 p-10 h-full flex flex-col items-center`}>
-            <h1 className="text-3xl font-bold text-customRed">Categorías</h1>
-            <hr className="bg-customPink h-1 w-full" />
+        <>
+            {
+                deploy &&
+                <div className={`bg-white bg-opacity-30 drop-shadow-3xl rounded-r-3xl w-96 p-10 h-full flex flex-col items-center`}>
+                    <h1 className="text-3xl font-bold text-customRed">Categorías</h1>
+                    <hr className="bg-customPink h-1 w-full" />
 
-            <div className='flex flex-col gap-5 mt-4 items-center overflow-y-scroll overflow-x-hidden w-full h-full'>
-                <CategoryThumbnail
-                    key="All"
-                    category='All'
-                    onClick={() => {
-                        handleCategoryClick('')
-                        handleKPopular(10000)
-                    }} />
-                <CategoryThumbnail
-                    key="Popular"
-                    category='Popular'
-                    onClick={() => {
-                        handleKPopular(8)
-                        handleCategoryClick('')
-                    }} />
-                {categories.map((category, index) => (
-                    <CategoryThumbnail
-                        key={index}
-                        category={category}
-                        onClick={() => handleCategoryClick(category)} />
-                ))}
-            </div>
-        </div>
+                    <button
+                        className="absolute top-1/2 right-2 text-lg flex justify-center items-center text-customRed bg-white w-8 h-16 rounded-full"
+                        onClick={() => { setDeploy(false) }}>
+                        <BiSolidLeftArrow />
+                    </button>
+
+                    <div className='flex flex-col gap-5 mt-4 items-center overflow-y-scroll overflow-x-hidden w-full h-full'>
+                        <CategoryThumbnail
+                            key="All"
+                            category='All'
+                            onClick={() => {
+                                handleCategoryClick('')
+                                handleKPopular(10000)
+                            }} />
+                        <CategoryThumbnail
+                            key="Popular"
+                            category='Popular'
+                            onClick={() => {
+                                handleKPopular(8)
+                                handleCategoryClick('')
+                            }} />
+                        {categories.map((category, index) => (
+                            <CategoryThumbnail
+                                key={index}
+                                category={category}
+                                onClick={() => handleCategoryClick(category)} />
+                        ))}
+                    </div>
+                </div>}
+        </>
     )
 }
 

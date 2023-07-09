@@ -7,9 +7,14 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { IoRestaurantSharp } from "react-icons/io5";
+import { BiSolidLeftArrow } from "react-icons/bi";
 
 
-const OrderCart = () => {
+const OrderCart = ({ deploy, setDeploy }:
+    {
+        deploy: boolean,
+        setDeploy: (deploy: boolean) => void
+    }) => {
 
     const dispatch = useDispatch()
     const [tableNumber, setTableNumber] = useState("")
@@ -62,42 +67,53 @@ const OrderCart = () => {
     }
 
     return (
-        <div className={`bg-white bg-opacity-30 drop-shadow-3xl rounded-s-3xl w-96 p-2 pt-10 h-full flex flex-col items-center`}>
-            <h1 className="text-3xl font-bold text-customRed">Cart</h1>
-            <hr className="bg-customPink h-1 w-full" />
-
-            <div className='flex flex-col gap-5 mt-4 items-center overflow-y-scroll overflow-x-hidden w-full -mr-3 h-full'>
-                {Object.entries(cart).map(([productId, props]) => (
-                    <CartItem key={productId} id={productId} name={props.name} quantity={props.quantity} price={props.price} />
-                ))}
-            </div>
-
-            <label htmlFor="tableNumber" className="text-customRed mt-3">Table Number</label>
-            <input
-                type="text"
-                maxLength={6}
-                name="tableNumber"
-                id="tableNumber"
-                className="bg-customBeige text-center rounded-xl p-2 w-full"
-                value={tableNumber}
-                placeholder="e.g. pb1"
-                required
-                onChange={(e) => setTableNumber(e.target.value)} />
-
-            {errors && <p className="text-customRed font-bold max-w-[15vw] text-center">{errors}</p>}
-            {success && <p className="text-green-600 font-bold max-w-[15vw] text-center">{success}</p>}
-
+        <>
             {
-                isLoading ?
-                    <IoRestaurantSharp className="text-6xl m-2 p-2 animate-spin text-customRed" />
-                    :
+                deploy &&
+                <div className={`bg-white bg-opacity-30 drop-shadow-3xl rounded-s-3xl w-96 p-10 h-full flex flex-col items-center`}>
+                    <h1 className="text-3xl font-bold text-customRed">Cart</h1>
+                    <hr className="bg-customPink h-1 w-full" />
+
                     <button
-                        className="bg-customRed p-2 m-2 rounded-xl text-white"
-                        onClick={handleCheckout}>
-                        Checkout
+                        className="absolute top-1/2 left-2 rotate-180 text-lg flex justify-center items-center text-customRed bg-white w-8 h-16 rounded-full"
+                        onClick={() => { setDeploy(false) }}>
+                        <BiSolidLeftArrow />
                     </button>
+
+                    <div className='flex flex-col gap-5 mt-4 items-center overflow-y-scroll overflow-x-hidden w-full -mr-3 h-full'>
+                        {Object.entries(cart).map(([productId, props]) => (
+                            <CartItem key={productId} id={productId} name={props.name} quantity={props.quantity} price={props.price} />
+                        ))}
+                    </div>
+
+                    <label htmlFor="tableNumber" className="text-customRed mt-3">Table Number</label>
+                    <input
+                        type="text"
+                        maxLength={6}
+                        name="tableNumber"
+                        id="tableNumber"
+                        className="bg-customBeige text-center rounded-xl p-2 w-full"
+                        value={tableNumber}
+                        placeholder="e.g. pb1"
+                        required
+                        onChange={(e) => setTableNumber(e.target.value)} />
+
+                    {errors && <p className="text-customRed font-bold max-w-[15vw] text-center">{errors}</p>}
+                    {success && <p className="text-green-600 font-bold max-w-[15vw] text-center">{success}</p>}
+
+                    {
+                        isLoading ?
+                            <IoRestaurantSharp className="text-6xl m-2 p-2 animate-spin text-customRed" />
+                            :
+                            <button
+                                className="bg-customRed p-2 m-2 rounded-xl text-white"
+                                onClick={handleCheckout}>
+                                Checkout
+                            </button>
+                    }
+                </div>
             }
-        </div>
+        </>
     )
 }
 

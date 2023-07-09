@@ -1,0 +1,780 @@
+_type: export
+__export_format: 4
+__export_date: 2023-07-09T18:49:56.971Z
+__export_source: insomnia.desktop.app:v2023.4.0
+resources:
+  - _id: req_9adaccb762e247358692e183d3db8b9c
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688677165051
+    created: 1688015407905
+    url: http://localhost:8080/api/auth/login
+    name: Login
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "max@gmail.com",
+        	"password": "qwerty123"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407905
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    parentId: null
+    modified: 1688015401523
+    created: 1688015401523
+    name: alacarta.yaml
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: req_d6014a9da4f34e90a951a487a8a887d5
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688016293382
+    created: 1688015929915
+    url: http://localhost:8080/api/auth/registerRestaurant
+    name: Register Restaurant
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "athus resto",
+        	"urlSuffix": "athusResto",
+        	"paymentInfo": "123",
+        	"ownerName": "athus",
+        	"ownerEmail": "athus@gmail.com",
+        	"ownerPassword": "qwerty123"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407880
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9fc10445ebf940f89c65b8219b5aa1dd
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688783690538
+    created: 1688015577235
+    url: http://localhost:8080/api/auth/register
+    name: Register
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "maxi18wars@gmail.com",
+        	"restaurantUrl": "athus",
+        	"categoryEnum": 1
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407855
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d133f18207894dfeb85d88cca72770c2
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688772910481
+    created: 1688771696047
+    url: http://localhost:8080/api/auth/changeUserInfo
+    name: Update User
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email": "santhus@gmail.com",
+        	"name": "santhus",
+        	"password": "qwerty123",
+        	"changeInfoCode": "111"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407830
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8965152444634c83b2d19cfead6d0e58
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688017130772
+    created: 1688017092961
+    url: http://localhost:8080/api/auth/logout
+    name: Logout
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407805
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3dd8bc12da094ba7a81189dc7626c668
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688017214933
+    created: 1688017165934
+    url: http://localhost:8080/api/auth/session
+    name: Session
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407755
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_8960f6c6c0f346a6967f904e49ef5a4c
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688610696294
+    created: 1688017222898
+    url: http://localhost:8080/api/maxoresto
+    name: Restaurant
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407705
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c720125c79dd44c49d07470b9efd57a8
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688776386670
+    created: 1688437820272
+    url: http://localhost:8080/api/maxoresto
+    name: Update Restaurant
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "Maxo Resto",
+        	"urlSuffix": "maxoresto",
+        	"productCategories": [
+        		"Appetizers",
+        		"Beverages",
+        		"Desserts",
+        		"Entrees",
+        		"Meat",
+        		"Spicy"
+        	]
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407698.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_7b590c24b34e45d8a43f2fc03b89e905
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688351291008
+    created: 1688343238896
+    url: http://localhost:8080/api/maxoresto
+    name: Delete Restaurant
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407692.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6ace8516b2104735b02995804f59c42c
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688772962077
+    created: 1688674294757
+    url: http://localhost:8080/api/maxoresto/employees
+    name: Employees
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407686.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_d37e9f2263034ba193cd4dd712ea42fc
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688676091152
+    created: 1688675910590
+    url: http://localhost:8080/api/maxoresto/employees/64a71fcda7f1305d258493e8
+    name: Update Employee
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"categoryEnum": 2
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407683.125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_3bdf70c2ca5a4993b824c3dcaf0d71d9
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688677159421
+    created: 1688676072158
+    url: http://localhost:8080/api/maxoresto/employees/64a72af66e4c9dc018876410
+    name: Delete Employee
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407681.5625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_83450e6555c7404aa069f8f9907562d5
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688357590619
+    created: 1688063299305
+    url: http://localhost:8080/api/maxoresto/menu
+    name: Create Menu
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"banner": "https://static.wikia.nocookie.net/pokemonfanon/images/e/e1/Ryder%27s_Togekiss.png",
+        	"color": "#28c8d4"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407680
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_103e5e736d04407dbdf740101eaed2f2
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688343424374
+    created: 1688071874929
+    url: http://localhost:8080/api/maxoresto/menu
+    name: Menu
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407667.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_41d09f4aaa40498685aa39df3165be6c
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688889511580
+    created: 1688357248934
+    url: http://localhost:8080/api/maxoresto/menu
+    name: Update Menu
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"color": "#7fdffa"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407661.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_74d013eec6c44f44ac442ab5dbf7a0f4
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688452134041
+    created: 1688060970919
+    url: http://localhost:8080/api/maxoresto/products
+    name: Add Product
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"name": "athus",
+        	"picture": "https://i.redd.it/501a97rqcxy31.png",
+        	"description": "slowpokes dont suffer",
+        	"productCategories": [
+        		"Entrees",
+        		"Meat"
+        	],
+        	"price": 20
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407655
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2db1bc563a98456d9371094b7ac2ddc3
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688674932400
+    created: 1688357335784
+    url: http://localhost:8080/api/maxoresto/products/64a24976e537a7ad26138d8c
+    name: Update Product
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: >-
+        {
+        	"picture": "https://archives.bulbagarden.net/media/upload/thumb/4/4d/Poffin_anime.png/220px-Poffin_anime.png",
+        	"name": "",
+        	"isAvailable": false
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407642.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_b64aa85109e5475da0ec663dca99be19
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688264006476
+    created: 1688263906130
+    url: http://localhost:8080/api/maxoresto/products/649dd88e678e934981203f81
+    name: Delete Product
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407630
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_60e0aefb39c54f1b86fc245a810191f8
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688343429893
+    created: 1688064371654
+    url: http://localhost:8080/api/maxoresto/products
+    name: Products
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407605
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5ac25eb7da7e4cc08f71f135c1376454
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688073195395
+    created: 1688073168277
+    url: http://localhost:8080/api/maxoresto/products/649dd886678e934981203f75
+    name: Product by id
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407580
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2cd5468cb0e2485d872633e0b4fa512b
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688684032328
+    created: 1688065391634
+    url: http://localhost:8080/api/maxoresto/products?category=Beverages
+    name: Products category filter
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407555
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_10c6f972253d4f4b80d79cefd50f9175
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688179522277
+    created: 1688170541380
+    url: http://localhost:8080/api/maxoresto/products?firstKPopular=3
+    name: Products popular filter
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407505
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5f13c6c2e3de4292b42fabf9bf85999d
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688888079486
+    created: 1688791004526
+    url: http://localhost:8080/api/maxoresto/orders
+    name: Create Order
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"products": [
+        		"64a72f5e049652bcc024a7af",
+        		"64a24976e537a7ad26138d8c"
+        	],
+        	"table": "pb1"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407455
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_a5cbf8045ca14d1099d03eab083f268f
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688798042415
+    created: 1688792502340
+    url: http://localhost:8080/api/maxoresto/orders/64a902434ca7669ddca9719f
+    name: Update Order
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"statusEnum": 2
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1688015407405
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_fae93ec6e4ae43299ad2330a52dbb368
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688862711414
+    created: 1688793647788
+    url: http://localhost:8080/api/maxoresto/orders?filterByEnum=2
+    name: Get Orders
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407355
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_059a2f28b25e4c638a345ef4f4fff997
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688795563308
+    created: 1688795174042
+    url: http://localhost:8080/api/maxoresto/orders/statistics
+    name: Order Statistics
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407305
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f8f2c804a1f643ee8f57fb1d2a289636
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688885221576
+    created: 1688796899077
+    url: http://localhost:8080/api/maxoresto/orders/statistics?startDate=2023-07-08T06:25:03.831Z&endDate=2023-07-08T07:30:03.831Z
+    name: Order Statistic filter
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407255
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2ca9d9ba0fb64dbc97f2831a95c65c20
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688799286152
+    created: 1688798930906
+    url: http://localhost:8080/api/maxoresto/orders/statistics/64a24976e537a7ad26138d8c
+    name: Order Statistic of Product
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407205
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6de581534f2748368866ff432ff3f229
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688886010159
+    created: 1688799395832
+    url: http://localhost:8080/api/maxoresto/orders/statistics/64a24976e537a7ad26138d8c?startDate=2023-07-08T06:22:03.831Z&endDate=2023-07-08T07:30:03.831Z
+    name: Order Statistic of Product filter
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1688015407155
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_42ddd99ea6c24b70e1a4b5fd40d8879915fee153
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688015401526
+    created: 1688015401526
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1688015401526
+    _type: environment
+  - _id: jar_42ddd99ea6c24b70e1a4b5fd40d8879915fee153
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688871552523
+    created: 1688015401528
+    name: Default Jar
+    cookies:
+      - key: qid
+        value: gmKMPMq0Wo4bgiZpwKRtCiXWB-5gMygL
+        expires: 2023-07-10T02:59:12.000Z
+        maxAge: 86400
+        domain: localhost
+        path: /
+        secure: true
+        httpOnly: true
+        extensions:
+          - SameSite=None
+        hostOnly: true
+        creation: 2023-07-09T02:59:12.523Z
+        lastAccessed: 2023-07-09T02:59:12.523Z
+        id: "09844032306904049"
+    _type: cookie_jar
+  - _id: spc_a32d24b64fb24063aaddb872409d90bf
+    parentId: wrk_f2d9af7f36fe4688b7363ce5091b67cd
+    modified: 1688056399794
+    created: 1688015401525
+    fileName: alacarta.yaml
+    contents: ""
+    contentType: yaml
+    _type: api_spec

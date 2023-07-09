@@ -1,37 +1,44 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import background from './assets/background.jpg'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useGetSession } from './hooks/sessionHooks'
-import Dashboard from './components/dashboard/Dashboard'
 import Menu from './components/menu/Menu'
 import Orders from './components/orders/Orders'
 import Employees from './components/employees/Employees'
-import React from 'react'
-import { Suspense } from 'react'
-
-const LazyHomePage = React.lazy(() => import('./components/homepage/HomePage'))
+import HomePage from './components/homepage/HomePage'
+import Dashboard from './components/dashboard/Dashboard'
+import { useEffect, useState } from 'react'
+import LoadingScreen from './components/shared/LoadingScreen'
 
 function App() {
+  const { user, isLoading } = useGetSession()
+  const [isSessionLoaded, setIsSessionLoaded] = useState(false)
 
-  useGetSession()
+  useEffect(() => {
+    if (!isLoading) {
+      setIsSessionLoaded(true)
+    }
+  }, [isLoading])
 
   return (
-    <Suspense fallback={
-      <img
-        className='object-cover blur-sm object-center h-screen w-screen fixed'
-        src={background}
-        alt="loading"
-      />
-    }>
-      <Router>
+    <Router>
+      {isSessionLoaded ? (
         <Routes>
-          <Route path='/:restaurantUrl/dashboard' element={<Dashboard />} />
-          <Route path='/' element={<LazyHomePage />} />
+          <Route path='/:restaurantUrl/dashboard' element={
+            user ? <Dashboard /> : <Navigate to="/" />
+          } />
+          <Route path='/' element={<HomePage />} />
           <Route path='/:restaurantUrl/menu' element={<Menu />} />
-          <Route path='/:restaurantUrl/orders' element={<Orders />} />
-          <Route path='/:restaurantUrl/employees' element={<Employees />} />
+          <Route path='/:restaurantUrl/orders' element={
+            user ? <Orders /> : <Navigate to="/" />
+          } />
+          <Route path='/:restaurantUrl/employees' element={
+            user ? <Employees /> : <Navigate to="/" />
+          } />
         </Routes>
-      </Router>
-    </Suspense>
+      )
+        :
+        (<LoadingScreen />)
+      }
+    </Router>
   )
 }
 

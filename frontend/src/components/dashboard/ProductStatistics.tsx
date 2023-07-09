@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Product } from '../../@types/product'  
-import { Tag } from './Tag' 
+import { Product } from '../../@types/product'
+import { Tag } from '../shared/Tag'
 import ProductImage from './ProductImage'
 import LineChartStatistics from './LineChartStatistics'
 import { ProductPieChart } from './PieChartStatistics' 
@@ -42,7 +42,6 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                         <ProductImage selectedProduct={selectedProduct} />
                         <ProductPieChart selectedProduct={selectedProduct}/>
                     </div>
-                    
             </div>
         </div>
     )

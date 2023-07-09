@@ -1,52 +1,66 @@
 import { AiFillPlusCircle } from "react-icons/ai"
-import { Category } from "../../@types/category"
+import { BiSolidLeftArrow } from "react-icons/bi"
 
-const Categories = ({ deploy, categories, handleCategoryClick }: { deploy: boolean, categories: Category[], handleCategoryClick: (category: Category) => void }) => {
-    
-    return(
+const Categories = ({ deploy, setDeploy, categories, handleCategoryClick, handleKPopular }:
+    {
+        deploy: boolean,
+        setDeploy: (deploy: boolean) => void,
+        categories: string[],
+        handleCategoryClick: (category: string) => void
+        handleKPopular: (k: number) => void
+    }) => {
+
+    return (
         <>
-            <div>
-                <div className={`absolute bg-customBeige rounded-r-3xl  w-1/6 h-screen 
-                    ${deploy ? 'translate-x-0' : '-translate-x-80'} transition-transform duration-300`}>
-                    <div>
-                        <div>
-                            <div className="flex flex-col items-center mt-24 ">
-                                <h1 className="text-3xl font-bold text-customRed">Categorías</h1>
-                                <hr className="bg-customPink h-1 w-72 mt-2" />
+            {
+                deploy &&
+                <div className={`bg-white bg-opacity-30 drop-shadow-3xl rounded-r-3xl w-96 p-10 h-full flex flex-col items-center`}>
+                    <h1 className="text-3xl font-bold text-customRed">Categorías</h1>
+                    <hr className="bg-customPink h-1 w-full" />
 
-                                <div className='flex flex-col items-center overflow-y-auto mt-3 w-80 h-[80vh]'>
-                                    {categories.map((category, index) => (
-                                        <div key={index} onClick={() => handleCategoryClick(category)}>
-                                            <CategoryThumbnail category={category} />
-                                        </div>
-                                    ))}
+                    <button
+                        className="absolute top-1/2 right-2 text-lg flex justify-center items-center text-customRed bg-white w-8 h-16 rounded-full"
+                        onClick={() => { setDeploy(false) }}>
+                        <BiSolidLeftArrow />
+                    </button>
 
-
-                                </div>
-
-                            </div>
-                        </div>
+                    <div className='flex flex-col gap-5 mt-4 items-center overflow-y-scroll overflow-x-hidden w-full h-full'>
+                        <CategoryThumbnail
+                            key="All"
+                            category='All'
+                            onClick={() => {
+                                handleCategoryClick('')
+                                handleKPopular(10000)
+                            }} />
+                        <CategoryThumbnail
+                            key="Popular"
+                            category='Popular'
+                            onClick={() => {
+                                handleKPopular(8)
+                                handleCategoryClick('')
+                            }} />
+                        {categories.map((category, index) => (
+                            <CategoryThumbnail
+                                key={index}
+                                category={category}
+                                onClick={() => handleCategoryClick(category)} />
+                        ))}
                     </div>
-                </div>
-            </div>
+                </div>}
         </>
     )
 }
 
-const CategoryThumbnail = ({ category }: { category: Category }) => {
-    return(
-        <>
-            <div className='bg-white rounded-lg mt-5 w-52 hover:scale-105 ease-in-out duration-200 text-center'>
-                <div className='flex flex-col items-center'>
-                    <div>
-                        <AiFillPlusCircle className='text-customRed' />
-                    </div>
-                    <h1 className='font-bold text-center'>
-                        {category.title.length > 25 ? category.title.substring(0, 25) + '...' : category.title}
-                    </h1>
-                </div>
-            </div>
-        </>
+const CategoryThumbnail = ({ category, onClick }: { category: string, onClick: () => void }) => {
+    return (
+        <div
+            onClick={onClick}
+            className='bg-customBeige opacity-90 cursor-pointer rounded-lg w-full hover:brightness-[1.07] text-center p-1 drop-shadow-md'>
+            <h1 className='font-bold text-center'>
+                {category.length > 25 ? category.substring(0, 25) + '...' : category}
+                <AiFillPlusCircle className='text-customRed inline-block' />
+            </h1>
+        </div>
     )
 }
 

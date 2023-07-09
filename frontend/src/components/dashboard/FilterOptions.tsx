@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import React from 'react';
-import { Tag } from './Tag';
+import { Tag } from '../shared/Tag';
 
 const FilterOptions = ({ setFilterOption }: { setFilterOption: React.Dispatch<React.SetStateAction<string | undefined>> }) => {
 

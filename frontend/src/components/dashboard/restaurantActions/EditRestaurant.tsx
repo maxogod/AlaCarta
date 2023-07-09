@@ -5,7 +5,7 @@ import { setCurrentProduct } from '../../../redux/slices/currentRestaurantSlice'
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { RootState } from '../../../redux/store';
-import { EditTag } from '../Tag';
+import { EditTag } from '../../shared/Tag';
 import { IoIosAddCircle } from "react-icons/io";
 
 const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenEdit: (open: boolean) => void }) => {

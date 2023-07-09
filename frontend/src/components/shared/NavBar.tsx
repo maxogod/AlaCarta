@@ -19,7 +19,7 @@ const NavBar = () => {
     const itemsNav = [
         { title: 'Home', to: "/" },
         { title: 'DashBoard', to: `/${restaurantUrl}/dashboard` },
-        { title: 'Menú', to: `/${restaurantUrl}/menu` },
+        { title: 'Menú', to: `/${restaurantUrl}` },
         { title: 'Pedidos', to: `/${restaurantUrl}/orders` },
         { title: 'Empleados', to: `/${restaurantUrl}/employees` }
     ]

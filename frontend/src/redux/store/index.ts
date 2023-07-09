@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import currentUserReducer from "../slices/currentUserSlice";
 import currentRestaurantReducer from "../slices/currentRestaurantSlice";
+import cartReducer from "../slices/cartSlice";
 
 const store = configureStore({
     reducer: {
         currentUser: currentUserReducer,
         currentRestaurant: currentRestaurantReducer,
+        cart: cartReducer,
     },
 });
 

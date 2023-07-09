@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 const ProductPieChart = ({ selectedProduct }: { selectedProduct: Product | undefined }) => {
 
 

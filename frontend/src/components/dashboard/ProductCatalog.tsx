@@ -5,7 +5,7 @@ import { RootState } from '../../redux/store'
 import axios from 'axios'
 import { setCurrentProduct } from '../../redux/slices/currentRestaurantSlice'
 import { Product } from '../../@types/product'
-import { Tag } from './Tag'
+import ProductThumbnail from '../shared/ProductThumbnail'
 
 
 const ProductCatalog = () => {
@@ -20,6 +20,7 @@ const ProductCatalog = () => {
     
     const { restaurantUrl } = useParams()
     
+
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -38,27 +39,27 @@ const ProductCatalog = () => {
         };
         fetchProducts()
     }, [filterBy]);
-    
+
     const handleProductClick = (product: Product | null) => {
         dispatch(setCurrentProduct(product))
     }
-    
+
 
     return (
         <div className="z-10  absolute bg-customBeige rounded-r-3xl w-96 h-screen flex flex-col items-center justify-center">
-            
-                <h1 className="text-3xl font-bold text-customRed mt-12">{catalogTitle}</h1>
-                <hr className="bg-customPink h-1 w-72 my-2" />
-                <div className='w-80'>
-                    <ShowProducts filterState={[filterBy, setfilterBy]} handleProductClick={handleProductClick} />
-                    <div className='overflow-y-auto 2xl:h-[44rem] h-[25rem]'>
-                        {products?.map((product, index) => (
-                            <div key={index} onClick={() => handleProductClick(product)}>
-                                <ProductThumbnail product={product} />
-                            </div>
-                        ))}
-                    </div>
+
+            <h1 className="text-3xl font-bold text-customRed mt-12">{catalogTitle}</h1>
+            <hr className="bg-customPink h-1 w-72 my-2" />
+            <div className='w-80'>
+                <ShowProducts filterState={[filterBy, setfilterBy]} handleProductClick={handleProductClick} />
+                <div className='overflow-y-auto 2xl:h-[44rem] h-[25rem]'>
+                    {products?.map((product, index) => (
+                        <div key={index} onClick={() => handleProductClick(product)}>
+                            <ProductThumbnail product={product} />
+                        </div>
+                    ))}
                 </div>
+            </div>
         </div>
     )
 }
@@ -107,36 +108,6 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
             </div>}
         </div>
     )
-}
-
-const ProductThumbnail = ({ product }: { product: Product }) => {
-
-    const priceTitle = "Precio:"
-    const productName = product.name
-    const productPrice = product.price
-    const displayedCategories = product.productCategories.slice(0, 3);
-
-
-    return (
-        <div className='bg-white rounded-lg mt-5 ml-2 h-24 w-11/12 hover:scale-105 ease-in-out duration-200 flex cursor-pointer'>
-            <img src={product.picture} alt='' className='w-16 h-24 object-cover rounded-lg' />
-            <div className='flex-col ml-2 mt-3 text-sm'>
-                <h1 className='font-bold text-ellipsis'>
-                    {productName}
-                </h1>
-                <hr className="bg-customPink h-1 w-48 rounded-lg" />
-                <h1 className='font-bold mt-1'>{priceTitle} ${productPrice}</h1>
-                <div className='flex justify-normal gap-2 w-52  overflow-x-scroll'>
-                    {displayedCategories.map((category, index) => (
-                        <div key={index}>
-                            <Tag title={category} customComponents={"bg-customRed"} />
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </div>
-    )
-
 }
 
 export default ProductCatalog;

@@ -5,12 +5,18 @@ import { useParams } from "react-router-dom"
 import { IoRestaurantSharp } from "react-icons/io5"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../../redux/slices/cartSlice"
+import ProductThumbnail from "../shared/ProductThumbnail"
 
 const ProductList = ({ category, kPopular }: { category: string, kPopular: number }) => {
 
     const [productsLoaded, setProductsLoaded] = useState(false)
     const { restaurantUrl } = useParams<{ restaurantUrl: string }>()
     const [products, setProducts] = useState<Product[] | null>();
+
+    const dispatch = useDispatch()
+    const handleProductClick = (product: Product) => {
+        dispatch(addToCart({ productId: product._id, name: product.name, price: product.price }))
+    }
 
     useEffect(() => {
         setProductsLoaded(false)
@@ -40,7 +46,10 @@ const ProductList = ({ category, kPopular }: { category: string, kPopular: numbe
             {productsLoaded ?
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 mt-3">
                     {products!.map((product, index) => (
-                        <ProductThumbnailForMenu key={index} product={product} />
+                        <ProductThumbnail
+                            key={index}
+                            product={product}
+                            handleProductClick={handleProductClick} />
                     ))}
                 </div>
                 :
@@ -50,42 +59,6 @@ const ProductList = ({ category, kPopular }: { category: string, kPopular: numbe
             }
         </div>
     )
-}
-
-function ProductThumbnailForMenu({ product }: { product: Product }) {
-
-    const priceTitle = "Precio:"
-    const dispatch = useDispatch()
-
-    const handleProductClick = () => {
-        dispatch(addToCart({ productId: product._id, name: product.name, price: product.price }))
-    }
-
-    return (
-        <div
-            className='bg-white text-sm rounded-lg h-24 w-full hover:scale-105 ease-in-out duration-200 flex cursor-pointer font-bold p-2'
-            onClick={handleProductClick}>
-            <img
-                src={product.picture}
-                alt='Product Image'
-                className='w-1/3 h-full object-cover rounded-lg mr-1' />
-            <div className="overflow-y-hidden text-ellipsis w-full">
-                <h1 className="overflow-ellipsis whitespace-nowrap max-w-[30%]">{product.name}</h1>
-                <hr className="bg-customPink h-1" />
-                <h1>{priceTitle} ${product.price}</h1>
-                <div className='flex gap-1 overflow-x-scroll'>
-                    {product.productCategories.map((category, index) => (
-                        <small
-                            key={index}
-                            className="bg-customRed text-white px-1 rounded-lg">
-                            {category}
-                        </small>
-                    ))}
-                </div>
-            </div>
-        </div>
-    )
-
 }
 
 export default ProductList

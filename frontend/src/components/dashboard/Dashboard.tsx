@@ -35,6 +35,11 @@ const Dashboard = ({ user }: { user: UserType }) => {
 
     return (
         <>
+            <img
+                className="blur-lg object-cover object-center h-screen w-screen fixed"
+                src={"https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"}
+                alt=""
+            />
             {
                 isRestaurantLoaded ?
                     (

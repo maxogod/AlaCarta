@@ -13,8 +13,6 @@ import { setCurrentUser } from "../../redux/slices/currentUserSlice"
 import UserRestaurants from "./UserRestaurants"
 import RegisterAcountPopUp from "../auth/RegisterAcountPopUp"
 
-const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
-
 const HomePage = () => {
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
@@ -67,6 +65,11 @@ const HomePage = () => {
 
     return (
         <>
+            <img
+                className="blur-lg object-cover object-center h-screen w-screen fixed"
+                src={"https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"}
+                alt=""
+            />
             <div className="fixed inset-0 flex items-center justify-evenly flex-col">
                 <LoginPopup showLogin={showLogin} setShowLogin={setShowLogin} />
                 <RestaurantRegisterPopUp showRegister={showRegister} setShowRegister={setShowRegister} />

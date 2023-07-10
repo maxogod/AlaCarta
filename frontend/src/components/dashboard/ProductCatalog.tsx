@@ -17,9 +17,9 @@ const ProductCatalog = () => {
     const [filterBy, setfilterBy] = useState("");
 
     const [products, setProducts] = useState<Product[] | null>();
-    
+
     const { restaurantUrl } = useParams()
-    
+
 
 
     useEffect(() => {
@@ -46,17 +46,18 @@ const ProductCatalog = () => {
 
 
     return (
-        <div className="z-10  absolute bg-customBeige rounded-r-3xl w-96 h-screen flex flex-col items-center justify-center">
+        <div className="z-10  absolute bg-customBeige rounded-r-3xl w-80 2xl:w-96 h-screen flex flex-col items-center justify-center">
 
-            <h1 className="text-3xl font-bold text-customRed mt-12">{catalogTitle}</h1>
-            <hr className="bg-customPink h-1 w-72 my-2" />
-            <div className='w-80'>
+            <h1 className="text-2xl 2xl:text-3xl font-bold text-customRed mt-12">{catalogTitle}</h1>
+            <hr className="bg-customPink h-1 w-56 2xl:w-72 my-2" />
+            <div className='w-64 2xl:w-80'>
                 <ShowProducts filterState={[filterBy, setfilterBy]} handleProductClick={handleProductClick} />
-                <div className='overflow-y-auto 2xl:h-[44rem] h-[25rem]'>
+                <div className='overflow-y-auto 2xl:h-[44rem] h-[25rem] overflow-x-hidden flex flex-col gap-3 p-4'>
                     {products?.map((product, index) => (
-                        <div key={index} onClick={() => handleProductClick(product)}>
-                            <ProductThumbnail product={product} />
-                        </div>
+                        <ProductThumbnail
+                            key={index}
+                            product={product}
+                            handleProductClick={handleProductClick} />
                     ))}
                 </div>
             </div>

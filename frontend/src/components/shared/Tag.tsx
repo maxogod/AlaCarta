@@ -40,4 +40,29 @@ const EditTag = ({ title, customComponents, onCancelClick }: { title: string, cu
     )
 }
 
-export { EditTag, Tag };
+
+
+const PieChartTag = ({title, index}: {title: string, index: number}) => {
+    
+    const getTopColor = (index: number): string => {
+        switch (index) {
+            case 0:
+                return "bg-customOrange";
+            case 1:
+                return "bg-customRed";
+            case 2:
+                return "bg-blue-500";
+            default:
+                return "bg-yellow-600";
+        }
+    };
+
+    return (
+        <div key={index}
+            className={`${getTopColor(index)} text-white 2xl:text-lg text-xs font-bold text-center   py-0.5 2xl:py-1 rounded-2xl w-full px-3 `}
+            >{title}</div>
+    );
+};
+
+
+export { PieChartTag, EditTag, Tag };

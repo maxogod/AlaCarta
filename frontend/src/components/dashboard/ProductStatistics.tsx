@@ -30,7 +30,7 @@ const ProductStatistics = ({ selectedProduct }: { selectedProduct: Product }) =>
                     customStartDate={customStartDate}
                     customEndDate={customEndDate}
                 />
-                    <div className='relative w-full 2xl:ml-3 ml-2 mb-10 flex 2xl:gap-7 gap-4 '>
+                    <div className='relative w-full 2xl:ml-3 ml-2 mb-10 flex justify-start items-start 2xl:gap-7 gap-4 '>
                         <FilterOptions setFilterOption={setFilterOption} />
                         <RangeDatePicker
                             filterOption={filterOption}

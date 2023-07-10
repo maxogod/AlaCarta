@@ -29,6 +29,7 @@ const NavBar = () => {
         { icon: <IoIosPeople className={"w-8 h-8"} />, title: employees, to: `/${restaurantUrl}/employees` }
     ];
 
+    sessionUser?.userCategories
 
     return (
         <>

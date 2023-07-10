@@ -24,8 +24,10 @@ const addProductService = async (props: {
         if (!categoryExists) {
             const newCategory = new ProductCategory({ name: category });
             await newCategory.save();
-            restaurant.productCategories.push(newCategory.name);
-            await restaurant.save();
+            if (!restaurant.productCategories.includes(newCategory.name)) {
+                restaurant.productCategories.push(newCategory.name);
+                await restaurant.save();
+            }
         }
     });
     const newProduct = new Product({

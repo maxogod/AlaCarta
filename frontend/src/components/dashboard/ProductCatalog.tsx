@@ -6,6 +6,7 @@ import axios from 'axios'
 import { setCurrentProduct } from '../../redux/slices/currentRestaurantSlice'
 import { Product } from '../../@types/product'
 import ProductThumbnail from '../shared/ProductThumbnail'
+import { IoRestaurantSharp } from 'react-icons/io5'
 
 
 const ProductCatalog = () => {
@@ -17,12 +18,13 @@ const ProductCatalog = () => {
     const [filterBy, setfilterBy] = useState("");
 
     const [products, setProducts] = useState<Product[] | null>();
+    const [productsLoaded, setProductsLoaded] = useState(false)
 
     const { restaurantUrl } = useParams()
 
 
-
     useEffect(() => {
+        setProductsLoaded(false)
         const fetchProducts = async () => {
             try {
                 const res = await axios.get(
@@ -33,6 +35,7 @@ const ProductCatalog = () => {
                 );
                 if (res.status === 404) return
                 setProducts(res.data)
+                setProductsLoaded(true)
             } catch (err) {
                 return
             }
@@ -52,14 +55,21 @@ const ProductCatalog = () => {
             <hr className="bg-customPink h-1 w-56 2xl:w-72 my-2" />
             <div className='w-64 2xl:w-80'>
                 <ShowProducts filterState={[filterBy, setfilterBy]} handleProductClick={handleProductClick} />
-                <div className='overflow-y-auto 2xl:h-[44rem] h-[25rem] overflow-x-hidden flex flex-col gap-3 p-4'>
-                    {products?.map((product, index) => (
-                        <ProductThumbnail
-                            key={index}
-                            product={product}
-                            handleProductClick={handleProductClick} />
-                    ))}
-                </div>
+                {
+                    productsLoaded ?
+                        <div className='overflow-y-auto 2xl:h-[44rem] h-[25rem] overflow-x-hidden flex flex-col gap-3 p-4'>
+                            {products?.map((product, index) => (
+                                <ProductThumbnail
+                                    key={index}
+                                    product={product}
+                                    handleProductClick={handleProductClick} />
+                            ))}
+                        </div>
+                        :
+                        <div className='flex animate-pulse 2xl:h-[44rem] h-[25rem] items-center justify-center'>
+                            <IoRestaurantSharp className="text-9xl animate-spin text-customRed" />
+                        </div>
+                }
             </div>
         </div>
     )
@@ -101,7 +111,10 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
                     <hr className="bg-white h-1  ml-3 mr-1 rounded-xl" />
 
                     {categories?.map((category, index) => (
-                        <div className='my-1 mx-3 hover:bg-customDarkRed rounded-3xl transition-all' key={index} onClick={() => setfilterBy(category)}>
+                        <div
+                            className='my-1 mx-3 hover:bg-customDarkRed rounded-3xl transition-all'
+                            key={index}
+                            onClick={() => { setfilterBy(category); setIsOpen((prev) => (!prev)) }}>
                             {category}
                         </div>
                     ))}

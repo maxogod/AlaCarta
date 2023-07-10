@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useGetRestaurant } from '../../hooks/restaurantHook';
 import { useSelector } from 'react-redux';
-import ProductChart from './LineChartStatistics';
 import { RootState } from '../../redux/store';
 import { FilterOptions, RangeDatePicker } from './FilterOptions';
 import RestaurantActions from './RestaurantActions';

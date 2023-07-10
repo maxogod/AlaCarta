@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Blurhash } from 'react-blurhash';
-import { NavBar } from '../shared/NavBar';
+import { useState } from 'react';
 import OrderControl from './OrderControl';
 import OrderProcess from './OrderProcess';
+import { NavBar } from '../shared/NavBar';
 import { useGetRestaurant } from '../../hooks/restaurantHook';
 import { UserType } from '../../@types/stateTypes';
 import { employeeCategoryEnum } from '../../@types/enums';
@@ -10,8 +9,7 @@ import LoadingScreen from '../shared/LoadingScreen';
 import { Navigate } from 'react-router-dom';
 
 const Orders = ({ user }: { user: UserType }) => {
-    const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
-    const [imageLoader, setImageLoader] = useState(false)
+
 
     const [openControl, setOpenControl] = useState(true);
     const [openProcess, setOpenProcess] = useState(false);
@@ -34,15 +32,6 @@ const Orders = ({ user }: { user: UserType }) => {
         }
     }, [isLoading])
 
-    useEffect(() => {
-        const img = new Image()
-        img.onload = () => {
-            setImageLoader(true)
-        }
-        img.src = src
-    }, [src])
-
-
     return (
         <>
             {
@@ -50,7 +39,6 @@ const Orders = ({ user }: { user: UserType }) => {
                     (
                         userHasAccess ?
                             <>
-                                <BackgroundImage src={src} imageLoader={imageLoader} />
                                 <div className="fixed inset-0 scale-100">
                                     <NavBar />
                                     <ViewOrder setOpenControl={setOpenControl} setOpenProcess={setOpenProcess} />
@@ -130,28 +118,5 @@ const ViewOrder = ({ setOpenControl, setOpenProcess }: { setOpenControl: React.D
         </>
     )
 };
-
-function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boolean }) {
-    return (
-        <>
-            {!imageLoader && (
-                <Blurhash
-                    hash='LYGRuJw^S5R*ysn%ozax4=R*t7n~'
-                    resolutionX={32}
-                    resolutionY={32}
-                    punch={1} />
-            )}
-            {imageLoader && (
-                <img
-                    className="blur-lg object-cover object-center h-screen w-screen fixed"
-                    src={src}
-                    alt=""
-                />
-            )}
-        </>
-    )
-}
-
-
 
 export default Orders;

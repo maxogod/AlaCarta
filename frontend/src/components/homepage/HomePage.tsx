@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 // components
 import { BsQuestionSquare } from "react-icons/bs"
-import { Blurhash } from "react-blurhash"
 import LoginPopup from "../auth/LoginPopUp"
 import RestaurantRegisterPopUp from "../auth/RestaurantRegisterPopUp"
 import AboutPopUp from "../informational/AboutPopUp"
@@ -17,7 +16,6 @@ import RegisterAcountPopUp from "../auth/RegisterAcountPopUp"
 const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
 
 const HomePage = () => {
-    const [imageLoader, setImageLoader] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
     const [showRegisterAccount, setShowRegisterAccount] = useState(false)
@@ -33,13 +31,6 @@ const HomePage = () => {
         }
     }, [showLogin, showRegister, showRegisterAccount, showAbout])
 
-    useEffect(() => {
-        const img = new Image()
-        img.onload = () => {
-            setImageLoader(true)
-        }
-        img.src = src
-    }, [src])
 
     const toggleLogin = () => {
         setShowLogin(!showLogin)
@@ -76,7 +67,6 @@ const HomePage = () => {
 
     return (
         <>
-            <BackgroundImage src={src} imageLoader={imageLoader} />
             <div className="fixed inset-0 flex items-center justify-evenly flex-col">
                 <LoginPopup showLogin={showLogin} setShowLogin={setShowLogin} />
                 <RestaurantRegisterPopUp showRegister={showRegister} setShowRegister={setShowRegister} />
@@ -123,25 +113,5 @@ const HomePage = () => {
     )
 }
 
-function BackgroundImage({ src, imageLoader }: { src: string, imageLoader: boolean }) {
-    return (
-        <>
-            {!imageLoader && (
-                <Blurhash
-                    hash='LYGRuJw^S5R*ysn%ozax4=R*t7n~'
-                    resolutionX={32}
-                    resolutionY={32}
-                    punch={1} />
-            )}
-            {imageLoader && (
-                <img
-                    className="object-cover blur-sm object-center h-screen w-screen fixed"
-                    src={src}
-                    alt=""
-                />
-            )}
-        </>
-    )
-}
 
 export default HomePage

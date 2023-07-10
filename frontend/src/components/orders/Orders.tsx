@@ -7,6 +7,7 @@ import { UserType } from '../../@types/stateTypes';
 import { employeeCategoryEnum } from '../../@types/enums';
 import LoadingScreen from '../shared/LoadingScreen';
 import { Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Orders = ({ user }: { user: UserType }) => {
 

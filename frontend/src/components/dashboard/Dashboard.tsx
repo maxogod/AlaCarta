@@ -9,6 +9,7 @@ import { employeeCategoryEnum } from '../../@types/enums'
 import { useGetRestaurant } from '../../hooks/restaurantHook'
 import LoadingScreen from '../shared/LoadingScreen'
 import { Navigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 const Dashboard = ({ user }: { user: UserType }) => {
 

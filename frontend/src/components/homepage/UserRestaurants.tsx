@@ -13,7 +13,7 @@ const UserRestaurants = ({ sessionUser }: { sessionUser: UserType }) => {
 
     return (
         <div className="bg-white sm:w-[27rem] w-64 h-[20rem] bg-opacity-20 rounded-2xl p-2 overflow-y-scroll">
-            <h1 className="text-2xl text-customRed text-center mt-2">Your Restaurants</h1>
+            <h1 className="text-2xl text-customRed text-center mt-2">Tus Restaurantes</h1>
 
             {sessionUser.userCategories.map((userCategory, i) => (
                 <div
@@ -41,7 +41,7 @@ const UserRestaurants = ({ sessionUser }: { sessionUser: UserType }) => {
                                 to={`/${userCategory.restaurant.urlSuffix}/orders`}
                                 className={`absolute right-2 drop-shadow-4xl text-sm border text-slate-900 ${buttonProps[i % buttonProps.length]} sm:p-2 p-1 rounded-lg hover:bg-transparent ease-in-out duration-300`}
                             >
-                                Orders
+                                Pedidos
                             </Link>
                         )
                     }

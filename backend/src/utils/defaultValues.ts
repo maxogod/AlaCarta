@@ -1,11 +1,11 @@
 import ProductCategory from "../models/ProductCategory";
 
 const defaultProductCategories = [
-    "Appetizers",
-    "Beverages",
-    "Desserts",
-    "Entrees",
-    "Sides",
+    "Bebidas",
+    "Entradas",
+    "Platos Fuertes",
+    "Postres",
+    "Acompañamientos",
 ];
 
 const getDefaultProductCategories = async () => {

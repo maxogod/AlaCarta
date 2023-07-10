@@ -23,7 +23,7 @@ interface RestaurantType extends Document {
     paymentInfo: string;
     employees: Types.ObjectId[];
     orders: Types.ObjectId[];
-    menu?: Types.ObjectId | undefined;
+    menu: Types.ObjectId;
 }
 
 export { UserType, UserCategoriesType, RestaurantType };

@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 
-const Banner = ({ children, picture }: { children: ReactNode, picture: string | undefined }) => {
+const Banner = ({ children, picture }: { children: ReactNode, picture: string }) => {
     return (
         <div className="relative">
             <img

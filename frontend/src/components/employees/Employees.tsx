@@ -7,17 +7,31 @@ import RegisterEmployee from "./RegisterEmployee"
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
 import { IoRestaurantSharp } from "react-icons/io5"
 import { NavBar } from "../shared/NavBar"
+import { UserType } from "../../@types/stateTypes"
+import { employeeCategoryEnum } from "../../@types/enums"
+import { Navigate } from "react-router-dom"
 
-const Employees = () => {
+
+const Employees = ({ user }: { user: UserType }) => {
 
     const [showAddEmployee, setShowAddEmployee] = useState(false)
     const { restaurant, isLoading } = useGetRestaurant()
     const [isRestaurantLoaded, setIsRestaurantLoaded] = useState(false)
+    const [userHasAccess, setUserHasAccess] = useState(false)
     const title = `Empleados de ${restaurant?.name}`
 
     useEffect(() => {
         if (!isLoading) {
             setIsRestaurantLoaded(true)
+            const isEmployee = user.userCategories.find(
+                (category) => category.restaurant._id === restaurant!._id
+            )
+            if (!isEmployee) {
+                setUserHasAccess(false)
+            } else {
+                const hasAccess = isEmployee.categoryEnum <= employeeCategoryEnum.Manager
+                setUserHasAccess(hasAccess)
+            }
         }
     }, [isLoading])
 
@@ -37,19 +51,22 @@ const Employees = () => {
             <ContentPane>
                 {
                     isRestaurantLoaded ? (
-                        <>
-                            <TitleCard title={title} />
-                            <div className="mt-10 flex flex-wrap justify-center gap-3 overflow-x-hidden">
-                                {restaurant?.employees.map((employee) => (
-                                    <EmployeeThumbnail key={employee._id} employee={employee} restaurant={restaurant} />
-                                ))}
-                                <div
-                                    className="bg-customRed hover:bg-customDarkRed transition-colors cursor-pointer drop-shadow-lg w-40 h-40 p-2 rounded-md sm:text-lg overflow-x-scroll text-sm flex items-center justify-center"
-                                    onClick={openAddEmployee}>
-                                    <BiSolidMessageSquareAdd className="text-white text-5xl" />
+                        userHasAccess ?
+                            <>
+                                <TitleCard title={title} />
+                                <div className="mt-10 flex flex-wrap justify-center gap-3 overflow-x-hidden">
+                                    {restaurant?.employees.map((employee) => (
+                                        <EmployeeThumbnail key={employee._id} employee={employee} restaurant={restaurant} />
+                                    ))}
+                                    <div
+                                        className="bg-customRed hover:bg-customDarkRed transition-colors cursor-pointer drop-shadow-lg w-40 h-40 p-2 rounded-md sm:text-lg overflow-x-scroll text-sm flex items-center justify-center"
+                                        onClick={openAddEmployee}>
+                                        <BiSolidMessageSquareAdd className="text-white text-5xl" />
+                                    </div>
                                 </div>
-                            </div>
-                        </>
+                            </>
+                            :
+                            <Navigate to="/" />
                     )
                         :
                         (

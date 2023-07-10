@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { employeeCategoryEnum } from "../@types/enums";
-import { restaurantCategoryOfUser } from "../services/restaurantInfoGetters";
+import { restaurantCategoryOfUser } from "../services/permissions";
 
 const passwordRegex = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[a-zA-Z]).{8,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

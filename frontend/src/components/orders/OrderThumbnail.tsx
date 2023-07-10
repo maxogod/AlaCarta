@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { OrderType } from "../../@types/stateTypes";
 import { BsDash } from "react-icons/bs";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
@@ -9,14 +9,14 @@ import { useParams } from "react-router-dom";
 
 const OrderThumbnail = ({ order, setUpdateOrders }: { order: OrderType, setUpdateOrders: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
-    
+
     const [showDetails, setShowDetails] = useState(false);
 
     const acceptOrderText = "Acceptar"
     const denyOrderText = "Rechazar"
     const finishOrderText = "Finalizado"
     const cancelOrderText = "Cancelar"
-    
+
     const changeStatusTo = order.statusEnum === 0 ? 1 : 2
     const checkButton = order?.statusEnum === 0 ? acceptOrderText : finishOrderText;
     const checkButtonBg = order?.statusEnum === 0 ? "bg-green-500" : "bg-customOrange";
@@ -26,12 +26,12 @@ const OrderThumbnail = ({ order, setUpdateOrders }: { order: OrderType, setUpdat
         { title: "Orden:", name: " #" + order._id.slice(-5) },
         { title: "Total:", name: " $" + order.price.toString() },
         { title: "Mesa:", name: " #" + order.table.padStart(3, '0') }
-      ];
+    ];
 
     return (
         <div
-        
-        className={`
+
+            className={`
         relative
         2xl:w-[180vh] md:w-[170vh] w-[35vh] py-3 px-5
         h-fit
@@ -46,42 +46,42 @@ const OrderThumbnail = ({ order, setUpdateOrders }: { order: OrderType, setUpdat
                     </div>
                 ))}
                 <div onClick={() => setShowDetails((prev) => (!prev))} className=" w-fit 2xl:w-[100vh] cursor-pointer">
-                <MdExpandMore className="ml-1 h-7 w-7"/>
+                    <MdExpandMore className="ml-1 h-7 w-7" />
                 </div>
                 <div className="absolute right-4 flex gap-3">
                     {(order.statusEnum < 2) &&
                         <>
                             <CustomButton order={order} statusNumChange={changeStatusTo} title={checkButton} altIcon={<IoCheckmarkCircleSharp className="w-5 h-5" />} customComp={checkButtonBg} setUpdateOrders={setUpdateOrders} />
-                            <CustomButton order={order} statusNumChange={3} title={cancelButton} altIcon={<MdCancel className="w-5 h-5" />} customComp={"bg-customRed"} setUpdateOrders={setUpdateOrders}/>
+                            <CustomButton order={order} statusNumChange={3} title={cancelButton} altIcon={<MdCancel className="w-5 h-5" />} customComp={"bg-customRed"} setUpdateOrders={setUpdateOrders} />
                         </>
                     }
                 </div>
             </div>
-            {showDetails && <ShowOrderDetails order={order}/>}
+            {showDetails && <ShowOrderDetails order={order} />}
         </div>
 
     );
 };
 
 
-const ShowOrderDetails = ({order} : {order: OrderType}) => {
+const ShowOrderDetails = ({ order }: { order: OrderType }) => {
 
     const createdAtText = "creado a : "
     const orderDate = `${order.createdAt}`
     const orderedProducts = order.products
 
-    return(
+    return (
         <div className="mt-2 flex flex-col lg:gap-0.5 gap-1 text-xs lg:text-sm font-bold text-customRed ">
             {orderedProducts.map((product, index) => (
                 <div key={index} className="flex gap-1">
-                 <h1>{product.name}</h1> <BsDash className={"mt-1 text-customDarkRed"}/> 
-                 <h1 className="hidden lg:block">{product.description}</h1> <BsDash className={"hidden lg:block mt-1 text-customDarkRed"}/>
-                 <h1>${product.price}</h1> 
+                    <h1>{product.name}</h1> <BsDash className={"mt-1 text-customDarkRed"} />
+                    <h1 className="hidden lg:block">{product.description}</h1> <BsDash className={"hidden lg:block mt-1 text-customDarkRed"} />
+                    <h1>${product.price}</h1>
                 </div>
             ))}
             <div className="flex gap-1 text-gray-950 opacity-75 font-normal ">
-            <h1 className="font-bold">{createdAtText}</h1>
-            <h1>{orderDate}</h1>
+                <h1 className="font-bold">{createdAtText}</h1>
+                <h1>{orderDate}</h1>
             </div>
         </div>
     )
@@ -90,29 +90,29 @@ const ShowOrderDetails = ({order} : {order: OrderType}) => {
 
 }
 
-const CustomButton = ({ title, altIcon, order, statusNumChange, customComp, setUpdateOrders }: { title: string, altIcon: JSX.Element, order: OrderType, statusNumChange: number, customComp: string, setUpdateOrders:React.Dispatch<React.SetStateAction<boolean>> }) => {
+const CustomButton = ({ title, altIcon, order, statusNumChange, customComp, setUpdateOrders }: { title: string, altIcon: JSX.Element, order: OrderType, statusNumChange: number, customComp: string, setUpdateOrders: React.Dispatch<React.SetStateAction<boolean>> }) => {
 
     const { restaurantUrl } = useParams()
 
     const changeStatus = (order: OrderType, statusType: number) => {
         const statusChange = async () => {
             try {
-              const res = await axios.put(
-                `http://localhost:8080/api/${restaurantUrl}/orders/${order._id}`,
-                {
-                  statusEnum: statusType,
-                },
-                {
-                  withCredentials: true,
-                }
-              );
-              if (res.status === 404) return;
+                const res = await axios.put(
+                    `http://localhost:8080/api/${restaurantUrl}/orders/${order._id}`,
+                    {
+                        statusEnum: statusType,
+                    },
+                    {
+                        withCredentials: true,
+                    }
+                );
+                if (res.status === 404) return;
             } catch (err) {
-              return;
+                return;
             }
-          }
-          statusChange()
-          setUpdateOrders(true)
+        }
+        statusChange()
+        setUpdateOrders(true)
     }
 
 

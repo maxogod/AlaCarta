@@ -6,15 +6,13 @@ import { FilterOptions, RangeDatePicker } from './FilterOptions';
 import RestaurantActions from './RestaurantActions';
 import { RestaurantPieChart } from './PieChartStatistics';
 import LineChartStatistics from './LineChartStatistics';
+import { RestaurantType } from '../../@types/stateTypes';
 
 
-const RestaurantStatistics = () => {
-
-    useGetRestaurant()
+const RestaurantStatistics = ({ restaurant }: { restaurant: RestaurantType | null }) => {
     const [filterOption, setFilterOption] = useState<string>();
     const [customStartDate, setCustomStartDate] = useState<Date>();
     const [customEndDate, setCustomEndDate] = useState<Date>();
-    const restaurant = useSelector((state: RootState) => state.currentRestaurant.restaurant)   
 
     return (
         <div className="absolute right-12 w-[65%] 2xl:w-[75%] h-5/6 mt-20 flex items-center justify-center  rounded-3xl bg-customBeige ml-5 overflow-hidden">
@@ -22,7 +20,7 @@ const RestaurantStatistics = () => {
                 <div className='ml-5 mt-8 text-customRed font-bold'>
                     <div className='flex gap-10 relative'>
                         <h1 className='2xl:text-4xl text-lg'>{restaurant?.name}</h1>
-                        <RestaurantActions/>
+                        <RestaurantActions />
                     </div>
                 </div>
                 <LineChartStatistics
@@ -40,7 +38,7 @@ const RestaurantStatistics = () => {
                         setCustomStartDate={setCustomStartDate}
                         setCustomEndDate={setCustomEndDate}
                     />
-                    <RestaurantPieChart/>
+                    <RestaurantPieChart />
                 </div>
             </div>
         </div>

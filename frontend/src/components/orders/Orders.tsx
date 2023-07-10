@@ -2,20 +2,57 @@ import { useState } from 'react';
 import OrderControl from './OrderControl';
 import OrderProcess from './OrderProcess';
 import { NavBar } from '../shared/NavBar';
+import { useGetRestaurant } from '../../hooks/restaurantHook';
+import { UserType } from '../../@types/stateTypes';
+import { employeeCategoryEnum } from '../../@types/enums';
+import LoadingScreen from '../shared/LoadingScreen';
+import { Navigate } from 'react-router-dom';
 
-const Orders = () => {
+const Orders = ({ user }: { user: UserType }) => {
+
 
     const [openControl, setOpenControl] = useState(true);
     const [openProcess, setOpenProcess] = useState(false);
+    const { restaurant, isLoading } = useGetRestaurant()
+    const [isRestaurantLoaded, setIsRestaurantLoaded] = useState(false)
+    const [userHasAccess, setUserHasAccess] = useState(false)
+
+    useEffect(() => {
+        if (!isLoading) {
+            setIsRestaurantLoaded(true)
+            const isEmployee = user.userCategories.find(
+                (category) => category.restaurant._id === restaurant!._id
+            )
+            if (!isEmployee) {
+                setUserHasAccess(false)
+            } else {
+                const hasAccess = isEmployee.categoryEnum <= employeeCategoryEnum.Manager
+                setUserHasAccess(hasAccess)
+            }
+        }
+    }, [isLoading])
 
     return (
         <>
-            <div className="fixed inset-0 scale-100">
-                <NavBar />
-                <ViewOrder setOpenControl={setOpenControl} setOpenProcess={setOpenProcess} />
-                {openControl && <OrderControl />}
-                {openProcess && <OrderProcess />}
-            </div>
+            {
+                isRestaurantLoaded ?
+                    (
+                        userHasAccess ?
+                            <>
+                                <div className="fixed inset-0 scale-100">
+                                    <NavBar />
+                                    <ViewOrder setOpenControl={setOpenControl} setOpenProcess={setOpenProcess} />
+                                    {openControl && <OrderControl />}
+                                    {openProcess && <OrderProcess />}
+
+                                </div>
+                            </>
+                            :
+                            <Navigate to='/' />
+                    )
+                    :
+                    <LoadingScreen />
+            }
         </>
     )
 }

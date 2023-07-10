@@ -58,15 +58,15 @@ function App() {
       {isSessionLoaded ? (
         <Routes>
           <Route path='/:restaurantUrl/dashboard' element={
-            user ? <Dashboard /> : <Navigate to="/" />
+            user ? <Dashboard user={user} /> : <Navigate to="/" />
           } />
           <Route path='/' element={<HomePage />} />
           <Route path='/:restaurantUrl' element={<Menu />} />
           <Route path='/:restaurantUrl/orders' element={
-            user ? <Orders /> : <Navigate to="/" />
+            user ? <Orders user={user} /> : <Navigate to="/" />
           } />
           <Route path='/:restaurantUrl/employees' element={
-            user ? <Employees /> : <Navigate to="/" />
+            user ? <Employees user={user} /> : <Navigate to="/" />
           } />
           <Route path='*' element={<NotFound />} />
         </Routes>

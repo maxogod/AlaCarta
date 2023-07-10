@@ -10,6 +10,7 @@ import {
 } from "../services/auth";
 import User from "../models/User";
 import { mailingService } from "../services/mailing";
+import Restaurant from "../models/Restaurant";
 
 const loginController = async (req: Request, res: Response) => {
     if (req.session.user) return res.status(200).send("Already logged in");
@@ -84,6 +85,8 @@ const registerRestaurantController = async (req: Request, res: Response) => {
             .status(409)
             .send("Restaurant with URL suffix already exists");
     }
+    await Restaurant.populate(restaurant, "menu");
+    await Restaurant.populate(restaurant, "employees");
     req.session.user = owner as UserType;
     await User.populate(owner, "userCategories.restaurant");
     res.cookie("qid", req.sessionID, {

@@ -1,7 +1,7 @@
 import { Product } from "./product";
 
 interface UserCategoryType {
-    restaurant: string;
+    restaurant: RestaurantType;
     categoryEnum: number;
 }
 
@@ -23,7 +23,7 @@ interface RestaurantType {
     paymentInfo: string;
     employees: UserType[];
     orders: string[];
-    menu?: MenuType | undefined;
+    menu: MenuType;
     createdAt: Date;
     updatedAt: Date;
 }

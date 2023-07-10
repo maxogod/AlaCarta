@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { OrderType } from '../../@types/stateTypes';
 import OrderThumbnail from './OrderThumbnail';
 
-const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
+const ShowOrders = ({ orderStatus }: { orderStatus: number }) => {
 
 
     const { restaurantUrl } = useParams()
@@ -12,7 +12,7 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
     const [orders, setOrders] = useState<OrderType[] | null>();
 
     const [updateOrders, setUpdateOrders] = useState<boolean>(true);
-    
+
     useEffect(() => {
         const fetchOrders = async () => {
             try {
@@ -26,12 +26,10 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
                 setOrders(res.data)
             } catch (err) {
                 console.log(err);
-                
+
             }
         }
         fetchOrders()
-        console.log("fethcing orders...");
-        
         setUpdateOrders(false)
     }, [updateOrders]);
 
@@ -42,7 +40,7 @@ const ShowOrders = ({orderStatus}: {orderStatus: number}) => {
                     <OrderThumbnail order={order} setUpdateOrders={setUpdateOrders} />
                 </div>
             ))}
-            
+
         </div>
     );
 };

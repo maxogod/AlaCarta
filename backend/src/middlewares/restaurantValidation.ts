@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import {
     checkUserPermissions,
     restaurantCategoryOfUser,
-} from "../services/restaurantInfoGetters";
+} from "../services/permissions";
 import { employeeCategoryEnum } from "../@types/enums";
 import { getUserById } from "../services/restaurant";
 

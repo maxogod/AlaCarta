@@ -29,7 +29,7 @@ const RestaurantStatistics = ({ restaurant }: { restaurant: RestaurantType | nul
                     customStartDate={customStartDate}
                     customEndDate={customEndDate}
                 />
-                <div className=' w-full 2xl:ml-3 ml-2  flex 2xl:gap-7 gap-4 '>
+                <div className=' w-full 2xl:ml-3 ml-2  flex justify-start items-start 2xl:gap-7 gap-4 '>
                     <FilterOptions setFilterOption={setFilterOption} />
                     <RangeDatePicker
                         filterOption={filterOption}

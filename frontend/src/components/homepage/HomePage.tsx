@@ -94,7 +94,7 @@ const HomePage = () => {
                                     onClick={toggleLogin}>Login</button>
                                 <button
                                     className="bg-white rounded-xl drop-shadow-4xl p-1 sm:p-2 border border-white hover:bg-transparent hover:text-white ease-in-out duration-300"
-                                    onClick={toggleRegisterAccount}>Register Account</button>
+                                    onClick={toggleRegisterAccount}>Registrar Cuenta</button>
                             </>
                         }
                         {
@@ -105,7 +105,7 @@ const HomePage = () => {
                         }
                         <button
                             className="bg-white rounded-xl drop-shadow-4xl p-1 sm:p-2 border border-white hover:bg-transparent hover:text-white ease-in-out duration-300"
-                            onClick={toggleRestaurantRegister}>Register Restaurant</button>
+                            onClick={toggleRestaurantRegister}>Registrar Restaurante</button>
                     </div>
                 </div>
             </div>

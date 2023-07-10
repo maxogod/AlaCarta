@@ -73,7 +73,7 @@ const LoginPopUp = ({ showLogin, setShowLogin }:
                             onChange={handleChange} />
                     </div>
                     <div className="flex flex-col gap-5">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Contraseña</label>
                         <input
                             className="border border-customRed focus:border-customOrange focus:outline-none rounded-xl p-2"
                             type="password"

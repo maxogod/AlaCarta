@@ -7,18 +7,19 @@ import { useDispatch } from 'react-redux'
 import { setCurrentUser } from '../../redux/slices/currentUserSlice'
 
 const restaurantInfoFields = [
-    { name: 'name', title: 'Restaurant Name', type: 'text', required: true, placeholder: 'e.g. A la Carta' },
-    { name: 'urlSuffix', title: 'Prefered Url (part after /@)', type: 'text', required: true, placeholder: 'e.g. AlaCartaUrl' },
-    { name: 'cbu', title: 'Cbu or Alias', type: 'text', required: true, placeholder: 'e.g. 017020466000...' },
+    { name: 'name', title: 'Nombre del Restaurante', type: 'text', required: true, placeholder: 'e.j. A la Carta' },
+    { name: 'urlSuffix', title: 'URL deseable (parte después de /@)', type: 'text', required: true, placeholder: 'e.j. AlaCartaUrl' },
+    { name: 'cbu', title: 'Cbu ó Alias', type: 'text', required: true, placeholder: 'e.j. 017020466000...' },
 ]
 
 const ownerInfoFields = [
-    { name: 'email', title: 'Owner Email', type: 'email', required: true, placeholder: 'e.g. alacarta@email.com' },
-    { name: 'ownerName', title: 'Owner Name', type: 'text', required: false, placeholder: 'e.g. Gordon Ramsay' },
-    { name: 'password', title: 'Owner Password', type: 'password', required: false, placeholder: 'e.g. password123' },
+    { name: 'email', title: 'Email del dueño', type: 'email', required: true, placeholder: 'e.j. alacarta@email.com' },
+    { name: 'ownerName', title: 'Nombre del dueño', type: 'text', required: false, placeholder: 'e.gj. Gordon Ramsay' },
+    { name: 'password', title: 'Contraseña del dueño', type: 'password', required: false, placeholder: 'e.j. qwerty123' },
 ]
 
 const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
+    // eslint-disable-next-line @typescript-eslint/ban-types
     { showRegister: boolean, setShowRegister: Function }) => {
 
     const [step, setStep] = useState(1)
@@ -100,7 +101,7 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
             <form onSubmit={handleSubmit}>
                 {step === 1 && (
                     <div className="flex flex-col items-center justify-center gap-5 mt-4">
-                        <h1 className="text-2xl sm:text-4xl text-center">Step 1: Restaurant Information</h1>
+                        <h1 className="text-2xl sm:text-4xl text-center">Paso 1: Información del Restaurante</h1>
                         {restaurantInfoFields.map(field => (
                             <div key={field.name} className="flex flex-col gap-5">
                                 <label htmlFor={field.name}>{field.title}</label>
@@ -118,15 +119,15 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
                         {errors && <p className="text-customRed max-w-[15vw] text-center">{errors}</p>}
                         <button
                             className="bg-customRed border border-customRed rounded-xl p-2 text-white hover:bg-opacity-20 hover:font-bold hover:text-customOrange ease-in-out duration-300"
-                            type="submit">Next</button>
+                            type="submit">Siguiente Paso</button>
                     </div>
                 )}
                 {step === 2 && (
                     <div className="flex flex-col items-center justify-center gap-5 mt-4">
-                        <h1 className="text-2xl sm:text-4xl text-center">Step 2: Owner Information</h1>
+                        <h1 className="text-2xl sm:text-4xl text-center">Paso 2: Informacion del dueño</h1>
                         <p className='max-w-[20rem] text-sm text-center'
-                        >You may leave the <i>name</i> and <i>password</i> blank
-                            if you already have an account with this email</p>
+                        >Puedes dejar el <i>nombre</i> y <i>apellido</i> vacio
+                         si ya tienes una cuenta creada con este email</p>
 
                         {ownerInfoFields.map(field => (
                             <div key={field.name} className="flex flex-col gap-5">
@@ -147,10 +148,10 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
                             <button
                                 onClick={handleBack}
                                 className="bg-customRed border border-customRed rounded-xl p-2 text-white hover:bg-opacity-20 hover:font-bold hover:text-customOrange ease-in-out duration-300"
-                            >Back</button>
+                            >Volver</button>
                             <button
                                 className="bg-customRed border border-customRed rounded-xl p-2 text-white hover:bg-opacity-20 hover:font-bold hover:text-customOrange ease-in-out duration-300"
-                                type="submit">Register</button>
+                                type="submit">Registrar</button>
                         </div>
                     </div>
                 )}

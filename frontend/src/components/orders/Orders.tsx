@@ -3,13 +3,36 @@ import { Blurhash } from 'react-blurhash';
 import { NavBar } from '../shared/NavBar';
 import OrderControl from './OrderControl';
 import OrderProcess from './OrderProcess';
+import { useGetRestaurant } from '../../hooks/restaurantHook';
+import { UserType } from '../../@types/stateTypes';
+import { employeeCategoryEnum } from '../../@types/enums';
+import LoadingScreen from '../shared/LoadingScreen';
+import { Navigate } from 'react-router-dom';
 
-const Orders = () => {
+const Orders = ({ user }: { user: UserType }) => {
     const src = "https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"
     const [imageLoader, setImageLoader] = useState(false)
 
     const [openControl, setOpenControl] = useState(true);
     const [openProcess, setOpenProcess] = useState(false);
+    const { restaurant, isLoading } = useGetRestaurant()
+    const [isRestaurantLoaded, setIsRestaurantLoaded] = useState(false)
+    const [userHasAccess, setUserHasAccess] = useState(false)
+
+    useEffect(() => {
+        if (!isLoading) {
+            setIsRestaurantLoaded(true)
+            const isEmployee = user.userCategories.find(
+                (category) => category.restaurant._id === restaurant!._id
+            )
+            if (!isEmployee) {
+                setUserHasAccess(false)
+            } else {
+                const hasAccess = isEmployee.categoryEnum <= employeeCategoryEnum.Manager
+                setUserHasAccess(hasAccess)
+            }
+        }
+    }, [isLoading])
 
     useEffect(() => {
         const img = new Image()
@@ -22,14 +45,26 @@ const Orders = () => {
 
     return (
         <>
-            <BackgroundImage src={src} imageLoader={imageLoader} />
-            <div className="fixed inset-0 scale-100">
-                <NavBar />
-                <ViewOrder setOpenControl={setOpenControl} setOpenProcess={setOpenProcess} />
-                {openControl && <OrderControl />}
-                {openProcess && <OrderProcess />}
+            {
+                isRestaurantLoaded ?
+                    (
+                        userHasAccess ?
+                            <>
+                                <BackgroundImage src={src} imageLoader={imageLoader} />
+                                <div className="fixed inset-0 scale-100">
+                                    <NavBar />
+                                    <ViewOrder setOpenControl={setOpenControl} setOpenProcess={setOpenProcess} />
+                                    {openControl && <OrderControl />}
+                                    {openProcess && <OrderProcess />}
 
-            </div>
+                                </div>
+                            </>
+                            :
+                            <Navigate to='/' />
+                    )
+                    :
+                    <LoadingScreen />
+            }
         </>
     )
 }

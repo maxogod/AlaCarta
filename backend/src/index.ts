@@ -50,12 +50,6 @@ app.use(
 app.use(populateSession);
 app.use(logRequests);
 
-// middleware to check if user is logged in before accessing routes
-app.use(/^\/api(?!\/(auth|[^/]+\/(products|menu))).*$/, (req, res, next) => {
-    if (req.session.user) next();
-    else res.sendStatus(401);
-});
-
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/:restaurantUrl", setRestaurantUrlInSession, restaurantRoute);

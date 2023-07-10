@@ -16,10 +16,6 @@ const useGetRestaurant = () => {
     const { restaurantUrl } = useParams();
     axios.defaults.withCredentials = true;
     useEffect(() => {
-        if (restaurant) {
-            setIsLoading(false);
-            return;
-        }
         const fetchRestaurant = async () => {
             try {
                 const res = await axios.get(

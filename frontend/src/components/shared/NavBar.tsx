@@ -37,14 +37,16 @@ const NavBar = () => {
                     <nav
                         className={`h-14 2xl:h-16  ${isOpen ? '2xl:translate-y-1' : '-translate-y-14 2xl:-translate-y-12'} flex flex-col justify-center items-center  transition-transform duration-300`}>
                         <ul className="flex  gap-8 2xl:gap-14 p-3 mt-5 justify-center items-center 2xl:items-start bg-customRed w-full rounded-b-3xl">
-                                {itemsNav.map((item, index) => (
-                                    <li key={index}>
-                                        <Link to={item.to} className={`text-white font-bold transition-all"`}>
-                                            <div className='2xl:block hidden text-xl'>{item.title}</div>
-                                            <div className='2xl:hidden block'>{item.icon}</div>
-                                        </Link>
-                                    </li>
-                                ))}
+                            {itemsNav.map((item, index) => (
+                                <li key={index}>
+                                    <Link
+                                        to={item.to}
+                                        className={`text-white font-bold transition-all"`}>
+                                        <div className='2xl:block hidden text-xl'>{item.title}</div>
+                                        <div className='2xl:hidden block'>{item.icon}</div>
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                         <div
                             onClick={() => setIsOpen((prev) => (!prev))}

@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { passwordIsValid, urlSuffixIsValid } from './auth.utils'
-import axios from 'axios'
-import { IoRestaurantSharp } from "react-icons/io5"
-// redux
 import { useDispatch } from 'react-redux'
 import { setCurrentUser } from '../../redux/slices/currentUserSlice'
+import axios from 'axios'
+import { passwordIsValid, urlSuffixIsValid } from './auth.utils'
+import { IoRestaurantSharp } from "react-icons/io5"
 
 const restaurantInfoFields = [
     { name: 'name', title: 'Nombre del Restaurante', type: 'text', required: true, placeholder: 'e.j. A la Carta' },

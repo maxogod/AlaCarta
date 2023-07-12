@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { RiDeleteBin7Line } from 'react-icons/ri';
-import { FaEdit } from 'react-icons/fa';
-import { BiSolidMessageSquareAdd } from 'react-icons/bi';
-import { Product } from '../../@types/product';
-import DeleteProduct from './productActions/DeleteProduct';
-import AddProduct from './productActions/AddProduct';
-import { EditProduct } from './productActions/EditProduct';
+import { Product } from '../../@types/product'
+import DeleteProduct from './productActions/DeleteProduct'
+import { EditProduct } from './productActions/EditProduct'
+import { FaEdit } from 'react-icons/fa'
+import { RiDeleteBin7Line } from 'react-icons/ri'
 
 
 

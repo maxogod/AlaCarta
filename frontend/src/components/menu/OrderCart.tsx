@@ -1,11 +1,11 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart, cleanCart } from "../../redux/slices/cartSlice";
 import { RootState } from "../../redux/store";
+import axios from "axios";
 import { AiOutlinePlus } from "react-icons/ai"
 import { AiOutlineMinus } from "react-icons/ai"
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
 import { IoRestaurantSharp } from "react-icons/io5";
 import { BiSolidLeftArrow } from "react-icons/bi";
 

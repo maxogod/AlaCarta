@@ -1,9 +1,9 @@
-import { Pie, PieChart, Cell } from 'recharts'
-import { Product } from '../../@types/product';
-import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { Product } from '../../@types/product';
 import axios from 'axios';
-import { PieChartTag, Tag } from '../shared/Tag';
+import { Pie, PieChart, Cell } from 'recharts'
+import { PieChartTag } from '../shared/Tag';
 
 
 const ProductPieChart = ({ selectedProduct }: { selectedProduct: Product | undefined }) => {
@@ -87,7 +87,7 @@ const ProductPieChart = ({ selectedProduct }: { selectedProduct: Product | undef
     };
 
     return (
-        <PieChart width={chartScale} height={chartScale} >
+        <PieChart className='hidden sm:block' width={chartScale} height={chartScale} >
             <Pie
                 data={data}
                 labelLine={false}
@@ -200,7 +200,7 @@ const RestaurantPieChart = () => {
 
 
             </div>
-            <PieChart width={chartScale} height={chartScale} >
+            <PieChart className='hidden sm:block' width={chartScale} height={chartScale} >
                 <Pie
                     data={sortedSales}
                     labelLine={false}
@@ -209,7 +209,9 @@ const RestaurantPieChart = () => {
                     nameKey={"productName"}
                     dataKey={"totalSales"}>
                     {sortedSales?.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={customComponentsS[index % customComponentsS.length]} />
+                        <Cell
+                            key={`cell-${index}`}
+                            fill={customComponentsS[index % customComponentsS.length]} />
                     ))}
                 </Pie>
             </PieChart>
@@ -227,10 +229,16 @@ const MostPopularProducts = ({ products }: { products: Product[] }) => {
     return (
         <div className='flex flex-col  gap-2 '>
             {topProducts.map((product, index) => (
-                <PieChartTag title={`${product.name} - ${product.sells}`} index={index} />
+                <PieChartTag
+                    key={product._id}
+                    title={`${product.name} - ${product.sells}`}
+                    index={index} />
             ))}
             {restOfProducts.map((product, _) => (
-                <PieChartTag title={`${product.name} - ${product.sells}`} index={3} />
+                <PieChartTag
+                    key={product._id}
+                    title={`${product.name} - ${product.sells}`}
+                    index={3} />
             ))}
         </div>
     );

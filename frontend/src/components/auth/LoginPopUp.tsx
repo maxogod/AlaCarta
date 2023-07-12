@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setCurrentUser } from '../../redux/slices/currentUserSlice'
+import axios from 'axios'
 import { passwordIsValid } from './auth.utils'
 import { IoRestaurantSharp } from "react-icons/io5"
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import { setCurrentUser } from '../../redux/slices/currentUserSlice'
 
 
 const LoginPopUp = ({ showLogin, setShowLogin }:

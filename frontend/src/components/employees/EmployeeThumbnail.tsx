@@ -1,9 +1,9 @@
+import { useState } from "react"
+import axios from "axios"
 import { RestaurantType, UserType } from "../../@types/stateTypes"
 import { employeeCategoryEnum } from "../../@types/enums"
 import { BsFillPersonFill, BsFillPersonLinesFill, BsFillStarFill } from 'react-icons/bs'
 import { AiFillMinusCircle, AiFillCaretDown, AiOutlineClose } from 'react-icons/ai'
-import { useState } from "react"
-import axios from "axios"
 
 const EmployeeThumbnail = ({ employee, restaurant }:
     { employee: UserType, restaurant: RestaurantType }) => {
@@ -28,7 +28,7 @@ const EmployeeThumbnail = ({ employee, restaurant }:
                     { withCredentials: true })
                 window.location.reload()
             } catch (error) {
-                console.log(error)
+                return
             }
         }
         changeCategoryFetch()
@@ -42,7 +42,7 @@ const EmployeeThumbnail = ({ employee, restaurant }:
                     { withCredentials: true })
                 window.location.reload()
             } catch (error) {
-                console.log(error)
+                return
             }
         }
         deleteEmployeeFetch()

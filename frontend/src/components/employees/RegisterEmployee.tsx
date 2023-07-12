@@ -1,8 +1,8 @@
-import { IoRestaurantSharp } from "react-icons/io5"
 import { useState } from "react"
-import { employeeCategoryEnum } from "../../@types/enums"
-import axios from "axios"
 import { useParams } from "react-router-dom"
+import axios from "axios"
+import { employeeCategoryEnum } from "../../@types/enums"
+import { IoRestaurantSharp } from "react-icons/io5"
 
 const RegisterEmployee = ({ setShowAddEmployee }:
     { setShowAddEmployee: (bool: boolean) => void }) => {

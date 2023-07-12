@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { setCurrentProduct } from '../../../redux/slices/currentRestaurantSlice';
+import { RootState } from '../../../redux/store';
 import axios from "axios";
 import { AiFillCloseCircle } from "react-icons/ai";
-import { RootState } from '../../../redux/store';
 import { EditTag } from '../../shared/Tag';
 import { IoIosAddCircle } from "react-icons/io";
 
@@ -115,12 +115,9 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
                                                 className="border-2 border-customPink rounded-lg text-lg px-4 py-2 w-full" />
                                         </div>
                                     </div>
-                                    <div>
-                                        <h1 className=' mr-10 mb-1 text-lg text-customRed font-bold '> {categoriesSection}</h1>
+                                    <div className='hidden sm:block'>
+                                        <h1 className='mr-10 mb-1 text-lg text-customRed font-bold '> {categoriesSection}</h1>
                                         <ShowAllCategories allCategories={currentCategories} setAllCategories={setCurrentCategories} />
-
-
-
                                     </div>
                                 </div>
                                 <button type="submit" className="bg-customRed text-white rounded-lg mt-5 px-4 h-10 text-lg py-2 font-bold hover:bg-customDarkRed transition-all">{saveChanges}</button>

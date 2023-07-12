@@ -1,9 +1,9 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts'
+import { OrderType } from '../../@types/stateTypes'
 import { Product } from '../../@types/product'
 import { useParams } from 'react-router'
-import { OrderType } from '../../@types/stateTypes'
+import axios from 'axios'
+import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts'
 
 const LineChartStatistics = ({ product, filterOption, customStartDate, customEndDate }: { product: Product | undefined, filterOption: string | undefined, customStartDate: Date | undefined, customEndDate: Date | undefined }) => {
 
@@ -46,7 +46,6 @@ const LineChartStatistics = ({ product, filterOption, customStartDate, customEnd
         if (res.status === 404) return
         setOrders(res.data)
       } catch (err) {
-        console.log(err);
         return
       }
     };
@@ -63,7 +62,7 @@ const LineChartStatistics = ({ product, filterOption, customStartDate, customEnd
 
   return (
     <>
-      <div className='relative mt-2  flex rounded-3xl   justify-center 2xl:scale-100 scale-x-90'>
+      <div className='relative mt-2 hidden sm:flex rounded-3xl justify-center 2xl:scale-100 scale-x-90'>
         <div>
           <LineChart width={chartWidth} height={chartHeight} data={createSortedData(orders ? orders : [])} margin={{ top: 10, right: 50, left: 0, bottom: 10 }}>
             <CartesianGrid strokeDasharray="3 3" />

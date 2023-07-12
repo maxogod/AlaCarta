@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
-import axios from 'axios'
 import { setCurrentProduct } from '../../redux/slices/currentRestaurantSlice'
+import { RootState } from '../../redux/store'
 import { Product } from '../../@types/product'
+import axios from 'axios'
 import ProductThumbnail from '../shared/ProductThumbnail'
 import { IoRestaurantSharp } from 'react-icons/io5'
 
@@ -49,7 +49,7 @@ const ProductCatalog = () => {
 
 
     return (
-        <div className="z-10  absolute bg-customBeige rounded-r-3xl w-80 2xl:w-96 h-screen flex flex-col items-center justify-center">
+        <div className="z-10 hidden sm:flex absolute bg-customBeige rounded-r-3xl w-80 2xl:w-96 h-screen flex-col items-center justify-center">
 
             <h1 className="text-2xl 2xl:text-3xl font-bold text-customRed mt-12">{catalogTitle}</h1>
             <hr className="bg-customPink h-1 w-56 2xl:w-72 my-2" />
@@ -94,7 +94,7 @@ const ShowProducts = ({ filterState, handleProductClick }: { filterState: [strin
     }
 
     return (
-        <div className=" my-0.5 relative">
+        <div className="my-0.5 relative">
             <button onClick={() => setIsOpen((prev) => (!prev))}
                 id="dropdownDefaultButton"
                 data-dropdown-toggle="dropdown"

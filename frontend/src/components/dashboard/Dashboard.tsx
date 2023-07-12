@@ -1,15 +1,16 @@
+import { useEffect, useState } from 'react'
+import { Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useGetRestaurant } from '../../hooks/restaurantHook'
+import { RootState } from '../../redux/store'
+import { UserType } from '../../@types/stateTypes'
+import { employeeCategoryEnum } from '../../@types/enums'
 import ProductCatalog from './ProductCatalog'
 import ProductStatistics from './ProductStatistics'
 import RestaurantStatistics from './RestaurantStatistics'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
 import { NavBar } from '../shared/NavBar'
-import { UserType } from '../../@types/stateTypes'
-import { employeeCategoryEnum } from '../../@types/enums'
-import { useGetRestaurant } from '../../hooks/restaurantHook'
 import LoadingScreen from '../shared/LoadingScreen'
-import { Navigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import BackgroundImage from '../shared/BackgroundImage'
 
 const Dashboard = ({ user }: { user: UserType }) => {
 
@@ -35,11 +36,7 @@ const Dashboard = ({ user }: { user: UserType }) => {
 
     return (
         <>
-            <img
-                className="blur-lg object-cover object-center h-screen w-screen fixed"
-                src={"https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"}
-                alt=""
-            />
+            <BackgroundImage />
             {
                 isRestaurantLoaded ?
                     (

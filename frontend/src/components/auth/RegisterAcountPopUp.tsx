@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { passwordIsValid } from './auth.utils'
-import { IoRestaurantSharp } from "react-icons/io5"
+import { setCurrentUser } from '../../redux/slices/currentUserSlice'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
-import { setCurrentUser } from '../../redux/slices/currentUserSlice'
+import { passwordIsValid } from './auth.utils'
+import { IoRestaurantSharp } from "react-icons/io5"
 
 
 const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:

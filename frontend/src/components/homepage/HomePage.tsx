@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
-// components
-import { BsQuestionSquare } from "react-icons/bs"
-import LoginPopup from "../auth/LoginPopUp"
-import RestaurantRegisterPopUp from "../auth/RestaurantRegisterPopUp"
-import AboutPopUp from "../informational/AboutPopUp"
-// redux
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import { useDispatch } from "react-redux"
 import { setCurrentUser } from "../../redux/slices/currentUserSlice"
+import axios from "axios"
+import LoginPopup from "../auth/LoginPopUp"
+import RestaurantRegisterPopUp from "../auth/RestaurantRegisterPopUp"
+import AboutPopUp from "../informational/AboutPopUp"
 import UserRestaurants from "./UserRestaurants"
 import RegisterAcountPopUp from "../auth/RegisterAcountPopUp"
+import BackgroundImage from "../shared/BackgroundImage"
+import { BsQuestionSquare } from "react-icons/bs"
 
 const HomePage = () => {
     const [showLogin, setShowLogin] = useState(false)
@@ -65,11 +64,7 @@ const HomePage = () => {
 
     return (
         <>
-            <img
-                className="blur-lg object-cover object-center h-screen w-screen fixed"
-                src={"https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"}
-                alt=""
-            />
+            <BackgroundImage />
             <div className="fixed inset-0 flex items-center justify-evenly flex-col">
                 <LoginPopup showLogin={showLogin} setShowLogin={setShowLogin} />
                 <RestaurantRegisterPopUp showRegister={showRegister} setShowRegister={setShowRegister} />

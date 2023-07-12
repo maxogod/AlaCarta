@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useState } from 'react';
-import { AiFillCloseCircle } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import { SetCategories } from './SetCategories';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 const AddProduct = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open: boolean) => void }) => {
 

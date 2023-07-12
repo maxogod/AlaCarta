@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { OrderType } from "../../@types/stateTypes";
+import axios from "axios";
 import { BsDash } from "react-icons/bs";
 import { IoCheckmarkCircleSharp } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { MdExpandMore } from "react-icons/md";
-import axios from "axios";
-import { useParams } from "react-router-dom";
 
 const OrderThumbnail = ({ order, setUpdateOrders }: { order: OrderType, setUpdateOrders: React.Dispatch<React.SetStateAction<boolean>> }) => {
 

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Product } from '../../../@types/product';
+import axios from 'axios';
 
 const DeleteProduct = ({ openDelete, setOpenDelete, selectedProduct }: { openDelete: boolean; setOpenDelete: (open: boolean) => void, selectedProduct: Product }) => {
 

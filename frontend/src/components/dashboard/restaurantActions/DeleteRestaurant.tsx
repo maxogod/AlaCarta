@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const DeleteRestaurant = ({ openDelete, setOpenDelete }: { openDelete: boolean; setOpenDelete: (open: boolean) => void }) => {
 

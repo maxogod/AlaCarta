@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom";
 import { UserType } from "../../@types/stateTypes";
 import { employeeCategoryEnum } from "../../@types/enums";
-import { Link } from "react-router-dom";
 
 const UserRestaurants = ({ sessionUser }: { sessionUser: UserType }) => {
     const textColors = ['text-customOrange', 'text-customYellow', 'text-customPink', 'text-customLightBlue'];

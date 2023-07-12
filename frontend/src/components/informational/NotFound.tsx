@@ -1,5 +1,5 @@
-import LoadingScreen from "../shared/LoadingScreen"
 import { Link } from "react-router-dom"
+import LoadingScreen from "../shared/LoadingScreen"
 
 const NotFound = () => {
     return (

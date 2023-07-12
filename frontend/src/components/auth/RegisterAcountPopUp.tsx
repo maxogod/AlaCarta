@@ -37,7 +37,7 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
         (async () => {
             try {
                 const res = await axios.put(
-                    "http://localhost:8080/api/auth/changeUserInfo",
+                    `${import.meta.env.VITE_API_URL}/api/auth/changeUserInfo`,
                     {
                         email: registerAccountInfo.email,
                         name: registerAccountInfo.name,

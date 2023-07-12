@@ -19,7 +19,7 @@ const ShowOrders = ({ orderStatus }: { orderStatus: number }) => {
         const fetchOrders = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/orders?filterByEnum=${orderStatus}`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/orders?filterByEnum=${orderStatus}`,
                     {
                         withCredentials: true,
                     }

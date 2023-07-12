@@ -37,7 +37,7 @@ const AddProduct = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (op
         e.preventDefault();
         (async () => {
             try {
-                const endpoint = `http://localhost:8080/api/${restaurantUrl}/products`
+                const endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/products`
                 const res = await axios.post(
                     endpoint,
                     {

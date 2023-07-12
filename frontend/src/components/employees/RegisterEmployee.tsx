@@ -24,7 +24,8 @@ const RegisterEmployee = ({ setShowAddEmployee }:
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            await axios.post("http://localhost:8080/api/auth/register",
+            await axios.post(
+                `${import.meta.env.VITE_API_URL}/api/auth/register`,
                 { ...employeeInfo, restaurantUrl },
                 { withCredentials: true })
             setShowAddEmployee(false)

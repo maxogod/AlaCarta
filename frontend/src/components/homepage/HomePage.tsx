@@ -50,7 +50,7 @@ const HomePage = () => {
         (async () => {
             try {
                 const res = await axios.get(
-                    "http://localhost:8080/api/auth/logout",
+                    `${import.meta.env.VITE_API_URL}/api/auth/logout`,
                     {
                         withCredentials: true,
                     }

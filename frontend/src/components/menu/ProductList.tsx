@@ -23,7 +23,7 @@ const ProductList = ({ category, kPopular }: { category: string, kPopular: numbe
         const fetchProducts = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/products?category=${category}&firstKPopular=${kPopular}`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/products?category=${category}&firstKPopular=${kPopular}`,
                     {
                         withCredentials: true,
                     }

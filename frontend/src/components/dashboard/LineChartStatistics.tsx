@@ -33,10 +33,10 @@ const LineChartStatistics = ({ product, filterOption, customStartDate, customEnd
       const start = dateStart ? dateStart : ""
       const end = dateEnd ? dateEnd : ""
       try {
-        let endpoint = `http://localhost:8080/api/${restaurantUrl}/orders/statistics?dateStart=${start}&dateEnd=${end}`
-        if(product){
-          endpoint = `http://localhost:8080/api/${restaurantUrl}/orders/statistics/${product._id}?dateStart=${start}&dateEnd=${end}`
-        }        
+        let endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/orders/statistics?dateStart=${start}&dateEnd=${end}`
+        if (product) {
+          endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/orders/statistics/${product._id}?dateStart=${start}&dateEnd=${end}`
+        }
         const res = await axios.get(
           endpoint,
           {
@@ -50,13 +50,13 @@ const LineChartStatistics = ({ product, filterOption, customStartDate, customEnd
         return
       }
     };
-     setFilter({
-    filterOption,
-    setDateStart,
-    setDateEnd,
-    customStartDate,
-    customEndDate,
-  });
+    setFilter({
+      filterOption,
+      setDateStart,
+      setDateEnd,
+      customStartDate,
+      customEndDate,
+    });
     fetchOrders();
   }, [filterOption]);
 
@@ -80,7 +80,7 @@ const LineChartStatistics = ({ product, filterOption, customStartDate, customEnd
 }
 
 
-const setFilter = ({filterOption, setDateStart, setDateEnd, customStartDate, customEndDate}:{filterOption: string | undefined, setDateStart: React.Dispatch<React.SetStateAction<Date | undefined>>, setDateEnd: React.Dispatch<React.SetStateAction<Date | undefined>>, customStartDate: Date | undefined, customEndDate: Date | undefined }) => {
+const setFilter = ({ filterOption, setDateStart, setDateEnd, customStartDate, customEndDate }: { filterOption: string | undefined, setDateStart: React.Dispatch<React.SetStateAction<Date | undefined>>, setDateEnd: React.Dispatch<React.SetStateAction<Date | undefined>>, customStartDate: Date | undefined, customEndDate: Date | undefined }) => {
   const currentDate = new Date();
   const beginningOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0);
   const endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59);

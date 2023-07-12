@@ -28,7 +28,7 @@ const ProductCatalog = () => {
         const fetchProducts = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/products?category=${filterBy}`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/products?category=${filterBy}`,
                     {
                         withCredentials: true,
                     }

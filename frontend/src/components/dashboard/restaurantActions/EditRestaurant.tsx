@@ -42,7 +42,7 @@ const EditRestaurant = ({ openEdit, setOpenEdit }: { openEdit: boolean, setOpenE
         e.preventDefault();
         (async () => {
             try {
-                const endpoint = `http://localhost:8080/api/${restaurantUrl}`
+                const endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}`
                 const res = await axios.put(
                     endpoint,
                     {

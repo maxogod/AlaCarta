@@ -45,7 +45,7 @@ const OrderCart = ({ deploy, setDeploy }:
             try {
                 setIsLoading(true)
                 const res = await axios.post(
-                    `http://localhost:8080/api/${restaurantUrl}/orders`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/orders`,
                     { table: tableNumber, products: cartProductsIds },
                     {
                         withCredentials: true,

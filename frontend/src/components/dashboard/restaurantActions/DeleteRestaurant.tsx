@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 
-const DeleteRestaurant = ({ openDelete, setOpenDelete}: { openDelete: boolean; setOpenDelete: (open: boolean) => void }) => {
+const DeleteRestaurant = ({ openDelete, setOpenDelete }: { openDelete: boolean; setOpenDelete: (open: boolean) => void }) => {
 
     const { restaurantUrl } = useParams()
 
@@ -13,7 +13,7 @@ const DeleteRestaurant = ({ openDelete, setOpenDelete}: { openDelete: boolean; s
     const deleteRestaurant = () => {
         (async () => {
             try {
-                const endpoint = `http://localhost:8080/api/${restaurantUrl}`
+                const endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}`
                 const res = await axios.delete(
                     endpoint,
                     {

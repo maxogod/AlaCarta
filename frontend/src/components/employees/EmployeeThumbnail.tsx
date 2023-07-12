@@ -5,10 +5,13 @@ import { AiFillMinusCircle, AiFillCaretDown, AiOutlineClose } from 'react-icons/
 import { useState } from "react"
 import axios from "axios"
 
-const EmployeeThumbnail = ({ employee, restaurant }: { employee: UserType, restaurant: RestaurantType }) => {
+const EmployeeThumbnail = ({ employee, restaurant }:
+    { employee: UserType, restaurant: RestaurantType }) => {
 
     const [categoryChangeDropDown, setCategoryChangeDropDown] = useState(false)
-    const category = employee.userCategories.find((category) => category.restaurant === restaurant._id)
+    const category = employee.userCategories.find(
+        (category) => category.restaurant as unknown as string === restaurant._id
+    )
     const icons = [<BsFillStarFill />, <BsFillPersonLinesFill />, <BsFillPersonFill />]
     const categories = ['Owner', 'Manager', 'Employee']
 
@@ -20,7 +23,7 @@ const EmployeeThumbnail = ({ employee, restaurant }: { employee: UserType, resta
         const catEnum = categories.indexOf(newCategory)
         const changeCategoryFetch = async () => {
             try {
-                await axios.put(`http://localhost:8080/api/${restaurant.urlSuffix}/employees/${employee._id}`,
+                await axios.put(`${import.meta.env.VITE_API_URL}/api/${restaurant.urlSuffix}/employees/${employee._id}`,
                     { categoryEnum: catEnum },
                     { withCredentials: true })
                 window.location.reload()
@@ -35,7 +38,7 @@ const EmployeeThumbnail = ({ employee, restaurant }: { employee: UserType, resta
     const handleDeleteEmployee = () => {
         const deleteEmployeeFetch = async () => {
             try {
-                await axios.delete(`http://localhost:8080/api/${restaurant.urlSuffix}/employees/${employee._id}`,
+                await axios.delete(`${import.meta.env.VITE_API_URL}/api/${restaurant.urlSuffix}/employees/${employee._id}`,
                     { withCredentials: true })
                 window.location.reload()
             } catch (error) {

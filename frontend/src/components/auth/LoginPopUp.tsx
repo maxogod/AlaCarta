@@ -35,7 +35,7 @@ const LoginPopUp = ({ showLogin, setShowLogin }:
         (async () => {
             try {
                 const res = await axios.post(
-                    "http://localhost:8080/api/auth/login",
+                    `${import.meta.env.VITE_API_URL}/api/auth/login`,
                     { email: loginInfo.email, password: loginInfo.password },
                     {
                         withCredentials: true,

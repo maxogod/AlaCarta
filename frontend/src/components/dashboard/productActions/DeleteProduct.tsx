@@ -13,7 +13,7 @@ const DeleteProduct = ({ openDelete, setOpenDelete, selectedProduct }: { openDel
     const deleteProduct = () => {
         (async () => {
             try {
-                const endpoint = `http://localhost:8080/api/${restaurantUrl}/products/${selectedProduct._id}`
+                const endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/products/${selectedProduct._id}`
                 const res = await axios.delete(
                     endpoint,
                     {

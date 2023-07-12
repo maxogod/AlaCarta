@@ -66,7 +66,7 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
         (async () => {
             try {
                 const res = await axios.post(
-                    "http://localhost:8080/api/auth/registerRestaurant",
+                    `${import.meta.env.VITE_API_URL}/api/auth/registerRestaurant`,
                     {
                         name: registerInfo.name,
                         urlSuffix: registerInfo.urlSuffix,
@@ -127,7 +127,7 @@ const RestaurantRegisterPopUp = ({ showRegister, setShowRegister }:
                         <h1 className="text-2xl sm:text-4xl text-center">Paso 2: Informacion del dueño</h1>
                         <p className='max-w-[20rem] text-sm text-center'
                         >Puedes dejar el <i>nombre</i> y <i>apellido</i> vacio
-                         si ya tienes una cuenta creada con este email</p>
+                            si ya tienes una cuenta creada con este email</p>
 
                         {ownerInfoFields.map(field => (
                             <div key={field.name} className="flex flex-col gap-5">

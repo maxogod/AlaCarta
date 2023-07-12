@@ -18,7 +18,7 @@ const ProductPieChart = ({ selectedProduct }: { selectedProduct: Product | undef
         const fetchProducts = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/products`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/products`,
                     {
                         withCredentials: true,
                     }
@@ -116,7 +116,7 @@ const RestaurantPieChart = () => {
         const fetchProducts = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/products`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/products`,
                     {
                         withCredentials: true,
                     }

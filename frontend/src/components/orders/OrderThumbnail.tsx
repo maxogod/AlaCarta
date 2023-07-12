@@ -98,7 +98,7 @@ const CustomButton = ({ title, altIcon, order, statusNumChange, customComp, setU
         const statusChange = async () => {
             try {
                 const res = await axios.put(
-                    `http://localhost:8080/api/${restaurantUrl}/orders/${order._id}`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/orders/${order._id}`,
                     {
                         statusEnum: statusType,
                     },

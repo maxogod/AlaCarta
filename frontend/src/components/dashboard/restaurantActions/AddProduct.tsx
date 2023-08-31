@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useState } from 'react';
-import { AiFillCloseCircle } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
 import { SetCategories } from '../productActions/SetCategories';
+import axios from 'axios';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 const AddProduct = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (open: boolean) => void }) => {
 
@@ -37,7 +37,7 @@ const AddProduct = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (op
         e.preventDefault();
         (async () => {
             try {
-                const endpoint = `http://localhost:8080/api/${restaurantUrl}/products`
+                const endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/products`
                 const res = await axios.post(
                     endpoint,
                     {
@@ -55,7 +55,6 @@ const AddProduct = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (op
                 setOpenAdd(false);
                 window.location.reload()
             } catch (err) {
-                console.log(err);
                 return
             }
         })()
@@ -120,7 +119,7 @@ const AddProduct = ({ openAdd, setOpenAdd }: { openAdd: boolean, setOpenAdd: (op
                                                 id="picture"
                                                 name="picture"
                                                 placeholder={addImagePlaceHolder}
-                                                className="border-2  border-customPink rounded-lg px-4 py-2 text-sm w-80" />
+                                                className="border-2  border-customPink rounded-lg px-4 py-2 text-sm sm:w-80" />
                                         </div>
                                         <SetCategories selectedCategories={currentCategories} setSelectedCategories={setCurrentCategories} />
                                     </div>

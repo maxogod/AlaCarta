@@ -1,4 +1,4 @@
-import { BiSolidLeftArrow } from "react-icons/bi";
+import { useEffect, useState } from "react";
 import { useGetRestaurant } from "../../hooks/restaurantHook";
 import LoadingScreen from "../shared/LoadingScreen";
 import { NavBar } from "../shared/NavBar";
@@ -7,7 +7,7 @@ import Categories from "./CategoryBar";
 import OrderCart from "./OrderCart";
 import ProductList from "./ProductList";
 import EditMenu from "./EditMenu";
-import { useEffect, useState } from "react";
+import { BiSolidLeftArrow } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 
 

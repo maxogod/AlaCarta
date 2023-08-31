@@ -1,15 +1,16 @@
-import ContentPane from "../shared/ContentPane"
 import { useEffect, useState } from "react"
-import TitleCard from "../orders/TitleCard"
 import { useGetRestaurant } from "../../hooks/restaurantHook"
-import EmployeeThumbnail from "./EmployeeThumbnail"
-import RegisterEmployee from "./RegisterEmployee"
-import { BiSolidMessageSquareAdd } from "react-icons/bi";
-import { IoRestaurantSharp } from "react-icons/io5"
-import { NavBar } from "../shared/NavBar"
+import { Navigate } from "react-router-dom"
 import { UserType } from "../../@types/stateTypes"
 import { employeeCategoryEnum } from "../../@types/enums"
-import { Navigate } from "react-router-dom"
+import ContentPane from "../shared/ContentPane"
+import TitleCard from "../orders/TitleCard"
+import EmployeeThumbnail from "./EmployeeThumbnail"
+import RegisterEmployee from "./RegisterEmployee"
+import { NavBar } from "../shared/NavBar"
+import BackgroundImage from "../shared/BackgroundImage"
+import { BiSolidMessageSquareAdd } from "react-icons/bi"
+import { IoRestaurantSharp } from "react-icons/io5"
 
 
 const Employees = ({ user }: { user: UserType }) => {
@@ -42,11 +43,7 @@ const Employees = ({ user }: { user: UserType }) => {
     return (
 
         <>
-            <img
-                className="blur-lg object-cover object-center h-screen w-screen fixed"
-                src={"https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"}
-                alt=""
-            />
+            <BackgroundImage />
             <div className="fixed inset-0 scale-100">
                 <NavBar />
                 {showAddEmployee &&

@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import React from 'react';
+import { useState } from 'react'
 import { Tag } from '../shared/Tag';
 
 const FilterOptions = ({ setFilterOption }: { setFilterOption: React.Dispatch<React.SetStateAction<string | undefined>> }) => {
@@ -16,7 +16,7 @@ const FilterOptions = ({ setFilterOption }: { setFilterOption: React.Dispatch<Re
     }
 
     return (
-        <div className="ml-4 flex flex-col 2xl:gap-2 gap-1  justify-center mb-10 ">
+        <div className="ml-4 hidden sm:flex flex-col 2xl:gap-2 gap-1  justify-center mb-10 ">
             {FilterOptions.map((option, index) => (
                 <div key={index} className="cursor-pointer hover:scale-125 transition-all">
                     <div
@@ -52,7 +52,7 @@ const RangeDatePicker = ({ filterOption, customStartDate, customEndDate, setCust
     return (
         <>
             {personalizedOption &&
-                <div className="flex flex-col gap-3">
+                <div className="hidden sm:flex flex-col gap-3">
 
                     <div>
                         <Tag title={"Fecha de Inicio"} customComponents='bg-customRed mb-1  text-xs 2xl:text-lg' />

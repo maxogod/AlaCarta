@@ -19,7 +19,7 @@ const useGetRestaurant = () => {
         const fetchRestaurant = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}`,
                     {
                         withCredentials: true,
                     }

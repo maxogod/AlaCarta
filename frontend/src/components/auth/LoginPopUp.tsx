@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setCurrentUser } from '../../redux/slices/currentUserSlice'
+import axios from 'axios'
 import { passwordIsValid } from './auth.utils'
 import { IoRestaurantSharp } from "react-icons/io5"
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import { setCurrentUser } from '../../redux/slices/currentUserSlice'
 
 
 const LoginPopUp = ({ showLogin, setShowLogin }:
@@ -35,7 +35,7 @@ const LoginPopUp = ({ showLogin, setShowLogin }:
         (async () => {
             try {
                 const res = await axios.post(
-                    "http://localhost:8080/api/auth/login",
+                    `${import.meta.env.VITE_API_URL}/api/auth/login`,
                     { email: loginInfo.email, password: loginInfo.password },
                     {
                         withCredentials: true,
@@ -73,7 +73,7 @@ const LoginPopUp = ({ showLogin, setShowLogin }:
                             onChange={handleChange} />
                     </div>
                     <div className="flex flex-col gap-5">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Contraseña</label>
                         <input
                             className="border border-customRed focus:border-customOrange focus:outline-none rounded-xl p-2"
                             type="password"

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Product } from '../../../@types/product';
+import axios from 'axios';
 
 const DeleteProduct = ({ openDelete, setOpenDelete, selectedProduct }: { openDelete: boolean; setOpenDelete: (open: boolean) => void, selectedProduct: Product }) => {
 
@@ -13,7 +13,7 @@ const DeleteProduct = ({ openDelete, setOpenDelete, selectedProduct }: { openDel
     const deleteProduct = () => {
         (async () => {
             try {
-                const endpoint = `http://localhost:8080/api/${restaurantUrl}/products/${selectedProduct._id}`
+                const endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/products/${selectedProduct._id}`
                 const res = await axios.delete(
                     endpoint,
                     {

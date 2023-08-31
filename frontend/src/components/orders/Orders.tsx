@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import OrderControl from './OrderControl';
-import OrderProcess from './OrderProcess';
-import { NavBar } from '../shared/NavBar';
+import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useGetRestaurant } from '../../hooks/restaurantHook';
 import { UserType } from '../../@types/stateTypes';
 import { employeeCategoryEnum } from '../../@types/enums';
+import OrderControl from './OrderControl';
+import OrderProcess from './OrderProcess';
+import { NavBar } from '../shared/NavBar';
 import LoadingScreen from '../shared/LoadingScreen';
-import { Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import BackgroundImage from '../shared/BackgroundImage';
 
 const Orders = ({ user }: { user: UserType }) => {
 
@@ -35,11 +35,7 @@ const Orders = ({ user }: { user: UserType }) => {
 
     return (
         <>
-            <img
-                className="blur-lg object-cover object-center h-screen w-screen fixed"
-                src={"https://toohotel.com/wp-content/uploads/2022/09/TOO_restaurant_Panoramique_vue_Paris_Seine_Tour_Eiffel_2.jpg"}
-                alt=""
-            />
+            <BackgroundImage />
             {
                 isRestaurantLoaded ?
                     (

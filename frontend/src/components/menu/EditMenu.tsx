@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const EditMenu = ({ setDeploy, currentColor, currentPicture }:
     {
@@ -27,7 +27,7 @@ const EditMenu = ({ setDeploy, currentColor, currentPicture }:
         setError("")
         const putMenu = async () => {
             try {
-                await axios.put(`http://localhost:8080/api/${restaurantUrl}/menu`, {
+                await axios.put(`${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/menu`, {
                     color: color,
                     banner: picture
                 })

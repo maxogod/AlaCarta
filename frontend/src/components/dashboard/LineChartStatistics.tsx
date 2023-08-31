@@ -1,9 +1,9 @@
-import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts'
+import { OrderType } from '../../@types/stateTypes'
 import { Product } from '../../@types/product'
 import { useParams } from 'react-router'
-import { OrderType } from '../../@types/stateTypes'
+import axios from 'axios'
+import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from 'recharts'
 
 const LineChartStatistics = ({ product, filterOption, customStartDate, customEndDate }: { product: Product | undefined, filterOption: string | undefined, customStartDate: Date | undefined, customEndDate: Date | undefined }) => {
 
@@ -33,10 +33,10 @@ const LineChartStatistics = ({ product, filterOption, customStartDate, customEnd
       const start = dateStart ? dateStart : ""
       const end = dateEnd ? dateEnd : ""
       try {
-        let endpoint = `http://localhost:8080/api/${restaurantUrl}/orders/statistics?dateStart=${start}&dateEnd=${end}`
-        if(product){
-          endpoint = `http://localhost:8080/api/${restaurantUrl}/orders/statistics/${product._id}?dateStart=${start}&dateEnd=${end}`
-        }        
+        let endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/orders/statistics?dateStart=${start}&dateEnd=${end}`
+        if (product) {
+          endpoint = `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/orders/statistics/${product._id}?dateStart=${start}&dateEnd=${end}`
+        }
         const res = await axios.get(
           endpoint,
           {
@@ -46,24 +46,23 @@ const LineChartStatistics = ({ product, filterOption, customStartDate, customEnd
         if (res.status === 404) return
         setOrders(res.data)
       } catch (err) {
-        console.log(err);
         return
       }
     };
-     setFilter({
-    filterOption,
-    setDateStart,
-    setDateEnd,
-    customStartDate,
-    customEndDate,
-  });
+    setFilter({
+      filterOption,
+      setDateStart,
+      setDateEnd,
+      customStartDate,
+      customEndDate,
+    });
     fetchOrders();
   }, [filterOption]);
 
 
   return (
     <>
-      <div className='relative mt-2  flex rounded-3xl   justify-center 2xl:scale-100 scale-x-90'>
+      <div className='relative mt-2 hidden sm:flex rounded-3xl justify-center 2xl:scale-100 scale-x-90'>
         <div>
           <LineChart width={chartWidth} height={chartHeight} data={createSortedData(orders ? orders : [])} margin={{ top: 10, right: 50, left: 0, bottom: 10 }}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -80,7 +79,7 @@ const LineChartStatistics = ({ product, filterOption, customStartDate, customEnd
 }
 
 
-const setFilter = ({filterOption, setDateStart, setDateEnd, customStartDate, customEndDate}:{filterOption: string | undefined, setDateStart: React.Dispatch<React.SetStateAction<Date | undefined>>, setDateEnd: React.Dispatch<React.SetStateAction<Date | undefined>>, customStartDate: Date | undefined, customEndDate: Date | undefined }) => {
+const setFilter = ({ filterOption, setDateStart, setDateEnd, customStartDate, customEndDate }: { filterOption: string | undefined, setDateStart: React.Dispatch<React.SetStateAction<Date | undefined>>, setDateEnd: React.Dispatch<React.SetStateAction<Date | undefined>>, customStartDate: Date | undefined, customEndDate: Date | undefined }) => {
   const currentDate = new Date();
   const beginningOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 0, 0, 0);
   const endOfDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 59, 59);

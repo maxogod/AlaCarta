@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { EditTag } from "../../shared/Tag";
-import { useSelector } from "react-redux";
 import { BiSolidAddToQueue } from "react-icons/bi";
 
 const SetCategories = ({ selectedCategories, setSelectedCategories }: { selectedCategories: string[], setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>> }) => {

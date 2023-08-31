@@ -1,11 +1,11 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, removeFromCart, cleanCart } from "../../redux/slices/cartSlice";
 import { RootState } from "../../redux/store";
+import axios from "axios";
 import { AiOutlinePlus } from "react-icons/ai"
 import { AiOutlineMinus } from "react-icons/ai"
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
 import { IoRestaurantSharp } from "react-icons/io5";
 import { BiSolidLeftArrow } from "react-icons/bi";
 
@@ -35,7 +35,7 @@ const OrderCart = ({ deploy, setDeploy }:
         if (!restaurantUrl) {
             return setError("Not a valid restaurant")
         }
-        let cartProductsIds: string[] = [];
+        const cartProductsIds: string[] = [];
         for (const productId in cart) {
             for (let i = 0; i < cart[productId].quantity; i++) {
                 cartProductsIds.push(productId);
@@ -45,7 +45,7 @@ const OrderCart = ({ deploy, setDeploy }:
             try {
                 setIsLoading(true)
                 const res = await axios.post(
-                    `http://localhost:8080/api/${restaurantUrl}/orders`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/orders`,
                     { table: tableNumber, products: cartProductsIds },
                     {
                         withCredentials: true,
@@ -71,7 +71,7 @@ const OrderCart = ({ deploy, setDeploy }:
             {
                 deploy &&
                 <div className={`bg-white bg-opacity-30 drop-shadow-3xl rounded-s-3xl w-96 p-10 h-full flex flex-col items-center`}>
-                    <h1 className="text-3xl font-bold text-customRed">Cart</h1>
+                    <h1 className="text-3xl font-bold text-customRed">Pedido</h1>
                     <hr className="bg-customPink h-1 w-full" />
 
                     <button
@@ -86,7 +86,7 @@ const OrderCart = ({ deploy, setDeploy }:
                         ))}
                     </div>
 
-                    <label htmlFor="tableNumber" className="text-customRed mt-3">Table Number</label>
+                    <label htmlFor="tableNumber" className="text-customRed mt-3">Numero de mesa</label>
                     <input
                         type="text"
                         maxLength={6}
@@ -106,9 +106,9 @@ const OrderCart = ({ deploy, setDeploy }:
                             <IoRestaurantSharp className="text-6xl m-2 p-2 animate-spin text-customRed" />
                             :
                             <button
-                                className="bg-customRed p-2 m-2 rounded-xl text-white"
+                                className="bg-customRed p-2 m-2 rounded-xl text-white font-bold"
                                 onClick={handleCheckout}>
-                                Checkout
+                                ¡Pedir!
                             </button>
                     }
                 </div>

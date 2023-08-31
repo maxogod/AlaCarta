@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { passwordIsValid } from './auth.utils'
-import { IoRestaurantSharp } from "react-icons/io5"
+import { setCurrentUser } from '../../redux/slices/currentUserSlice'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
-import { setCurrentUser } from '../../redux/slices/currentUserSlice'
+import { passwordIsValid } from './auth.utils'
+import { IoRestaurantSharp } from "react-icons/io5"
 
 
 const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
@@ -37,7 +37,7 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
         (async () => {
             try {
                 const res = await axios.put(
-                    "http://localhost:8080/api/auth/changeUserInfo",
+                    `${import.meta.env.VITE_API_URL}/api/auth/changeUserInfo`,
                     {
                         email: registerAccountInfo.email,
                         name: registerAccountInfo.name,
@@ -67,9 +67,9 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
             <hr className="bg-customPink h-1" />
             <form onSubmit={handleSubmit}>
                 <div className="flex flex-col items-center justify-center gap-5 mt-4">
-                    <h1 className="text-2xl sm:text-4xl">Register Account</h1>
+                    <h1 className="text-2xl sm:text-4xl">Registrar Cuenta</h1>
                     <p className='max-w-[20rem] text-sm text-center'
-                    >Only use this if you where added to a restaurant and dont have a name and password yet.</p>
+                    >Solo ingrese si has sido agregado a un restaurante, y no tienes un nombre y contraseña hasta el momento.</p>
                     <div className="flex flex-col gap-5">
                         <label htmlFor="email">Email</label>
                         <input
@@ -81,7 +81,7 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
                             onChange={handleChange} />
                     </div>
                     <div className="flex flex-col gap-5">
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Nombre</label>
                         <input
                             className="border border-customRed focus:border-customOrange focus:outline-none rounded-xl p-2"
                             type="text"
@@ -91,7 +91,7 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
                             onChange={handleChange} />
                     </div>
                     <div className="flex flex-col gap-5">
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Constraseña</label>
                         <input
                             className="border border-customRed focus:border-customOrange focus:outline-none rounded-xl p-2"
                             type="password"
@@ -101,7 +101,7 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
                             onChange={handleChange} />
                     </div>
                     <div className="flex flex-col gap-5">
-                        <label htmlFor="changeInfoCode">Code</label>
+                        <label htmlFor="changeInfoCode">Código</label>
                         <input
                             className="border border-customRed focus:border-customOrange focus:outline-none rounded-xl p-2"
                             type="text"
@@ -113,7 +113,7 @@ const RegisterAcountPopUp = ({ showRegisterAccount, setShowRegisterAccount }:
                     {errors && <p className="text-customRed max-w-[15vw] text-center">{errors}</p>}
                     <button
                         className="bg-customRed border border-customRed rounded-xl p-2 text-white hover:bg-opacity-20 hover:font-bold hover:text-customOrange ease-in-out duration-300"
-                        type="submit">Register & Login</button>
+                        type="submit">Registrar & Login</button>
                 </div>
             </form>
         </div>

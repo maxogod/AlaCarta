@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { BiSolidMessageSquareAdd } from "react-icons/bi";
 import AddProduct from "./restaurantActions/AddProduct";
-import { FaEdit } from 'react-icons/fa';
-import { RiDeleteBin7Line } from 'react-icons/ri';
 import DeleteRestaurant from './restaurantActions/DeleteRestaurant';
 import EditRestaurant from './restaurantActions/EditRestaurant';
+import { BiSolidMessageSquareAdd } from "react-icons/bi";
+import { FaEdit } from 'react-icons/fa';
+import { RiDeleteBin7Line } from 'react-icons/ri';
 
 
 const RestaurantActions = () => {
@@ -32,9 +32,9 @@ const RestaurantActions = () => {
                     </div>
                 ))}
                 <AddProduct openAdd={openAdd} setOpenAdd={setOpenAdd} />
-                <EditRestaurant openEdit={openEdit} setOpenEdit={setOpenEdit}/>
-                <DeleteRestaurant openDelete={openDelete} setOpenDelete={setOpenDelete}/>
-     
+                <EditRestaurant openEdit={openEdit} setOpenEdit={setOpenEdit} />
+                <DeleteRestaurant openDelete={openDelete} setOpenDelete={setOpenDelete} />
+
             </div>
         </>
     );

@@ -21,7 +21,7 @@ const useGetSession = () => {
         const fetchSession = async () => {
             try {
                 const res = await axios.get(
-                    "http://localhost:8080/api/auth/session",
+                    `${import.meta.env.VITE_API_URL}/api/auth/session`,
                     {
                         withCredentials: true,
                     }

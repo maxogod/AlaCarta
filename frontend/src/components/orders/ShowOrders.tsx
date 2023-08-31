@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { OrderType } from '../../@types/stateTypes';
+import axios from 'axios';
 import OrderThumbnail from './OrderThumbnail';
 import { IoRestaurantSharp } from 'react-icons/io5';
 
@@ -19,7 +19,7 @@ const ShowOrders = ({ orderStatus }: { orderStatus: number }) => {
         const fetchOrders = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/orders?filterByEnum=${orderStatus}`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/orders?filterByEnum=${orderStatus}`,
                     {
                         withCredentials: true,
                     }
@@ -28,8 +28,7 @@ const ShowOrders = ({ orderStatus }: { orderStatus: number }) => {
                 setOrders(res.data)
                 setOrdersLoaded(true)
             } catch (err) {
-                console.log(err);
-
+                return
             }
         }
         fetchOrders()

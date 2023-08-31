@@ -1,8 +1,8 @@
-import { IoRestaurantSharp } from "react-icons/io5"
 import { useState } from "react"
-import { employeeCategoryEnum } from "../../@types/enums"
-import axios from "axios"
 import { useParams } from "react-router-dom"
+import axios from "axios"
+import { employeeCategoryEnum } from "../../@types/enums"
+import { IoRestaurantSharp } from "react-icons/io5"
 
 const RegisterEmployee = ({ setShowAddEmployee }:
     { setShowAddEmployee: (bool: boolean) => void }) => {
@@ -24,7 +24,8 @@ const RegisterEmployee = ({ setShowAddEmployee }:
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            await axios.post("http://localhost:8080/api/auth/register",
+            await axios.post(
+                `${import.meta.env.VITE_API_URL}/api/auth/register`,
                 { ...employeeInfo, restaurantUrl },
                 { withCredentials: true })
             setShowAddEmployee(false)

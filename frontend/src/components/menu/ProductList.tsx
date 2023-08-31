@@ -1,9 +1,9 @@
-import { Product } from "../../@types/product"
 import { useEffect, useState } from "react"
-import axios from "axios"
-import { useParams } from "react-router-dom"
-import { IoRestaurantSharp } from "react-icons/io5"
 import { useDispatch } from "react-redux"
+import { useParams } from "react-router-dom"
+import { Product } from "../../@types/product"
+import axios from "axios"
+import { IoRestaurantSharp } from "react-icons/io5"
 import { addToCart } from "../../redux/slices/cartSlice"
 import ProductThumbnail from "../shared/ProductThumbnail"
 
@@ -23,7 +23,7 @@ const ProductList = ({ category, kPopular }: { category: string, kPopular: numbe
         const fetchProducts = async () => {
             try {
                 const res = await axios.get(
-                    `http://localhost:8080/api/${restaurantUrl}/products?category=${category}&firstKPopular=${kPopular}`,
+                    `${import.meta.env.VITE_API_URL}/api/${restaurantUrl}/products?category=${category}&firstKPopular=${kPopular}`,
                     {
                         withCredentials: true,
                     }
